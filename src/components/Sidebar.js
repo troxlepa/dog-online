@@ -87,6 +87,16 @@ const useStyles = makeStyles(***REMOVED***
     height: 30,
     margin:3
 ***REMOVED***,
+  handIcon:***REMOVED***
+    fontSize:"1.5em",
+    margin:1
+***REMOVED***,
+  cardIcon:***REMOVED***
+    width:"1rem",
+    height:"1rem",
+    position:"relative",
+    top:".125rem"
+***REMOVED***
 ***REMOVED***);
 
 
@@ -110,31 +120,12 @@ function Sidebar(***REMOVED*** game, gameState, toggleAudio, audioDisabled, togg
   const getLanguage = () => (i18n.language || window.localStorage.i18nextLng);
 
   function displayRule(key)***REMOVED***
-    let title = "";
-    let color = "yellow";
-    switch(key)***REMOVED***
-      case 0:
-        title = t('canadian7');
-        break;
-      case 1:
-        title = t('jackJack');
-        break;
-      case 2:
-        title = t('twoThief');
-        break;
-      case 3:
-        title = t('turnVerification');
-        break;
-      case 4:
-        title = t('lastJoker');
-        break;
-      default:
-        return;
-
-***REMOVED***
-          return(
-            <Icon className=***REMOVED***classes.largeIcon***REMOVED*** key=***REMOVED***key***REMOVED*** title=***REMOVED***title***REMOVED*** classes=***REMOVED******REMOVED***root: classes.iconRoot***REMOVED******REMOVED***>***REMOVED***getRuleIcon(key)***REMOVED***</Icon>
-          );
+    if(key > 4) return;
+    let titles = [t('canadian7'),t('jackJack'),t('twoThief'),t('turnVerification'),t('lastJoker')]
+    let title = titles[key];
+    return(
+      <Icon className=***REMOVED***classes.largeIcon***REMOVED*** key=***REMOVED***key***REMOVED*** title=***REMOVED***title***REMOVED*** classes=***REMOVED******REMOVED***root: classes.iconRoot***REMOVED******REMOVED***>***REMOVED***getRuleIcon(key)***REMOVED***</Icon>
+    );
 
 ***REMOVED***
   function getRuleIcon(key)***REMOVED***
@@ -159,7 +150,6 @@ function Sidebar(***REMOVED*** game, gameState, toggleAudio, audioDisabled, togg
        <Box maxHeight="20%" flexShrink=***REMOVED***0***REMOVED*** className=***REMOVED***classes.panel***REMOVED***>
         ***REMOVED***/* Settings */***REMOVED***
         <List disablePadding dense className=***REMOVED***classes.panelList***REMOVED***>
-
             <ListItem>
                <IconButton title="Audio" color="primary" aria-label="volume on off" component="span" onClick=***REMOVED***toggleAudio***REMOVED***>
                 ***REMOVED***audioDisabled ? <VolumeOffIcon color="disabled" /> : <VolumeUpIcon/>***REMOVED***
@@ -170,7 +160,6 @@ function Sidebar(***REMOVED*** game, gameState, toggleAudio, audioDisabled, togg
                <IconButton title=***REMOVED***t('langSwitch')***REMOVED*** color="primary" aria-label="volume on off" component="span" onClick=***REMOVED***() => changeLanguage(getLanguage() === "de" ? "en" : "de")***REMOVED***>
                 <TranslateIcon/>
               </IconButton> ***REMOVED***getLanguage() === "de" ? "DE" : "EN"***REMOVED***
-
             </ListItem>
         </List>
       </Box>
@@ -194,35 +183,35 @@ function Sidebar(***REMOVED*** game, gameState, toggleAudio, audioDisabled, togg
                  <span className=***REMOVED***classes.infoText***REMOVED***>
                   ***REMOVED***game.meta.users[game.order[game.nextPlayer]].name***REMOVED***
                 </span>
-                ***REMOVED***game.rooted ? (
-                    <ListItemText className=***REMOVED***classes.textOverflow***REMOVED***>
-                      ***REMOVED***t("blocking")***REMOVED***:
-                        <span className=***REMOVED***classes.infoText***REMOVED***>
-                          ***REMOVED***[...game.rooted].map((val,idx) => (val==="1" && <PanToolIcon style=***REMOVED******REMOVED***fill:playerColors[idx], fontSize:"1.5em", margin:1***REMOVED******REMOVED*** key=***REMOVED***idx***REMOVED***/>))***REMOVED***
-                        </span> 
-                      </ListItemText>
-                  ): null***REMOVED***
+                ***REMOVED***game.rooted &&
+                  <ListItemText className=***REMOVED***classes.textOverflow***REMOVED***>
+                    ***REMOVED***t("blocking")***REMOVED***:
+                      <span className=***REMOVED***classes.infoText***REMOVED***>
+                        ***REMOVED***[...game.rooted].map((val,idx) => (val==="1" && <PanToolIcon className=***REMOVED***classes.handIcon***REMOVED*** style=***REMOVED******REMOVED***fill:playerColors[idx]***REMOVED******REMOVED*** key=***REMOVED***idx***REMOVED***/>))***REMOVED***
+                      </span> 
+                    </ListItemText>
+      ***REMOVED***
                 </ListItemText>
               </ListItemText>
               </ListItem>
         </List>
       </Box>
       <Divider />
-      ***REMOVED***game.rules ? (<Box maxHeight="20%" flexShrink=***REMOVED***0***REMOVED*** className=***REMOVED***classes.panel***REMOVED***>
+      ***REMOVED***game.rules && 
+        <Box maxHeight="20%" flexShrink=***REMOVED***0***REMOVED*** className=***REMOVED***classes.panel***REMOVED***>
         ***REMOVED***/* Scoreboard */***REMOVED***
-        <Typography variant="h6" className=***REMOVED***classes.panelTitle***REMOVED***>
-          ***REMOVED***t("activeRules")***REMOVED***
-        </Typography>
-        <List disablePadding dense className=***REMOVED***classes.panelList***REMOVED***>
-          <ListItem>
-            ***REMOVED***[0,1,2,3,4].map((key,idx) => ***REMOVED***
-              if(game.rules.charAt(key) === '1') return displayRule(key);
-***REMOVED***)***REMOVED***
-          </ListItem>
-        </List>
-      </Box>
-      
-      ):(console.log("v130+alpha without rules"))***REMOVED***
+          <Typography variant="h6" className=***REMOVED***classes.panelTitle***REMOVED***>
+            ***REMOVED***t("activeRules")***REMOVED***
+          </Typography>
+          <List disablePadding dense className=***REMOVED***classes.panelList***REMOVED***>
+            <ListItem>
+              ***REMOVED***[0,1,2,3,4].map((key,idx) => ***REMOVED***
+                if(game.rules.charAt(key) === '1') return displayRule(key);
+  ***REMOVED***)***REMOVED***
+            </ListItem>
+          </List>
+        </Box>
+***REMOVED***
       <Divider />
       <Box maxHeight="40%" flexShrink=***REMOVED***0***REMOVED*** className=***REMOVED***classes.panel***REMOVED***>
         ***REMOVED***/* Turn */***REMOVED***
@@ -237,7 +226,7 @@ function Sidebar(***REMOVED*** game, gameState, toggleAudio, audioDisabled, togg
               <ListItemText className=***REMOVED***classes.textOverflow***REMOVED***>
                 ***REMOVED***trim(game.meta.users[userId].name,18)***REMOVED***
                 ***REMOVED***" "***REMOVED***
-                ***REMOVED***game.hands[key] ? [...Array(Object.keys(game.hands[key]).length)].map((idx,key)=>***REMOVED***return <img key=***REMOVED***key***REMOVED*** style=***REMOVED******REMOVED***width:"1rem",height:"1rem",position:"relative",top:".125rem"***REMOVED******REMOVED*** alt=***REMOVED***""***REMOVED*** src=***REMOVED***CardIcon***REMOVED*** />;***REMOVED***) : ""***REMOVED***
+                ***REMOVED***game.hands[key] && [...Array(Object.keys(game.hands[key]).length)].map((idx,key)=>***REMOVED***return <img key=***REMOVED***key***REMOVED*** className=***REMOVED***classes.cardIcon***REMOVED*** alt=***REMOVED***""***REMOVED*** src=***REMOVED***CardIcon***REMOVED*** />;***REMOVED***)***REMOVED***
               </ListItemText>
             </ListItem>
           ))***REMOVED***

@@ -43,6 +43,7 @@ if(isMobile)***REMOVED***
     width: 54,
     height: 74,
     margin: 3,
+    height:"100%",
 
     "&:hover": ***REMOVED***
       boxShadow: "0px 0px 2px 1px #bbb"
@@ -126,8 +127,8 @@ function JassCard(props) ***REMOVED***
   const cardSource = require("../assets/cards/"+value+".svg");
 
   return (
-    <div onClick=***REMOVED***click***REMOVED*** className=***REMOVED***smallCard === "" ? className : ""***REMOVED***>
-      <img alt="" style=***REMOVED***isMobile?***REMOVED***height:"100%"***REMOVED***:***REMOVED******REMOVED******REMOVED*** className=***REMOVED***smallCard***REMOVED*** src=***REMOVED***cardSource***REMOVED***/>
+    <div onClick=***REMOVED***click***REMOVED*** className=***REMOVED***smallCard === "" && className***REMOVED***>
+      <img alt="" className=***REMOVED***smallCard***REMOVED*** src=***REMOVED***cardSource***REMOVED***/>
     </div>
   );
 ***REMOVED***

@@ -167,17 +167,11 @@ export function makeHands(n)***REMOVED***
 
 
 export function computeRandomState(game) ***REMOVED***
-  const scores = [];
-  const playerHands = ***REMOVED******REMOVED***;
-  for(const uid of Object.keys(game.meta.users)) ***REMOVED***
-    playerHands[uid] = ['2C','JS','AH'];
-    scores[uid] = 0;
-***REMOVED***
   const history = [];
   if(game.history) ***REMOVED***
     for (const event of Object.values(game.history)) ***REMOVED***
       history.push(event);
 ***REMOVED***
 ***REMOVED***
-  return ***REMOVED***history, scores***REMOVED***
+  return ***REMOVED***history***REMOVED***;
 ***REMOVED***

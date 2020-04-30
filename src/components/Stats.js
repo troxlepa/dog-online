@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 
 
-import ***REMOVED***calcTurnTimes, reverseComparer, trim***REMOVED*** from "../util";
+import ***REMOVED***calcTurnTimes, trim***REMOVED*** from "../util";
 
 import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
 
@@ -35,7 +35,7 @@ function Stats(***REMOVED***game***REMOVED***)***REMOVED***
   let users = game.order.map((userId,idx) => ***REMOVED***return game.meta.users[userId];***REMOVED***);
   let ***REMOVED***moveCount, avgMoveTimes, jokerCount, akCount, sendCount***REMOVED*** = calcTurnTimes(game);
 
-  const ***REMOVED*** t, i18n ***REMOVED*** = useTranslation();
+  const ***REMOVED*** t ***REMOVED*** = useTranslation();
 
 
   return(
@@ -43,53 +43,53 @@ function Stats(***REMOVED***game***REMOVED***)***REMOVED***
       <Typography variant="h4" gutterBottom>
         ***REMOVED***t('stats')***REMOVED***
       </Typography>
-    <Grid container spacing=***REMOVED***2***REMOVED***>
-      ***REMOVED***users.map((user,idx) => (
-        <Grid key=***REMOVED***idx***REMOVED*** item xs=***REMOVED***3***REMOVED***>
-          <Card style=***REMOVED***idx % 2 === winnerTeam ? ***REMOVED***border:"5 px solid yellow"***REMOVED*** : ***REMOVED******REMOVED******REMOVED***>
-          <CardHeader className=***REMOVED***"user_cardheader"+idx***REMOVED*** style=***REMOVED******REMOVED***height:"5rem",padding:"5px"***REMOVED******REMOVED***>
-            <Typography variant="h6" style=***REMOVED******REMOVED***color:"white"***REMOVED******REMOVED*** gutterBottom>
-              ***REMOVED***trim(user.name,24)***REMOVED***
-            </Typography>
-          </CardHeader>
-            <CardContent>
-              <Typography variant="h5" component="h2">
-              ***REMOVED***moveCount[idx]***REMOVED***
+      <Grid container spacing=***REMOVED***2***REMOVED***>
+        ***REMOVED***users.map((user,idx) => (
+          <Grid key=***REMOVED***idx***REMOVED*** item xs=***REMOVED***3***REMOVED***>
+            <Card style=***REMOVED***idx % 2 === winnerTeam ? ***REMOVED***border:"5 px solid yellow"***REMOVED*** : ***REMOVED******REMOVED******REMOVED***>
+            <CardHeader className=***REMOVED***"user_cardheader"+idx***REMOVED*** style=***REMOVED******REMOVED***height:"5rem",padding:"5px"***REMOVED******REMOVED***>
+              <Typography variant="h6" style=***REMOVED******REMOVED***color:"white"***REMOVED******REMOVED*** gutterBottom>
+                ***REMOVED***trim(user.name,24)***REMOVED***
               </Typography>
-              <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-              ***REMOVED***t('moves')***REMOVED***
-              </Typography>
-              <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
-              <Typography variant="h5" component="h2">
-              ***REMOVED***avgMoveTimes[idx]***REMOVED***s
-              </Typography>
-              <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-              ***REMOVED***t('avgMoves')***REMOVED***
-              </Typography> 
-              <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
-              <Typography variant="h5" component="h2">
-              ***REMOVED***jokerCount[idx]***REMOVED***
-              </Typography>
-              <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-              ***REMOVED***t('jokerCount')***REMOVED***
-              </Typography>
-              <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
-              <Typography variant="h5" component="h2">
-              ***REMOVED***akCount[idx]***REMOVED***
-              </Typography>
-              <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-              ***REMOVED***t('akCount')***REMOVED***
-              </Typography> 
-              <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
-              <Typography variant="h5" component="h2">
-              ***REMOVED***sendCount[idx]***REMOVED***
-              </Typography>
-              <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-              ***REMOVED***t('sendCount')***REMOVED***
-              </Typography> 
-          </CardContent>
-          </Card>
-        </Grid>
+            </CardHeader>
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                ***REMOVED***moveCount[idx]***REMOVED***
+                </Typography>
+                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
+                ***REMOVED***t('moves')***REMOVED***
+                </Typography>
+                <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
+                <Typography variant="h5" component="h2">
+                ***REMOVED***avgMoveTimes[idx]***REMOVED***s
+                </Typography>
+                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
+                ***REMOVED***t('avgMoves')***REMOVED***
+                </Typography> 
+                <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
+                <Typography variant="h5" component="h2">
+                ***REMOVED***jokerCount[idx]***REMOVED***
+                </Typography>
+                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
+                ***REMOVED***t('jokerCount')***REMOVED***
+                </Typography>
+                <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
+                <Typography variant="h5" component="h2">
+                ***REMOVED***akCount[idx]***REMOVED***
+                </Typography>
+                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
+                ***REMOVED***t('akCount')***REMOVED***
+                </Typography> 
+                <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
+                <Typography variant="h5" component="h2">
+                ***REMOVED***sendCount[idx]***REMOVED***
+                </Typography>
+                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
+                ***REMOVED***t('sendCount')***REMOVED***
+                </Typography> 
+            </CardContent>
+            </Card>
+          </Grid>
       ))***REMOVED***
     </Grid>
     </>

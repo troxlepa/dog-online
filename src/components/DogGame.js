@@ -407,7 +407,6 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
               key=***REMOVED***idx***REMOVED***
               value=***REMOVED***myhandObj[card]***REMOVED***
               disabled=***REMOVED***false***REMOVED***
-              /*color=***REMOVED***(card[1]==='S'||card[1]==='C')?'black':'red'***REMOVED****/
               active=***REMOVED***activeCard===myhandObj[card]***REMOVED***
               selected=***REMOVED***activeCard===myhandObj[card]***REMOVED***
               onClick=***REMOVED***(e) => ***REMOVED***handleCard(myhandObj[card])***REMOVED******REMOVED***
@@ -443,7 +442,6 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
 		          key=***REMOVED***idx***REMOVED***
 		          value=***REMOVED***myhandObj[card]***REMOVED***
 		          disabled=***REMOVED***false***REMOVED***
-		          /*color=***REMOVED***(card[1]==='S'||card[1]==='C')?'black':'red'***REMOVED****/
 		          active=***REMOVED***activeCard===myhandObj[card]***REMOVED***
 		          selected=***REMOVED***activeCard===myhandObj[card]***REMOVED***
 		          onClick=***REMOVED***(e) => ***REMOVED***handleCard(myhandObj[card])***REMOVED******REMOVED***
