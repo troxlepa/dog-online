@@ -407,7 +407,6 @@ function DogGame({ game, gameState, spectating, onSubmit, user, doExchange, game
               key={idx}
               value={myhandObj[card]}
               disabled={false}
-              /*color={(card[1]==='S'||card[1]==='C')?'black':'red'}*/
               active={activeCard===myhandObj[card]}
               selected={activeCard===myhandObj[card]}
               onClick={(e) => {handleCard(myhandObj[card])}}
@@ -443,7 +442,6 @@ function DogGame({ game, gameState, spectating, onSubmit, user, doExchange, game
 		          key={idx}
 		          value={myhandObj[card]}
 		          disabled={false}
-		          /*color={(card[1]==='S'||card[1]==='C')?'black':'red'}*/
 		          active={activeCard===myhandObj[card]}
 		          selected={activeCard===myhandObj[card]}
 		          onClick={(e) => {handleCard(myhandObj[card])}}

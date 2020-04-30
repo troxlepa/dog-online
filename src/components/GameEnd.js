@@ -11,89 +11,86 @@ import Typography from "@material-ui/core/Typography";
 import { useTranslation } from 'react-i18next';
 
 function GameEnd({spectating,userId,gameOrder,metaUsers,winnerTeam, audioDisabled}){
-	  const winAudio = new Audio(WinnerAudio);
-    const loseAudio = new Audio(LoserAudio);
-    const isWinner=(userId === gameOrder[winnerTeam]) || (userId === gameOrder[winnerTeam+2]);
-    const winner1=metaUsers[gameOrder[winnerTeam]];
-    const winner2=metaUsers[gameOrder[winnerTeam+2]];
-    const { t, i18n } = useTranslation();
-    //console.log("spectating: ",spectating, ",isWinner: ",isWinner)
+  const winAudio = new Audio(WinnerAudio);
+  const loseAudio = new Audio(LoserAudio);
+  const isWinner=(userId === gameOrder[winnerTeam]) || (userId === gameOrder[winnerTeam+2]);
+  const winner1=metaUsers[gameOrder[winnerTeam]];
+  const winner2=metaUsers[gameOrder[winnerTeam+2]];
+  const { t } = useTranslation();
 
-
-
-    if(spectating){
-          return(
+  if(spectating){
+    return(
       <div>
-              <Typography variant="h4" gutterBottom>
-            {t('gameEnded')}
-          </Typography>
-          <Typography variant="body1">
+        <Typography variant="h4" gutterBottom>
+          {t('gameEnded')}
+        </Typography>
+        <Typography variant="body1">
           {t("doneMessage")}:
-          </Typography>
-          <ListItem button>
-            <ColorSquare color={winner1.color} />
-                <ListItemText>
-                {winner1.name}
-              </ListItemText>
-            </ListItem>
-            <ListItem button>
-            <ColorSquare color={winner2.color} />
+        </Typography>
+        <ListItem button>
+          <ColorSquare color={winner1.color} />
               <ListItemText>
-                {winner2.name}
-              </ListItemText>
-            </ListItem>
+              {winner1.name}
+            </ListItemText>
+          </ListItem>
+          <ListItem button>
+          <ColorSquare color={winner2.color} />
+            <ListItemText>
+              {winner2.name}
+            </ListItemText>
+          </ListItem>
         </div>    
-            );
-    }
-    if(!isWinner){
-        if(!audioDisabled) loseAudio.play();
+    );
+  }
+  if(!isWinner){
+    if(!audioDisabled) loseAudio.play();
     return(
       <div>
         <img alt="losing team ball falling" src={LoserImage}/>
         <Typography variant="h4" gutterBottom>
-            {t('loseMsg')}
-          </Typography>
-          <Typography variant="body1">
+          {t('loseMsg')}
+        </Typography>
+        <Typography variant="body1">
           {t('gameEnded')} {" "} {t("doneMessage")}:
-          </Typography>
-          <ListItem button>
-            <ColorSquare color={winner1.color} />
-                <ListItemText>
-                {winner1.name}
-              </ListItemText>
-            </ListItem>
-            <ListItem button>
-            <ColorSquare color={winner2.color} />
-              <ListItemText>
-                {winner2.name}
-              </ListItemText>
-            </ListItem>
-            </div>
-            );
+        </Typography>
+        <ListItem button>
+          <ColorSquare color={winner1.color} />
+          <ListItemText>
+            {winner1.name}
+          </ListItemText>
+        </ListItem>
+        <ListItem button>
+        <ColorSquare color={winner2.color} />
+          <ListItemText>
+            {winner2.name}
+          </ListItemText>
+        </ListItem>
+      </div>
+    );
   }
   if(!audioDisabled) winAudio.play();
   return (
     <div>
-    <img alt="winning team trophy" src={Trophy}/>
-    <Typography variant="h4" gutterBottom>
-      {t('winMsg')}
-    </Typography>
-    <Typography variant="body1">
-    {t('gameEnded')} {" "} {t("doneMessage")}:
-    </Typography>
-    <ListItem button>
-      <ColorSquare color={winner1.color} />
-          <ListItemText>
+      <img alt="winning team trophy" src={Trophy}/>
+      <Typography variant="h4" gutterBottom>
+        {t('winMsg')}
+      </Typography>
+      <Typography variant="body1">
+        {t('gameEnded')} {" "} {t("doneMessage")}:
+      </Typography>
+      <ListItem button>
+        <ColorSquare color={winner1.color} />
+        <ListItemText>
           {winner1.name}
         </ListItemText>
       </ListItem>
       <ListItem button>
-      <ColorSquare color={winner2.color} />
+        <ColorSquare color={winner2.color} />
         <ListItemText>
           {winner2.name}
         </ListItemText>
       </ListItem>
-      </div>
+    </div>
   );
 }
 

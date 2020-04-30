@@ -87,6 +87,16 @@ const useStyles = makeStyles({
     height: 30,
     margin:3
   },
+  handIcon:{
+    fontSize:"1.5em",
+    margin:1
+  },
+  cardIcon:{
+    width:"1rem",
+    height:"1rem",
+    position:"relative",
+    top:".125rem"
+  }
 });
 
 
@@ -110,31 +120,12 @@ function Sidebar({ game, gameState, toggleAudio, audioDisabled, toggleHelp, help
   const getLanguage = () => (i18n.language || window.localStorage.i18nextLng);
 
   function displayRule(key){
-    let title = "";
-    let color = "yellow";
-    switch(key){
-      case 0:
-        title = t('canadian7');
-        break;
-      case 1:
-        title = t('jackJack');
-        break;
-      case 2:
-        title = t('twoThief');
-        break;
-      case 3:
-        title = t('turnVerification');
-        break;
-      case 4:
-        title = t('lastJoker');
-        break;
-      default:
-        return;
-
-    }
-          return(
-            <Icon className={classes.largeIcon} key={key} title={title} classes={{root: classes.iconRoot}}>{getRuleIcon(key)}</Icon>
-          );
+    if(key > 4) return;
+    let titles = [t('canadian7'),t('jackJack'),t('twoThief'),t('turnVerification'),t('lastJoker')]
+    let title = titles[key];
+    return(
+      <Icon className={classes.largeIcon} key={key} title={title} classes={{root: classes.iconRoot}}>{getRuleIcon(key)}</Icon>
+    );
 
   }
   function getRuleIcon(key){
@@ -159,7 +150,6 @@ function Sidebar({ game, gameState, toggleAudio, audioDisabled, toggleHelp, help
        <Box maxHeight="20%" flexShrink={0} className={classes.panel}>
         {/* Settings */}
         <List disablePadding dense className={classes.panelList}>
-
             <ListItem>
                <IconButton title="Audio" color="primary" aria-label="volume on off" component="span" onClick={toggleAudio}>
                 {audioDisabled ? <VolumeOffIcon color="disabled" /> : <VolumeUpIcon/>}
@@ -170,7 +160,6 @@ function Sidebar({ game, gameState, toggleAudio, audioDisabled, toggleHelp, help
                <IconButton title={t('langSwitch')} color="primary" aria-label="volume on off" component="span" onClick={() => changeLanguage(getLanguage() === "de" ? "en" : "de")}>
                 <TranslateIcon/>
               </IconButton> {getLanguage() === "de" ? "DE" : "EN"}
-
             </ListItem>
         </List>
       </Box>
@@ -194,35 +183,35 @@ function Sidebar({ game, gameState, toggleAudio, audioDisabled, toggleHelp, help
                  <span className={classes.infoText}>
                   {game.meta.users[game.order[game.nextPlayer]].name}
                 </span>
-                {game.rooted ? (
-                    <ListItemText className={classes.textOverflow}>
-                      {t("blocking")}:
-                        <span className={classes.infoText}>
-                          {[...game.rooted].map((val,idx) => (val==="1" && <PanToolIcon style={{fill:playerColors[idx], fontSize:"1.5em", margin:1}} key={idx}/>))}
-                        </span> 
-                      </ListItemText>
-                  ): null}
+                {game.rooted &&
+                  <ListItemText className={classes.textOverflow}>
+                    {t("blocking")}:
+                      <span className={classes.infoText}>
+                        {[...game.rooted].map((val,idx) => (val==="1" && <PanToolIcon className={classes.handIcon} style={{fill:playerColors[idx]}} key={idx}/>))}
+                      </span> 
+                    </ListItemText>
+                  }
                 </ListItemText>
               </ListItemText>
               </ListItem>
         </List>
       </Box>
       <Divider />
-      {game.rules ? (<Box maxHeight="20%" flexShrink={0} className={classes.panel}>
+      {game.rules && 
+        <Box maxHeight="20%" flexShrink={0} className={classes.panel}>
         {/* Scoreboard */}
-        <Typography variant="h6" className={classes.panelTitle}>
-          {t("activeRules")}
-        </Typography>
-        <List disablePadding dense className={classes.panelList}>
-          <ListItem>
-            {[0,1,2,3,4].map((key,idx) => {
-              if(game.rules.charAt(key) === '1') return displayRule(key);
-            })}
-          </ListItem>
-        </List>
-      </Box>
-      
-      ):(console.log("v130+alpha without rules"))}
+          <Typography variant="h6" className={classes.panelTitle}>
+            {t("activeRules")}
+          </Typography>
+          <List disablePadding dense className={classes.panelList}>
+            <ListItem>
+              {[0,1,2,3,4].map((key,idx) => {
+                if(game.rules.charAt(key) === '1') return displayRule(key);
+              })}
+            </ListItem>
+          </List>
+        </Box>
+      }
       <Divider />
       <Box maxHeight="40%" flexShrink={0} className={classes.panel}>
         {/* Turn */}
@@ -237,7 +226,7 @@ function Sidebar({ game, gameState, toggleAudio, audioDisabled, toggleHelp, help
               <ListItemText className={classes.textOverflow}>
                 {trim(game.meta.users[userId].name,18)}
                 {" "}
-                {game.hands[key] ? [...Array(Object.keys(game.hands[key]).length)].map((idx,key)=>{return <img key={key} style={{width:"1rem",height:"1rem",position:"relative",top:".125rem"}} alt={""} src={CardIcon} />;}) : ""}
+                {game.hands[key] && [...Array(Object.keys(game.hands[key]).length)].map((idx,key)=>{return <img key={key} className={classes.cardIcon} alt={""} src={CardIcon} />;})}
               </ListItemText>
             </ListItem>
           ))}

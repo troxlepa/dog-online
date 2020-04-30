@@ -167,17 +167,11 @@ export function makeHands(n){
 
 
 export function computeRandomState(game) {
-  const scores = [];
-  const playerHands = {};
-  for(const uid of Object.keys(game.meta.users)) {
-    playerHands[uid] = ['2C','JS','AH'];
-    scores[uid] = 0;
-  }
   const history = [];
   if(game.history) {
     for (const event of Object.values(game.history)) {
       history.push(event);
     }
   }
-  return {history, scores}
+  return {history};
 }

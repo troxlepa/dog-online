@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 
 
-import {calcTurnTimes, reverseComparer, trim} from "../util";
+import {calcTurnTimes, trim} from "../util";
 
 import { useTranslation } from 'react-i18next';
 
@@ -35,7 +35,7 @@ function Stats({game}){
   let users = game.order.map((userId,idx) => {return game.meta.users[userId];});
   let {moveCount, avgMoveTimes, jokerCount, akCount, sendCount} = calcTurnTimes(game);
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
 
   return(
@@ -43,53 +43,53 @@ function Stats({game}){
       <Typography variant="h4" gutterBottom>
         {t('stats')}
       </Typography>
-    <Grid container spacing={2}>
-      {users.map((user,idx) => (
-        <Grid key={idx} item xs={3}>
-          <Card style={idx % 2 === winnerTeam ? {border:"5 px solid yellow"} : {}}>
-          <CardHeader className={"user_cardheader"+idx} style={{height:"5rem",padding:"5px"}}>
-            <Typography variant="h6" style={{color:"white"}} gutterBottom>
-              {trim(user.name,24)}
-            </Typography>
-          </CardHeader>
-            <CardContent>
-              <Typography variant="h5" component="h2">
-              {moveCount[idx]}
+      <Grid container spacing={2}>
+        {users.map((user,idx) => (
+          <Grid key={idx} item xs={3}>
+            <Card style={idx % 2 === winnerTeam ? {border:"5 px solid yellow"} : {}}>
+            <CardHeader className={"user_cardheader"+idx} style={{height:"5rem",padding:"5px"}}>
+              <Typography variant="h6" style={{color:"white"}} gutterBottom>
+                {trim(user.name,24)}
               </Typography>
-              <Typography className={classes.subtitle} component="h2">
-              {t('moves')}
-              </Typography>
-              <Divider style={{margin:"10px"}}/>
-              <Typography variant="h5" component="h2">
-              {avgMoveTimes[idx]}s
-              </Typography>
-              <Typography className={classes.subtitle} component="h2">
-              {t('avgMoves')}
-              </Typography> 
-              <Divider style={{margin:"10px"}}/>
-              <Typography variant="h5" component="h2">
-              {jokerCount[idx]}
-              </Typography>
-              <Typography className={classes.subtitle} component="h2">
-              {t('jokerCount')}
-              </Typography>
-              <Divider style={{margin:"10px"}}/>
-              <Typography variant="h5" component="h2">
-              {akCount[idx]}
-              </Typography>
-              <Typography className={classes.subtitle} component="h2">
-              {t('akCount')}
-              </Typography> 
-              <Divider style={{margin:"10px"}}/>
-              <Typography variant="h5" component="h2">
-              {sendCount[idx]}
-              </Typography>
-              <Typography className={classes.subtitle} component="h2">
-              {t('sendCount')}
-              </Typography> 
-          </CardContent>
-          </Card>
-        </Grid>
+            </CardHeader>
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                {moveCount[idx]}
+                </Typography>
+                <Typography className={classes.subtitle} component="h2">
+                {t('moves')}
+                </Typography>
+                <Divider style={{margin:"10px"}}/>
+                <Typography variant="h5" component="h2">
+                {avgMoveTimes[idx]}s
+                </Typography>
+                <Typography className={classes.subtitle} component="h2">
+                {t('avgMoves')}
+                </Typography> 
+                <Divider style={{margin:"10px"}}/>
+                <Typography variant="h5" component="h2">
+                {jokerCount[idx]}
+                </Typography>
+                <Typography className={classes.subtitle} component="h2">
+                {t('jokerCount')}
+                </Typography>
+                <Divider style={{margin:"10px"}}/>
+                <Typography variant="h5" component="h2">
+                {akCount[idx]}
+                </Typography>
+                <Typography className={classes.subtitle} component="h2">
+                {t('akCount')}
+                </Typography> 
+                <Divider style={{margin:"10px"}}/>
+                <Typography variant="h5" component="h2">
+                {sendCount[idx]}
+                </Typography>
+                <Typography className={classes.subtitle} component="h2">
+                {t('sendCount')}
+                </Typography> 
+            </CardContent>
+            </Card>
+          </Grid>
       ))}
     </Grid>
     </>
