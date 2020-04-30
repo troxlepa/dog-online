@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 600 600" style="enable-background:new 0 0 600 600;" xml:space="preserve">
+<style type="text/css">
+	.st1***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:#E7D6BB;***REMOVED***
+	.white***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:url(#gradient5-0);***REMOVED***
+	.green***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:url(#gradient3-0);stroke:#2D9334***REMOVED***
+	.blue***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:url(#gradient1-0);stroke:#4770C9***REMOVED***
+	.red***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:url(#gradient4-0);stroke:#CC2800***REMOVED***
+	.yellow***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:url(#gradient2-0);stroke:#DBB60C***REMOVED***
+	.st8***REMOVED***display:none;fill:none;stroke:#B59364;stroke-width:2;stroke-miterlimit:10;***REMOVED***
+	.background***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:#fafafa;***REMOVED***
+	.plain-blue***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:#4770C9***REMOVED***
+	.plain-yellow***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:#DBB60C***REMOVED***
+	.plain-green***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:#2D9334***REMOVED***
+	.plain-red***REMOVED***fill-rule:evenodd;clip-rule:evenodd;fill:#CC2800***REMOVED***
+	.sparkle***REMOVED***stroke:url(#spark-0);animation-duration: 4s;animation-name: sparkAnimation;animation-iteration-count: infinite;stroke-dasharray: 4 1 3 2;***REMOVED***
+	@keyframes sparkAnimation ***REMOVED***
+	  from ***REMOVED***
+	    stroke-opacity: 0.7;
+	    stroke-width: 0px;
+
+	***REMOVED***
+	  to ***REMOVED***
+	    stroke-opacity: 0;
+	    stroke-width: 36px;
+	***REMOVED***
+	***REMOVED***
+</style>
+<defs>
+    <radialGradient id = "spark" cx = "50%" cy = "50%" r = "50%">
+        <stop stop-color = "yellow" offset = "80%"/>
+        <stop stop-color = "red" offset = "100%"/>
+    </radialGradient>
+	<radialGradient id="gradient1" cx="30%" cy="30%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#4770C9" />
+      <stop offset="100%" stop-color="#225399" />
+    </radialGradient>
+    <radialGradient id="gradient2" cx="30%" cy="30%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#DBB60C" />
+      <stop offset="100%" stop-color="#CCA300" />
+    </radialGradient>
+    <radialGradient id="gradient3" cx="30%" cy="30%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#2D9334" />
+      <stop offset="100%" stop-color="#1C8023" />
+    </radialGradient>
+    <radialGradient id="gradient4" cx="30%" cy="30%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#CC2800" />
+      <stop offset="100%" stop-color="#A91900" />
+    </radialGradient>
+    <radialGradient id="gradient5" cx="50%" cy="50%" r="80%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#F4E0CC" />
+      <stop offset="100%" stop-color="#F5EFED" />
+    </radialGradient>
+</defs>
+	<polygon id="board" class="st1" points="94.56,0 0,94.56 0,505.44 94.56,600 505.44,600 600,505.44 600,94.56 505.44,0 	"/>
+	<polygon id="board-inner" class="background" points="351.57,175.5 248.43,175.5 175.5,248.43 175.5,351.57 248.43,424.5 351.57,424.5 
+		424.5,351.57 424.5,248.43 	"/>
+
+	<image id="lastcard0x3" x="265" y="295" width="75" height="102" />
+	<image id="lastcard1x3" style="transform-origin: center;transform: rotateZ(270deg);" x="265" y="295" width="75" height="102" />
+	<image id="lastcard2x3" style="transform-origin: center;transform: rotateZ(180deg);"  x="265" y="295" width="75" height="102" />
+	<image id="lastcard3x3" style="transform-origin: center;transform: rotateZ(90deg);"  x="265" y="295" width="75" height="102" />
+
+	<image id="lastcard0x2" x="265" y="295" width="75" height="102" />
+	<image id="lastcard1x2" style="transform-origin: center;transform: rotateZ(270deg);" x="265" y="295" width="75" height="102" />
+	<image id="lastcard2x2" style="transform-origin: center;transform: rotateZ(180deg);"  x="265" y="295" width="75" height="102" />
+	<image id="lastcard3x2" style="transform-origin: center;transform: rotateZ(90deg);"  x="265" y="295" width="75" height="102" />
+
+	<image id="lastcard0x1" x="265" y="295" width="75" height="102" />
+	<image id="lastcard1x1" style="transform-origin: center;transform: rotateZ(270deg);" x="265" y="295" width="75" height="102" />
+	<image id="lastcard2x1" style="transform-origin: center;transform: rotateZ(180deg);"  x="265" y="295" width="75" height="102" />
+	<image id="lastcard3x1" style="transform-origin: center;transform: rotateZ(90deg);"  x="265" y="295" width="75" height="102" />
+
+	<image id="lastcard0x0" x="265" y="295" width="75" height="102" />
+	<image id="lastcard1x0" style="transform-origin: center;transform: rotateZ(270deg);" x="265" y="295" width="75" height="102" />
+	<image id="lastcard2x0" style="transform-origin: center;transform: rotateZ(180deg);"  x="265" y="295" width="75" height="102" />
+	<image id="lastcard3x0" style="transform-origin: center;transform: rotateZ(90deg);"  x="265" y="295" width="75" height="102" />
+	<g id="rings">
+		<g>
+			<circle class="plain-blue" cx="92.15" cy="132" r="17.58"/>
+			<circle class="plain-blue" cx="131.47" cy="131.47" r="17.58"/>
+			<circle class="plain-blue" cx="161.69" cy="161.69" r="17.58"/>
+			<circle class="plain-blue" cx="192.05" cy="192.05" r="17.58"/>
+		</g>
+		<g>
+			<circle class="plain-yellow" cx="132" cy="507.85" r="17.58"/>
+			<circle class="plain-yellow" cx="131.47" cy="468.53" r="17.58"/>
+			<circle class="plain-yellow" cx="161.69" cy="438.31" r="17.58"/>
+			<circle class="plain-yellow" cx="192.05" cy="407.95" r="17.58"/>
+		</g>
+		<g>
+			<circle class="plain-green" cx="507.85" cy="468" r="17.58"/>
+			<circle class="plain-green" cx="468.53" cy="468.53" r="17.58"/>
+			<circle class="plain-green" cx="438.31" cy="438.31" r="17.58"/>
+			<circle class="plain-green" cx="407.95" cy="407.95" r="17.58"/>
+		</g>
+		<g>
+			<circle class="plain-red" cx="468" cy="92.15" r="17.58"/>
+			<circle class="plain-red" cx="468.53" cy="131.47" r="17.58"/>
+			<circle class="plain-red" cx="438.31" cy="161.69" r="17.58"/>
+			<circle class="plain-red" cx="407.95" cy="192.05" r="17.58"/>
+		</g>
+		<g id="BaseRings">
+			<circle class="plain-green" cx="566.25" cy="467.8" r="17.58"/>
+			<circle class="plain-blue" cx="33.75" cy="132" r="17.58"/>
+			<circle class="plain-red" cx="467.9" cy="33.65" r="17.58"/>
+			<circle class="plain-yellow" cx="132.1" cy="566.15" r="17.58"/>
+		</g>
+	</g>
+
+	<g id="BFinish">
+		<circle id="f80" class="white" cx="92.15" cy="132" r="13.81"/>
+		<circle id="f81" class="white" cx="131.47" cy="131.47" r="13.81"/>
+		<circle id="f82" class="white" cx="161.69" cy="161.69" r="13.81"/>
+		<circle id="f83" class="white" cx="192.05" cy="192.05" r="13.81"/>
+	</g>
+	<g id="YFinish">
+		<circle id="f84" class="white" cx="132" cy="507.85" r="13.81"/>
+		<circle id="f85" class="white" cx="131.47" cy="468.53" r="13.81"/>
+		<circle id="f86" class="white" cx="161.69" cy="438.31" r="13.81"/>
+		<circle id="f87" class="white" cx="192.05" cy="407.95" r="13.81"/>
+	</g>
+	<g id="GFinish">
+		<circle id="f88" class="white" cx="507.85" cy="468" r="13.81"/>
+		<circle id="f89" class="white" cx="468.53" cy="468.53" r="13.81"/>
+		<circle id="f90" class="white" cx="438.31" cy="438.31" r="13.81"/>
+		<circle id="f91" class="white" cx="407.95" cy="407.95" r="13.81"/>
+	</g>
+	<g id="RFinish">
+		<circle id="f92" class="white" cx="468" cy="92.15" r="13.81"/>
+		<circle id="f93" class="white" cx="468.53" cy="131.47" r="13.81"/>
+		<circle id="f94" class="white" cx="438.31" cy="161.69" r="13.81"/>
+		<circle id="f95" class="white" cx="407.95" cy="192.05" r="13.81"/>
+	</g>
+	<g id="BBase">
+		<circle id="f65" class="white" cx="31.48" cy="230.36" r="13.81"/>
+		<circle id="f64" class="white" cx="31.48" cy="195.58" r="13.81"/>
+		<circle id="f67" class="white" cx="31.48" cy="299.9" r="13.81"/>
+		<circle id="f66" class="white" cx="31.48" cy="265.13" r="13.81"/>
+	</g>
+	<g id="YBase">
+		<circle id="f69" class="white" cx="230.36" cy="568.52" r="13.81"/>
+		<circle id="f68" class="white" cx="195.58" cy="568.52" r="13.81"/>
+		<circle id="f70" class="white" cx="299.9" cy="568.52" r="13.81"/>
+		<circle id="f71" class="white" cx="265.13" cy="568.52" r="13.81"/>
+	</g>
+	<g id="GBase">
+		<circle id="f73" class="white" cx="568.52" cy="369.64" r="13.81"/>
+		<circle id="f72" class="white" cx="568.52" cy="404.42" r="13.81"/>
+		<circle id="f75" class="white" cx="568.52" cy="300.1" r="13.81"/>
+		<circle id="f74" class="white" cx="568.52" cy="334.87" r="13.81"/>
+	</g>
+	<g id="RBase">
+		<circle id="f77" class="white" cx="369.64" cy="31.48" r="13.81"/>
+		<circle id="f76" class="white" cx="404.42" cy="31.48" r="13.81"/>
+		<circle id="f79" class="white" cx="300.1" cy="31.48" r="13.81"/>
+		<circle id="f78" class="white" cx="334.87" cy="31.48" r="13.81"/>
+	</g>
+
+
+	<circle id="f63" class="white" cx="58.34" cy="107.42" r="13.81"/>
+	<circle id="f62" class="white" cx="82.93" cy="82.83" r="13.81"/>
+	<circle id="f61" class="white" cx="107.51" cy="58.24" r="13.81"/>
+	<circle id="f60" class="white" cx="132.1" cy="33.65" r="13.81"/>
+	<circle id="f59" class="white" cx="156.69" cy="58.24" r="13.81"/>
+	<circle id="f58" class="white" cx="181.28" cy="82.83" r="13.81"/>
+	<circle id="f57" class="white" cx="205.87" cy="107.42" r="13.81"/>
+	<circle id="f56" class="white" cx="230.45" cy="132" r="13.81"/>
+	<circle id="f55" class="white" cx="265.23" cy="132" r="13.81"/>
+	<circle id="f54" class="white" cx="300" cy="132" r="13.81"/>
+	<circle id="f53" class="white" cx="334.77" cy="132" r="13.81"/>
+	<circle id="f52" class="white" cx="369.55" cy="132" r="13.81"/>
+	<circle id="f51" class="white" cx="394.13" cy="107.42" r="13.81"/>
+	<circle id="f50" class="white" cx="418.72" cy="82.83" r="13.81"/>
+	<circle id="f49" class="white" cx="443.31" cy="58.24" r="13.81"/>
+	<circle id="f48" class="white" cx="467.9" cy="33.65" r="13.81"/>
+	<circle id="f47" class="white" cx="492.49" cy="58.24" r="13.81"/>
+	<circle id="f46" class="white" cx="517.07" cy="82.83" r="13.81"/>
+	<circle id="f45" class="white" cx="541.66" cy="107.42" r="13.81"/>
+	<circle id="f44" class="white" cx="566.25" cy="132" r="13.81"/>
+	<circle id="f43" class="white" cx="541.66" cy="156.59" r="13.81"/>
+	<circle id="f42" class="white" cx="517.07" cy="181.18" r="13.81"/>
+	<circle id="f41" class="white" cx="492.49" cy="205.77" r="13.81"/>
+	<circle id="f40" class="white" cx="467.9" cy="230.36" r="13.81"/>
+	<circle id="f39" class="white" cx="467.9" cy="265.13" r="13.81"/>
+	<circle id="f38" class="white" cx="467.9" cy="299.9" r="13.81"/>
+	<circle id="f37" class="white" cx="467.9" cy="334.67" r="13.81"/>
+	<circle id="f36" class="white" cx="467.9" cy="369.45" r="13.81"/>
+	<circle id="f35" class="white" cx="492.49" cy="394.03" r="13.81"/>
+	<circle id="f34" class="white" cx="517.07" cy="418.62" r="13.81"/>
+	<circle id="f33" class="white" cx="541.66" cy="443.21" r="13.81"/>
+	<circle id="f32" class="white" cx="566.25" cy="467.8" r="13.81"/>
+	<circle id="f31" class="white" cx="541.66" cy="492.39" r="13.81"/>
+	<circle id="f30" class="white" cx="517.07" cy="516.97" r="13.81"/>
+	<circle id="f29" class="white" cx="492.49" cy="541.56" r="13.81"/>
+	<circle id="f28" class="white" cx="467.9" cy="566.15" r="13.81"/>
+	<circle id="f27" class="white" cx="443.31" cy="541.56" r="13.81"/>
+	<circle id="f26" class="white" cx="418.72" cy="516.97" r="13.81"/>
+	<circle id="f25" class="white" cx="394.13" cy="492.39" r="13.81"/>
+	<circle id="f24" class="white" cx="369.55" cy="467.8" r="13.81"/>
+	<circle id="f23" class="white" cx="334.77" cy="467.8" r="13.81"/>
+	<circle id="f22" class="white" cx="300" cy="467.8" r="13.81"/>
+	<circle id="f21" class="white" cx="265.23" cy="467.8" r="13.81"/>
+	<circle id="f20" class="white" cx="230.45" cy="467.8" r="13.81"/>
+	<circle id="f19" class="white" cx="205.87" cy="492.39" r="13.81"/>
+	<circle id="f18" class="white" cx="181.28" cy="516.97" r="13.81"/>
+	<circle id="f17" class="white" cx="156.69" cy="541.56" r="13.81"/>
+	<circle id="f16" class="white" cx="132.1" cy="566.15" r="13.81"/>
+	<circle id="f15" class="white" cx="107.51" cy="541.56" r="13.81"/>
+	<circle id="f14" class="white" cx="82.93" cy="516.97" r="13.81"/>
+	<circle id="f13" class="white" cx="58.34" cy="492.39" r="13.81"/>
+	<circle id="f12" class="white" cx="33.75" cy="467.8" r="13.81"/>
+	<circle id="f11" class="white" cx="58.34" cy="443.21" r="13.81"/>
+	<circle id="f10" class="white" cx="82.93" cy="418.62" r="13.81"/>
+	<circle id="f9" class="white" cx="107.51" cy="394.03" r="13.81"/>
+	<circle id="f8" class="white" cx="132.1" cy="369.45" r="13.81"/>
+	<circle id="f7" class="white" cx="132.1" cy="334.67" r="13.81"/>
+	<circle id="f6" class="white" cx="132.1" cy="299.9" r="13.81"/>
+	<circle id="f5" class="white" cx="132.1" cy="265.13" r="13.81"/>
+	<circle id="f4" class="white" cx="132.1" cy="230.36" r="13.81"/>
+	<circle id="f3" class="white" cx="107.51" cy="205.77" r="13.81"/>
+	<circle id="f2" class="white" cx="82.93" cy="181.18" r="13.81"/>
+	<circle id="f1" class="white" cx="58.34" cy="156.59" r="13.81"/>
+	<circle id="f0" class="white" cx="33.75" cy="132" r="13.81"/>
+
+
+	<g id="balls">
+		<circle id="b0" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b1" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b2" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b3" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b4" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b5" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b6" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b7" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b8" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b9" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b10" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b11" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b12" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b13" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b14" class="white" cx="0" cy="0" r="13.81"/>
+		<circle id="b15" class="white" cx="0" cy="0" r="13.81"/>
+
+
+	</g>
+
+		<!-- <g id="balls">
+		<circle id="b0" class="white" cx="31.48" cy="195.58" r="13.81"/>
+		<circle id="b1" class="white" cx="31.48" cy="230.36" r="13.81"/>
+		<circle id="b2" class="white" cx="31.48" cy="265.13" r="13.81"/>
+		<circle id="b3" class="white" cx="31.48" cy="299.9" r="13.81"/>
+		<circle id="b4" class="white" cx="195.58" cy="568.52" r="13.81"/>
+		<circle id="b5" class="white" cx="230.36" cy="568.52" r="13.81"/>
+		<circle id="b6" class="white" cx="299.9" cy="568.52" r="13.81"/>
+		<circle id="b7" class="white" cx="265.13" cy="568.52" r="13.81"/>
+		<circle id="b8" class="white" cx="568.52" cy="404.42" r="13.81"/>
+		<circle id="b9" class="white" cx="568.52" cy="369.64" r="13.81"/>
+		<circle id="b10" class="white" cx="568.52" cy="334.87" r="13.81"/>
+		<circle id="b11" class="white" cx="568.52" cy="300.1" r="13.81"/>
+		<circle id="b12" class="white" cx="404.42" cy="31.48" r="13.81"/>
+		<circle id="b13" class="white" cx="369.64" cy="31.48" r="13.81"/>
+		<circle id="b14" class="white" cx="334.87" cy="31.48" r="13.81"/>
+		<circle id="b15" class="white" cx="300.1" cy="31.48" r="13.81"/>
+
+
+	</g> -->
+</svg>

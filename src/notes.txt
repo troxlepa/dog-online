@@ -1,0 +1,71 @@
+Round
+ > First Player
+ > Number of Cards
+Cards
+ > Deck
+Hand
+ > [Cards]
+History
+ > Card
+ > Player
+Player Balls
+ > Position
+
+Player.isTurn()
+Player.getHand() -> ['A','9','2']
+Player.play(Card)
+Ball.getPosition() -> [3,45,15,22, ...]
+Ball.getPlayerPositions(player) 
+Game.getBlockingBalls() -> [False, False, True, False]
+Game.updateBlockingBalls()
+Game.removeBlockingBalls()
+-> Player.isValidCard(Card, Ball)***REMOVED***
+	switch Card:
+
+***REMOVED***
+ -> Player.isValidMove(Ball)***REMOVED***
+
+ ***REMOVED***
+-> Player.move(Card, Ball)
+Player.hasNoValidMove()
+
+History.push(player, card)
+
+
+var gameState = ***REMOVED***
+	balls_positions = [1,45,2,22,6,23,11,3,2,...],
+	hands = [['A','0','3','2'],['7','Q','J','8'],...[]],
+	history = ['J','4','A','3','7'],
+	round = 7,
+	next_player = 3,
+***REMOVED***
+
+after every round -> history = []
+client_side deck
+
+db updates on:
+- card played
+	>> private variable secrets -> distribute to players
+	   on submit card, submit secret
+
+
+
+
+GameState:
+>> current
+	> playerHands***REMOVED***
+		uid: [String]
+	***REMOVED***
+	> balls : [Int]
+>> meta
+	> round: int
+	> nextHand: int
+>>> round
+	>> history
+		> $entry***REMOVED***
+			user: String
+			card: String
+			balls: [Int]
+			selected: [Int]
+			timestamp: Date
+		***REMOVED***

@@ -1,0 +1,269 @@
+/* Avoid adding styles to this file; prefer @material-ui/core/styles instead. */
+
+#root ***REMOVED***
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+***REMOVED***
+.card-red***REMOVED***fill:#E6180A;***REMOVED***
+.font-arial***REMOVED***font-family:'Arial-BoldMT';***REMOVED***
+.font-arial-size***REMOVED***font-size:45.4517px;***REMOVED***
+.active***REMOVED***
+	stroke-width:4 ! important;
+  animation: none ! important;
+	cursor: pointer;
+  boxShadow: 0px 0px 12px 0px rgba(84,31,125,1);
+	-webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3));
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3));
+***REMOVED***
+.active0***REMOVED***stroke:red ! important;***REMOVED***
+.active1***REMOVED***stroke:cyan ! important;***REMOVED***
+.active2***REMOVED***stroke:orange ! important;***REMOVED***
+.active3***REMOVED***stroke:pink ! important;***REMOVED***
+.active4***REMOVED***stroke:magenta ! important;***REMOVED***
+.active5***REMOVED***stroke:yellow ! important;***REMOVED***
+.active6***REMOVED***stroke:orange ! important;***REMOVED***
+
+.ball:hover***REMOVED***
+    cursor: pointer;
+    boxShadow: 0px 0px 5px 3px #4b9e9e !important;
+    -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3));
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .3));
+***REMOVED***
+.selected***REMOVED***
+    boxShadow: 0px 0px 5px 3px #4b9e9e !important
+***REMOVED***
+.destination:hover***REMOVED***
+	fill:red ! important;
+***REMOVED***
+svg***REMOVED***
+  max-width:100%;
+  max-height:100%;
+***REMOVED***
+.controlButtons_mobile***REMOVED***
+    display: inline-block;
+    position: fixed;
+***REMOVED***,
+  .controlButtons_mobile  > .MuiButtonBase-root***REMOVED***
+    margin: 3px;
+    animation: none ! important;
+***REMOVED***
+    .controlButtons_mobile .MuiButtonBase-root***REMOVED***
+    margin: 3px;
+    animation: none ! important;
+***REMOVED***
+
+
+.gamePanel***REMOVED***
+position: relative;
+display: flex;
+flex-flow: column nowrap;
+justify-content: center;
+/*border: 1px solid red;*/
+height: 100%;
+width: 100%;
+***REMOVED***
+
+.header***REMOVED***
+display: flex;
+flex-flow: row wrap;
+justify-content: space-around;
+justify-items: center;
+align-items: center;
+flex: 0 0 auto;
+height: 4rem;
+***REMOVED***
+
+.header_mobile***REMOVED***
+display: flex;
+flex-flow: row wrap;
+justify-content: space-around;
+justify-items: center;
+flex: 0 0 auto;
+height: 4rem;
+***REMOVED***
+
+.gameControl***REMOVED***
+justify-content: space-around;
+justify-items: center;
+align-items: center;
+/*border: 2px solid green;*/
+flex: 1 1 auto;
+display: flex;
+flex-flow: column wrap;
+height: calc(100% - 14rem );
+outline: none;
+***REMOVED***
+
+.gameControl_mobile***REMOVED***
+justify-content: space-around;
+justify-items: center;
+align-items: center;
+/*border: 2px solid green;*/
+flex: 1 1 auto;
+display: flex;
+flex-flow: column wrap;
+height: calc(100% - 20rem );
+***REMOVED***
+
+
+.selfCards***REMOVED***
+display: flex;
+flex-flow: row wrap;
+justify-content: space-around;
+align-items: center;
+/*border: 2px solid green;*/
+flex: 0 0 auto;
+height: 10rem;
+***REMOVED***
+
+.selfCards_mobile***REMOVED***
+display: flex;
+flex-flow: row wrap;
+justify-content: left;
+align-items: flex-start;
+/*border: 2px solid green;*/
+flex: 0 0 auto;
+***REMOVED***
+
+
+.pulsing ***REMOVED***
+  fill: inherit;
+  /*fill-opacity: 0;*/
+  /*transform-origin: 50% 50%;*/
+  animation-duration: 4s;
+  animation-name: pulsing;
+  animation-iteration-count: infinite;
+  stroke: inherit;
+***REMOVED***
+
+@keyframes pulsing ***REMOVED***
+  from ***REMOVED***
+    stroke-opacity: 0.7;
+    stroke-width: 0px;
+
+***REMOVED***
+  to ***REMOVED***
+    stroke-opacity: 0;
+    stroke-width: 18px;
+***REMOVED***
+***REMOVED***
+
+.pulsingButton ***REMOVED***
+  
+  animation-duration: 2s ! important;
+  animation-name: pulsingButton ! important;
+  animation-direction: alternate;
+  animation-iteration-count: infinite ! important;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+***REMOVED***
+
+@keyframes pulsingButton ***REMOVED***
+  0%, 40% ***REMOVED***
+    border: 2px solid rgba(0, 0, 0, 0.12);
+
+***REMOVED***
+  100% ***REMOVED***
+    border: 2px solid #303f9f;
+***REMOVED***
+***REMOVED***
+.xxy0***REMOVED***background-color:#c6efff***REMOVED***
+.xxy1***REMOVED***background-color:#ffffbf***REMOVED***
+.xxy2***REMOVED***background-color:#c6ffcd***REMOVED***
+.xxy3***REMOVED***background-color:#ffdbb3***REMOVED***
+
+.loading:after ***REMOVED***
+  content: ' .';
+  animation: dots 4s steps(5, end) infinite;
+***REMOVED***
+
+@keyframes dots ***REMOVED***
+  0%, 20% ***REMOVED***
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);***REMOVED***
+  40% ***REMOVED***
+    color: white;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);***REMOVED***
+  60% ***REMOVED***
+    text-shadow:
+      .25em 0 0 white,
+      .5em 0 0 rgba(0,0,0,0);***REMOVED***
+  80%, 100% ***REMOVED***
+    text-shadow:
+      .25em 0 0 white,
+      .5em 0 0 white;***REMOVED******REMOVED***
+
+.ReactModal__Overlay ***REMOVED***
+    opacity: 0;
+    transition: opacity 2000ms ease-in-out;
+***REMOVED***
+
+.ReactModal__Overlay--after-open***REMOVED***
+    opacity: 1;
+***REMOVED***
+
+.ReactModal__Overlay--before-close***REMOVED***
+    opacity: 0;
+***REMOVED***
+
+.tooltipbigger***REMOVED***
+  font-size: 3em;
+***REMOVED***
+
+/*@keyframes pulsingBackdrop ***REMOVED***
+  0%,15% ***REMOVED***
+    opacity: 0.05
+***REMOVED***
+  50% ***REMOVED***
+    opacity: 0.3
+***REMOVED***
+  85% ***REMOVED***
+    opacity: 0.05
+***REMOVED***
+  100% ***REMOVED***
+    opacity: 0.05
+***REMOVED***
+***REMOVED****/
+
+.user_cardheader0***REMOVED***
+    background: -moz-linear-gradient(45deg, rgba(71,112,201,1) 0%, rgba(34,83,153,1) 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(71,112,201,1)), color-stop(100%, rgba(34,83,153,1))); /* safari4+,chrome */
+    background: -webkit-linear-gradient(45deg, rgba(71,112,201,1) 0%, rgba(34,83,153,1) 100%); /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(45deg, rgba(71,112,201,1) 0%, rgba(34,83,153,1) 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(45deg, rgba(71,112,201,1) 0%, rgba(34,83,153,1) 100%); /* ie10+ */
+    background: linear-gradient(45deg, rgba(71,112,201,1) 0%, rgba(34,83,153,1) 100%); /* w3c */ 
+***REMOVED***
+
+  .user_cardheader1***REMOVED***
+ background: -moz-linear-gradient(45deg, rgba(219,182,12,1) 0%, rgba(204,163,0,1) 100%); /* ff3.6+ */
+background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(219,182,12,1)), color-stop(100%, rgba(204,163,0,1))); /* safari4+,chrome */
+background: -webkit-linear-gradient(45deg, rgba(219,182,12,1) 0%, rgba(204,163,0,1) 100%); /* safari5.1+,chrome10+ */
+background: -o-linear-gradient(45deg, rgba(219,182,12,1) 0%, rgba(204,163,0,1) 100%); /* opera 11.10+ */
+background: -ms-linear-gradient(45deg, rgba(219,182,12,1) 0%, rgba(204,163,0,1) 100%); /* ie10+ */
+background: linear-gradient(45deg, rgba(219,182,12,1) 0%, rgba(204,163,0,1) 100%); /* w3c */ 
+***REMOVED***
+
+  .user_cardheader2***REMOVED***
+ background: -moz-linear-gradient(45deg, rgba(45,147,52,1) 0%, rgba(28,128,35,1) 100%); /* ff3.6+ */
+background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(45,147,52,1)), color-stop(100%, rgba(28,128,35,1))); /* safari4+,chrome */
+background: -webkit-linear-gradient(45deg, rgba(45,147,52,1) 0%, rgba(28,128,35,1) 100%); /* safari5.1+,chrome10+ */
+background: -o-linear-gradient(45deg, rgba(45,147,52,1) 0%, rgba(28,128,35,1) 100%); /* opera 11.10+ */
+background: -ms-linear-gradient(45deg, rgba(45,147,52,1) 0%, rgba(28,128,35,1) 100%); /* ie10+ */
+background: linear-gradient(45deg, rgba(45,147,52,1) 0%, rgba(28,128,35,1) 100%); /* w3c */ 
+***REMOVED***
+
+  .user_cardheader3***REMOVED***
+ background: -moz-linear-gradient(45deg, rgba(204,40,0,1) 0%, rgba(169,25,0,1) 100%); /* ff3.6+ */
+background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(204,40,0,1)), color-stop(100%, rgba(169,25,0,1))); /* safari4+,chrome */
+background: -webkit-linear-gradient(45deg, rgba(204,40,0,1) 0%, rgba(169,25,0,1) 100%); /* safari5.1+,chrome10+ */
+background: -o-linear-gradient(45deg, rgba(204,40,0,1) 0%, rgba(169,25,0,1) 100%); /* opera 11.10+ */
+background: -ms-linear-gradient(45deg, rgba(204,40,0,1) 0%, rgba(169,25,0,1) 100%); /* ie10+ */
+background: linear-gradient(45deg, rgba(204,40,0,1) 0%, rgba(169,25,0,1) 100%); /* w3c */ 
+***REMOVED***
