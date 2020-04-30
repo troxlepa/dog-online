@@ -1,0 +1,49 @@
+{
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": "build",
+    "headers": [ {
+      "source" : "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
+      "headers" : [ {
+        "key" : "Access-Control-Allow-Origin",
+        "value" : "*"
+      } ]
+    }, {
+      "source": "/**/*.@(json)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }, {
+      "source" : "**/*.@(js|css)",
+      "headers" : [ {
+        "key" : "Cache-Control",
+        "value" : "max-age=604800"
+      } ]
+    }, {
+      "source" : "**/*.@(jpg|jpeg|gif|png|svg)",
+      "headers" : [ {
+        "key" : "Cache-Control",
+        "value" : "max-age=604800"
+      } ]
+    }, {
+      // Sets the cache header for 404 pages to cache for 5 minutes
+      "source" : "404.html",
+      "headers" : [ {
+        "key" : "Cache-Control",
+        "value" : "max-age=300"
+      } ]
+    } ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
