@@ -60,7 +60,7 @@ function LobbyPage({ user }) {
   const [joinTwo, setJoinTwo] = useState(false);
   const [spectate, setSpectate] = useState(false);
   const [options, setOptions] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   if (redirect) return <Redirect push to={redirect} />;
 

@@ -1,112 +1,112 @@
 import React, { memo } from "react";
 
-import { makeStyles } from "@material-ui/core/styles";
 import { isMobile } from "react-device-detect";
+
+import { makeStyles } from "@material-ui/core/styles";
+
 
 let styled = {};
 if(isMobile){
   styled = {
-  card: {
-    width: 48,
-    height: 70,
-    background: "#fff",
-    borderRadius: 5,
-    display: "inline-flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    flexShrink: 0,
-    margin: 6,
-    cursor: "pointer",
-    transition: "background-color 0.2s, box-shadow 0.2s",
-    "&:hover": {
-      boxShadow: "0px 0px 5px 3px #bbb"
+    card: {
+      width: 48,
+      height: 70,
+      background: "#fff",
+      borderRadius: 5,
+      display: "inline-flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      flexShrink: 0,
+      margin: 6,
+      cursor: "pointer",
+      transition: "background-color 0.2s, box-shadow 0.2s",
+      "&:hover": {
+        boxShadow: "0px 0px 5px 3px #bbb"
+      }
+    },
+    card_disabled: {
+      width: 48,
+      height: 70,
+      background: "#fff",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    },
+    selected: {
+      boxShadow: "0px 0px 0px 4px #f00 ! important",
+    },
+    active: {
+      cursor: "pointer",
+      boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
+    },
+    smallCard: {
+      width: 54,
+      height: 74,
+      margin: 3,
+      "&:hover": {
+        boxShadow: "0px 0px 2px 1px #bbb"
+      }
+    },
+    symbol: {
+      margin: 3
+    },
+    smallSymbol: {
+      margin: 1
     }
-  },
-  card_disabled: {
-    width: 48,
-    height: 70,
-    background: "#fff",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0
-  },
-  selected: {
-    boxShadow: "0px 0px 0px 4px #f00 ! important",
-  },
-  active: {
-    cursor: "pointer",
-    boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
-  },
-  smallCard: {
-    width: 54,
-    height: 74,
-    margin: 3,
-    height:"100%",
-
-    "&:hover": {
-      boxShadow: "0px 0px 2px 1px #bbb"
-    }
-  },
-  symbol: {
-    margin: 3
-  },
-  smallSymbol: {
-    margin: 1
-  }
-};
+  };
 }else{
- styled = {
-  card: {
-    width: 98,
-    height: 136,
-    background: "#fff",
-    borderRadius: 5,
-    display: "inline-flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    flexShrink: 0,
-    margin: 6,
-    cursor: "pointer",
-    transition: "background-color 0.2s, box-shadow 0.2s",
-    "&:hover": {
-      boxShadow: "0px 0px 5px 3px #bbb"
-    }
-  },
-  card_disabled: {
-    width: 75,
-    height: 102,
-    background: "#fff",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0
-  },
-  selected: {
-    boxShadow: "0px 0px 0px 4px #f00 ! important",
-  },
-  active: {
-    cursor: "pointer",
-    boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
-  },
-  smallCard: {
-    width: 54,
-    height: 74,
-    margin: 3,
+  styled = {
+    card: {
+      width: 98,
+      height: 136,
+      background: "#fff",
+      borderRadius: 5,
+      display: "inline-flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      flexShrink: 0,
+      margin: 6,
+      cursor: "pointer",
+      transition: "background-color 0.2s, box-shadow 0.2s",
+      "&:hover": {
+        boxShadow: "0px 0px 5px 3px #bbb"
+      }
+    },
+    card_disabled: {
+      width: 75,
+      height: 102,
+      background: "#fff",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    },
+    selected: {
+      boxShadow: "0px 0px 0px 4px #f00 ! important",
+    },
+    active: {
+      cursor: "pointer",
+      boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
+    },
+    smallCard: {
+      width: 54,
+      height: 74,
+      margin: 3,
 
-    "&:hover": {
-      boxShadow: "0px 0px 2px 1px #bbb"
+      "&:hover": {
+        boxShadow: "0px 0px 2px 1px #bbb"
+      }
+    },
+    symbol: {
+      margin: 3
+    },
+    smallSymbol: {
+      margin: 1
     }
-  },
-  symbol: {
-    margin: 3
-  },
-  smallSymbol: {
-    margin: 1
-  }
-}
+  };
 }
 const useStyles = makeStyles(styled);
 

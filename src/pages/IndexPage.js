@@ -11,7 +11,7 @@ import Intro from "../assets/intro-01.svg";
 import { useTranslation } from 'react-i18next';
 import { isMobile } from "react-device-detect";
 
-let styled = {}
+let styled = {};
 if(isMobile){
   styled = {
     indexMenu: {
@@ -33,9 +33,9 @@ if(isMobile){
     introSvg: {
       width: "100%"
     }
-  }
+  };
 }else{
-    styled = {
+  styled = {
     indexMenu: {
       margin: 26,
       "& a": {
@@ -55,13 +55,13 @@ if(isMobile){
     introSvg: {
       width: "60%"
     }
-  }
+  };
 }
 const useStyles = makeStyles(styled);
 function IndexPage() {
   const classes = useStyles();
   const [redirect, setRedirect] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const transitions = useTransition(!redirect, null, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
@@ -86,11 +86,11 @@ function IndexPage() {
   ) : (
   
     transitions.map(
-      ({ item, key, props }) =>
-        item && (<Container key={key}>
+      ({ item, key, props }) => item && (
+        <Container key={key}>
           <animated.div key={key} style={props}>
-          <div className={classes.svgWrapper}>
-            <img alt="" className={classes.introSvg} src={Intro} />
+            <div className={classes.svgWrapper}>
+              <img alt="" className={classes.introSvg} src={Intro} />
             </div>
             <Container className={classes.container}>
               <Button
@@ -119,8 +119,8 @@ function IndexPage() {
               </Typography>
             </Container>
           </animated.div>
-          </Container>
-        )
+        </Container>
+      )
     )
 
   );

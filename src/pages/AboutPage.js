@@ -9,7 +9,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 function AboutPage() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <Container>
       <Box m={3}>

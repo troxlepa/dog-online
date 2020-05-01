@@ -8,7 +8,7 @@ import dogHouse from "../assets/dog-house-01.png";
 import { useTranslation } from 'react-i18next';
 
 function NotFoundPage() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <Container>
       <Box m={3} textAlign="center">

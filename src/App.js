@@ -5,7 +5,7 @@ import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import { generateColor, generateName } from "./util";
+import { generateName } from "./util";
 import RoomPage from "./pages/RoomPage";
 import GamePage from "./pages/GamePage";
 import LobbyPage from "./pages/LobbyPage";

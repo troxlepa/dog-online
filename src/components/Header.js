@@ -1,30 +1,27 @@
 import React, {useCallback} from "react";
 
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Typography from "@material-ui/core/Typography";
-import firebase from "../firebase";
-import Paper from "@material-ui/core/Paper";
-
-import { makeHands } from "../util";
-
-import { makeStyles } from "@material-ui/core/styles";
-
+import { isMobile } from "react-device-detect";
 import { useTranslation } from 'react-i18next';
 
-import { isMobile } from "react-device-detect";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+import firebase from "../firebase";
 
 const useStyles = makeStyles({
   header: {
-  	display: "flex",
-  	flexFlow: "row wrap",
-  	justifyContent: "space-around",
-  	justifyItems: "center",
-  	alignItems: "center",
-  	flex: "0 0 auto",
-  	height: "4rem",
+    display: "flex",
+    flexFlow: "row wrap",
+    justifyContent: "space-around",
+    justifyItems: "center",
+    alignItems: "center",
+    flex: "0 0 auto",
+    height: "4rem",
   },
   headerPaper: {
     display: "flex",
@@ -57,34 +54,21 @@ const useStyles = makeStyles({
     zIndex: 2,
   },
   turnTypo: {
-  	color: "rgba(255,255,255,.9)",
-  	textTransform: "uppercase"
+    color: "rgba(255,255,255,.9)",
+    textTransform: "uppercase"
   }
 });
 
 
-function Header({game, orderMyPosition, selected, submitSelection, onSubmit, setSelected, gameId, undo, setActiveCard, activeCard, /*sevenFlag*/}){
-	const classes = useStyles();
-  const { t, i18n } = useTranslation();
-	const turn = game.round % 4;
+function Header({game, orderMyPosition, selected, submitSelection, onSubmit, setSelected, gameId, setActiveCard, activeCard}){
+  const classes = useStyles();
+  const { t } = useTranslation();
+  const turn = game.round % 4;
 
   const myPos = orderMyPosition.toString();
-	var myhandObj = {};
-	if(game.hands){
-	  myhandObj = Object.keys(game.hands).includes(myPos) ? game.hands[myPos] : {};
-	}
-
-  function pickRandomProperty(obj) {
-    var result;
-    var count = 0;
-    for (var prop in obj)
-        if (Math.random() < 1/++count)
-           result = prop;
-    return result;
-  }
-
-  function comparer( a, b ) {
-    return a.time < b.time ? -1 : 1;
+  var myhandObj = {};
+  if(game.hands){
+    myhandObj = Object.keys(game.hands).includes(myPos) ? game.hands[myPos] : {};
   }
 
   function computePosition(oldballs,oldhands,lastTurn){
@@ -97,7 +81,7 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
 
     var hands = oldhands;
     console.log(hands);
-    if(!!hands[round]){
+    if(hands[round]){
       for(var i=0;i<6;i++){
         if(!hands[round][i]){
           hands[round][i] = card;
@@ -110,21 +94,18 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
       hands[round].push(card);
     }
 
-    var starts = selection.filter(function(element, index, array) {
+    var starts = selection.filter(function(element, index) {
       return (index % 2 === 0);
     });
-    var dests = selection.filter(function(element, index, array) {
+    var dests = selection.filter(function(element, index) {
       return (index % 2 === 1);
     });
     var balls = [...oldballs];
-
+    var dId = dests.map(x => balls.indexOf(x));
     if(card.substring(0,1) === 'J' || (card.length === 3 && card.substring(2,3) === 'J')){
       var sId = starts.map(x => balls.indexOf(x));
-      var dId = dests.map(x => balls.indexOf(x));
-
       [ balls[sId], balls[dId] ] = [ balls[dId], balls[sId] ];
     }else{
-      var dId = dests.map(x => balls.indexOf(x));
       for(var j=dests.length-1;j>=0;j--){
         balls[dId[j]] = starts[j];
       }
@@ -142,32 +123,30 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
       if(!game.lastFour || Object.keys(game.lastFour).length === 0){
         alert(t("undoAlert"));
         return;
-      } 
-       const entry = [...game.lastFour].sort(comparer).slice(1);
-       const lastTurn = [...game.lastFour].reduce((a, b) => (a.time > b.time) ? a : b);
+      }
+      const lastTurn = [...game.lastFour].reduce((a, b) => (a.time > b.time) ? a : b);
 
-       // cannot undo thrown cards
-       if(lastTurn.card == "YY"){
-          alert(t("undoAlertThrow"));
-          return;
-       }
+      // cannot undo thrown cards
+      if(lastTurn.card === "YY"){
+        alert(t("undoAlertThrow"));
+        return;
+      }
 
-       // cannot undo stolen card
-       if(((lastTurn.card.length === 3 && lastTurn.card.charAt(2) === '2') || lastTurn.card.charAt(0) === '2') && lastTurn.selection === undefined){
-          alert(t("undoAlertThief"));
-          return;
-       }
+      // cannot undo stolen card
+      if(((lastTurn.card.length === 3 && lastTurn.card.charAt(2) === '2') || lastTurn.card.charAt(0) === '2') && lastTurn.selection === undefined){
+        alert(t("undoAlertThief"));
+        return;
+      }
 
-       // undo history
-       const hands = game.hands;
-       const balls = game.balls;
-       const round = game.round;
-       var updates;
-       firebase.database().ref(`games/${gameId}`).child(`history`).orderByChild('time').limitToLast(1).once('child_added', function(snapshot){
-          snapshot.ref.remove();  
-        });
-       updates = computePosition(balls,hands,lastTurn);
-       firebase
+      // undo history
+      const hands = game.hands;
+      const balls = game.balls;
+      var updates;
+      firebase.database().ref(`games/${gameId}`).child(`history`).orderByChild('time').limitToLast(1).once('child_added', function(snapshot){
+        snapshot.ref.remove();  
+      });
+      updates = computePosition(balls,hands,lastTurn);
+      firebase
         .database()
         .ref(`games/${gameId}`)
         .update(updates);       
@@ -175,19 +154,19 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
   );
 
   if(turn !== orderMyPosition){
-		return(
+    return(
       <div className={classes.headerDiv}>
         <Paper className={classes.headerPaper} style={{backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"}}>
           <Typography  variant={isMobile ? "body1" : "h6"} component={isMobile ? "h6" : "h6"} className={classes.turnTypo + " loading"}>{game.meta.users[game.order[turn]].name} {t("headerPlaying")}</Typography>
         </Paper>
       </div>
     );
-	}
+  }
 		
   const turnMsg = () => {
     if(activeCard){
       if(selected.length > 0){
-        if(selected.length % 2 == 0){
+        if(selected.length % 2 === 0){
           return t('submitTurnButton');
         } 
         return t('selectDest');
@@ -195,7 +174,7 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
       return t('selectBall');
     }
     return t("chooseCard");
-  }
+  };
 
   const throwHand = () => {
     const throwedHand = game.hands;
@@ -203,16 +182,16 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
     throwedHand[orderMyPosition] = [];
     setSelected([]);
     onSubmit(game.balls, [game.balls[0],game.balls[0]], "YY",throwedHand,game.round%4,numThrow,orderMyPosition,game.rooted);
-  }
+  };
 
   const clearSelection = () => {
-    setSelected(selected => {return [];});
-    setActiveCard(activeCard => {return '';})
-  }
+    setSelected([]);
+    setActiveCard('');
+  };
 
-	return(
-		<Box  p={2} className={isMobile ? "header_mobile" : classes.header}>
-    	<div className={isMobile ? "controlButtons_mobile": classes.controlButtons}>
+  return(
+    <Box  p={2} className={isMobile ? "header_mobile" : classes.header}>
+      <div className={isMobile ? "controlButtons_mobile": classes.controlButtons}>
         <Button
           className="pulsingButton controlButtonSingle_mobile"
           variant="contained"
@@ -257,7 +236,7 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
         </Button>
       </div>
     </Box>
-    );
+  );
 }
 
 export default Header;

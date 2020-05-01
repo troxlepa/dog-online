@@ -1,31 +1,31 @@
 import animals from "./utils/animals.json";
 
 export function getEmptyHomeField(selected, field, gameBalls){
-      const playerHomes=[64,68,72,76];
-      const ballColor = Math.floor(gameBalls.indexOf(field)/4);
-      for(var j=0;j<4;++j){
-        if(!gameBalls.includes(playerHomes[ballColor]+j) && !selected.includes(playerHomes[ballColor]+j)){
-          return playerHomes[ballColor]+j;
-        }
-      }
-      alert("wow, you've found a bug!");
-   }
+  const playerHomes=[64,68,72,76];
+  const ballColor = Math.floor(gameBalls.indexOf(field)/4);
+  for(var j=0;j<4;++j){
+    if(!gameBalls.includes(playerHomes[ballColor]+j) && !selected.includes(playerHomes[ballColor]+j)){
+      return playerHomes[ballColor]+j;
+    }
+  }
+  alert("wow, you've found a bug!");
+}
 
 export function isMyBall(field,gameBalls,orderMyPosition){
-    if(gameBalls.slice(orderMyPosition*4,(orderMyPosition*4)+4).includes(field)){
-      return true;
-    }
-    return false;
-   }
+  if(gameBalls.slice(orderMyPosition*4,(orderMyPosition*4)+4).includes(field)){
+    return true;
+  }
+  return false;
+}
 
 export function isHomeField(field){
-    return [64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79].includes(field);
-   }
+  return [64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79].includes(field);
+}
 
 export function isMyFinish(field,orderMyPosition){
-    const mult = (orderMyPosition*4);
-    return [80+mult,81+mult,82+mult,83+mult].includes(field);
-   }
+  const mult = (orderMyPosition*4);
+  return [80+mult,81+mult,82+mult,83+mult].includes(field);
+}
 
 export function isPartnerBall(field,gameBalls,orderMyPosition){
   const partner = (orderMyPosition+2)%4;
@@ -36,25 +36,25 @@ export function isPartnerBall(field,gameBalls,orderMyPosition){
 }
 
 export function iHaveFinished(gameBalls,orderMyPosition){
-      const myBalls = gameBalls.slice(orderMyPosition*4,(orderMyPosition*4)+4);
-      const allFinishes = [80,84,88,92];
-      const playerFinishStart = allFinishes[orderMyPosition];
-      for(var i=0;i<4;i++){
-        if(!myBalls.includes(playerFinishStart+i)) return false;
-      }
-      return true;
-   }
-export function getLastField(field){
-    if(field >= 92){
-      return 48;
-    }else if(field >= 88){
-      return 32;
-    }else if(field >= 84){
-      return 16;
-    }else{
-      return 64;
-    }
+  const myBalls = gameBalls.slice(orderMyPosition*4,(orderMyPosition*4)+4);
+  const allFinishes = [80,84,88,92];
+  const playerFinishStart = allFinishes[orderMyPosition];
+  for(var i=0;i<4;i++){
+    if(!myBalls.includes(playerFinishStart+i)) return false;
   }
+  return true;
+}
+export function getLastField(field){
+  if(field >= 92){
+    return 48;
+  }else if(field >= 88){
+    return 32;
+  }else if(field >= 84){
+    return 16;
+  }else{
+    return 64;
+  }
+}
 
 
 
@@ -83,7 +83,6 @@ export function calcTurnTimes(game){
   let hist = [...Object.values(game.history)];
   hist.sort(reverseComparer);
   let prevTime = 0;
-  let totalCards = 0;
   let thisTime = 0;
   let playerToStart = 0;
   let popp = {};
@@ -108,7 +107,7 @@ export function calcTurnTimes(game){
               if(popp.card.charAt(0) === "A" || popp.card.charAt(0) === "K") akCount[i]++;
               if(popp.selection){ // Thief 2 has no selection
                 for(var s = 1; s < popp.selection.length; s+=2){
-                  if(popp.selection[s] >= 64 && popp.selection[s] < 80 && popp.selection[s] != popp.selection[s-1]) sendCount[i]++;
+                  if(popp.selection[s] >= 64 && popp.selection[s] < 80 && popp.selection[s] !== popp.selection[s-1]) sendCount[i]++;
                 }
               }
               thisTime = popp.time;
@@ -124,8 +123,8 @@ export function calcTurnTimes(game){
               if(popp.card.charAt(0) === "Z") jokerCount[i]++;
               if(popp.card.charAt(0) === "A" || popp.card.charAt(0) === "K") akCount[i]++;
               if(popp.selection){ // Thief 2 has no selection
-                for(var s = 1; s < popp.selection.length; s+=2){
-                  if(popp.selection[s] >= 64 && popp.selection[s] < 80 && popp.selection[s] != popp.selection[s-1]) sendCount[i]++;
+                for(var t = 1; t < popp.selection.length; t+=2){
+                  if(popp.selection[t] >= 64 && popp.selection[t] < 80 && popp.selection[t] !== popp.selection[t-1]) sendCount[i]++;
                 }
               }
               prevTime = popp.time;
@@ -135,31 +134,30 @@ export function calcTurnTimes(game){
           }
         }
       }
-      totalCards += numCards;
       playerToStart++;
     }
   }
 }
 
 export function initialBallLocations(){
-    return [64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79];
-  }
+  return [64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79];
+}
 
 export function randomCards(n){
-    const colors = ['C','D','S','H'];
-    const rank = ['A','2','3','4','5','6','7','8','9','T','J','Q','K','Z']; // Z equals to Joker
-    var a = '';
-    var b = '';
-    var card = '';
-    var out = [];
-    while(out.length < 4*n){
-      a = Math.floor(Math.random() * 14);
-      b = Math.floor(Math.random() * 4);
-      card = ''+rank[a]+colors[b];
-      if(!out.includes(card)) out.push(card);
-    }
-    return [out.slice(0,n),out.slice(n,2*n),out.slice(2*n,3*n),out.slice(3*n,4*n)];
+  const colors = ['C','D','S','H'];
+  const rank = ['A','2','3','4','5','6','7','8','9','T','J','Q','K','Z']; // Z equals to Joker
+  var a = '';
+  var b = '';
+  var card = '';
+  var out = [];
+  while(out.length < 4*n){
+    a = Math.floor(Math.random() * 14);
+    b = Math.floor(Math.random() * 4);
+    card = ''+rank[a]+colors[b];
+    if(!out.includes(card)) out.push(card);
   }
+  return [out.slice(0,n),out.slice(n,2*n),out.slice(2*n,3*n),out.slice(3*n,4*n)];
+}
 
 export function makeHands(n){
   return randomCards(n);

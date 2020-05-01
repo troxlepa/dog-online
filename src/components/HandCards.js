@@ -1,9 +1,12 @@
-import React, {memo} from "react";
+import React from "react";
+
+import { isMobile } from "react-device-detect";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { isMobile } from "react-device-detect";
 import Box from "@material-ui/core/Box";
+
 import JassCard from "../components/JassCard";
+
 const useStyles = makeStyles({
   selfCards: {
     flexDirection: "row",
@@ -14,22 +17,21 @@ const useStyles = makeStyles({
 });
 
 const HandCards = ({myhandObj, activeCard, setJokerModal, handleCard, handleSetTwoModal}) => {
-
-	const classes = useStyles();
+  const classes = useStyles();
   const handCards = Object.keys(myhandObj);
   function handleClick(card_type,card){
     switch(card_type){
-      case 'Z':
-        setJokerModal(card.substring(0,2));
-        return;
-      case '2':
-        handleSetTwoModal(1,card);
-        return;
-      default:
-        handleCard(card);
-      }
+    case 'Z':
+      setJokerModal(card.substring(0,2));
+      return;
+    case '2':
+      handleSetTwoModal(1,card);
+      return;
+    default:
+      handleCard(card);
+    }
   }
-	return (
+  return (
     <Box className={isMobile? " selfCards_mobile" : classes.selfCards + " selfCards"}>
       {handCards.map((card, idx) => {
         return(
@@ -39,11 +41,11 @@ const HandCards = ({myhandObj, activeCard, setJokerModal, handleCard, handleSetT
             disabled={false}
             active={activeCard.substring(0,2)===myhandObj[card].substring(0,2)}
             selected={activeCard.substring(0,2)===myhandObj[card].substring(0,2)}
-            onClick={() => {handleClick(myhandObj[card].charAt(0),myhandObj[card].substring(0,2))}}
+            onClick={() => {handleClick(myhandObj[card].charAt(0),myhandObj[card].substring(0,2));}}
           />
         );
       })}
-      </Box>
-      );
+    </Box>
+  );
 };
 export default HandCards;
