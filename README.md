@@ -4,9 +4,10 @@ The real-time firebase dog game application, built on react.
 ## Roadmap v.1.4.0f (bugfix)
 
 - [ ] Double move bug (verification needed!)
-- [ ] Card 2: stealing last card of next player in order bug
-- [ ] Turn verification - finish from homefield bug
-- [ ] Finish with seven overhop bug
+- [ ] Card 2: stealing last card of next player in order bug (cannot reproduce)
+- [x] Turn verification - finish from homefield bug
+- [x] Finish with seven overhop bug
+- [x] Fix early submitting with Enter key
 
 ## Roadmap v.1.4.1
 

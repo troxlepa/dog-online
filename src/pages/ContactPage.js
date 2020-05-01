@@ -10,7 +10,7 @@ import contactIllustration from "../assets/contact-illu-01.png";
 import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
 
 function ContactPage() ***REMOVED***
-const ***REMOVED*** t, i18n ***REMOVED*** = useTranslation();
+  const ***REMOVED*** t ***REMOVED*** = useTranslation();
   return (
     <Container style=***REMOVED******REMOVED***textAlign:"center"***REMOVED******REMOVED***>
       <Box m=***REMOVED***3***REMOVED***>
@@ -19,17 +19,7 @@ const ***REMOVED*** t, i18n ***REMOVED*** = useTranslation();
         </Typography>
         <img style=***REMOVED******REMOVED***margin:16***REMOVED******REMOVED*** src=***REMOVED***contactIllustration***REMOVED*** alt="404" />
         <Paper style=***REMOVED******REMOVED*** padding: 14, width: 640, margin: "12px auto" ***REMOVED******REMOVED***>
-          ***REMOVED***/*<Typography variant="body1" gutterBottom>
-            Issues and pull requests can be submitted through***REMOVED***" "***REMOVED***
-            <Link href="https://github.com/ekzhang/setwithfriends">Github</Link>
-            . You can also contact the authors by email at***REMOVED***" "***REMOVED***
-            <Link href="mailto:ekzhang1@gmail.com">ekzhang1@gmail.com</Link> and***REMOVED***" "***REMOVED***
-            <Link href="mailto:cynthiakedu@gmail.com">
-              cynthiakedu@gmail.com
-            </Link>
-            .
-          </Typography>*/***REMOVED***
-           <Typography variant="body1" gutterBottom>
+          <Typography variant="body1" gutterBottom>
             ***REMOVED***t("contact1")***REMOVED******REMOVED***" "***REMOVED***
             <Link href="mailto:pascal@dogathome.ch">pascal@dogathome.ch</Link>
             .***REMOVED***" "***REMOVED******REMOVED***t("contact2")***REMOVED***

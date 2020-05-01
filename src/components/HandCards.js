@@ -1,9 +1,12 @@
-import React, ***REMOVED***memo***REMOVED*** from "react";
+import React from "react";
+
+import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
 
 import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
-import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
 import Box from "@material-ui/core/Box";
+
 import JassCard from "../components/JassCard";
+
 const useStyles = makeStyles(***REMOVED***
   selfCards: ***REMOVED***
     flexDirection: "row",
@@ -14,22 +17,21 @@ const useStyles = makeStyles(***REMOVED***
 ***REMOVED***);
 
 const HandCards = (***REMOVED***myhandObj, activeCard, setJokerModal, handleCard, handleSetTwoModal***REMOVED***) => ***REMOVED***
-
-	const classes = useStyles();
+  const classes = useStyles();
   const handCards = Object.keys(myhandObj);
   function handleClick(card_type,card)***REMOVED***
     switch(card_type)***REMOVED***
-      case 'Z':
-        setJokerModal(card.substring(0,2));
-        return;
-      case '2':
-        handleSetTwoModal(1,card);
-        return;
-      default:
-        handleCard(card);
+    case 'Z':
+      setJokerModal(card.substring(0,2));
+      return;
+    case '2':
+      handleSetTwoModal(1,card);
+      return;
+    default:
+      handleCard(card);
 ***REMOVED***
 ***REMOVED***
-	return (
+  return (
     <Box className=***REMOVED***isMobile? " selfCards_mobile" : classes.selfCards + " selfCards"***REMOVED***>
       ***REMOVED***handCards.map((card, idx) => ***REMOVED***
         return(
@@ -39,11 +41,11 @@ const HandCards = (***REMOVED***myhandObj, activeCard, setJokerModal, handleCard
             disabled=***REMOVED***false***REMOVED***
             active=***REMOVED***activeCard.substring(0,2)===myhandObj[card].substring(0,2)***REMOVED***
             selected=***REMOVED***activeCard.substring(0,2)===myhandObj[card].substring(0,2)***REMOVED***
-            onClick=***REMOVED***() => ***REMOVED***handleClick(myhandObj[card].charAt(0),myhandObj[card].substring(0,2))***REMOVED******REMOVED***
+            onClick=***REMOVED***() => ***REMOVED***handleClick(myhandObj[card].charAt(0),myhandObj[card].substring(0,2));***REMOVED******REMOVED***
           />
         );
 ***REMOVED***)***REMOVED***
-      </Box>
-      );
+    </Box>
+  );
 ***REMOVED***;
 export default HandCards;

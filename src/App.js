@@ -5,7 +5,7 @@ import "./styles.css";
 import ***REMOVED*** BrowserRouter as Router, Switch, Route ***REMOVED*** from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import ***REMOVED*** generateColor, generateName ***REMOVED*** from "./util";
+import ***REMOVED*** generateName ***REMOVED*** from "./util";
 import RoomPage from "./pages/RoomPage";
 import GamePage from "./pages/GamePage";
 import LobbyPage from "./pages/LobbyPage";

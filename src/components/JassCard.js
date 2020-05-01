@@ -1,112 +1,112 @@
 import React, ***REMOVED*** memo ***REMOVED*** from "react";
 
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
 import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
+
+import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
+
 
 let styled = ***REMOVED******REMOVED***;
 if(isMobile)***REMOVED***
   styled = ***REMOVED***
-  card: ***REMOVED***
-    width: 48,
-    height: 70,
-    background: "#fff",
-    borderRadius: 5,
-    display: "inline-flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    flexShrink: 0,
-    margin: 6,
-    cursor: "pointer",
-    transition: "background-color 0.2s, box-shadow 0.2s",
-    "&:hover": ***REMOVED***
-      boxShadow: "0px 0px 5px 3px #bbb"
+    card: ***REMOVED***
+      width: 48,
+      height: 70,
+      background: "#fff",
+      borderRadius: 5,
+      display: "inline-flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      flexShrink: 0,
+      margin: 6,
+      cursor: "pointer",
+      transition: "background-color 0.2s, box-shadow 0.2s",
+      "&:hover": ***REMOVED***
+        boxShadow: "0px 0px 5px 3px #bbb"
 ***REMOVED***
-***REMOVED***,
-  card_disabled: ***REMOVED***
-    width: 48,
-    height: 70,
-    background: "#fff",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0
-***REMOVED***,
-  selected: ***REMOVED***
-    boxShadow: "0px 0px 0px 4px #f00 ! important",
-***REMOVED***,
-  active: ***REMOVED***
-    cursor: "pointer",
-    boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
-***REMOVED***,
-  smallCard: ***REMOVED***
-    width: 54,
-    height: 74,
-    margin: 3,
-    height:"100%",
-
-    "&:hover": ***REMOVED***
-      boxShadow: "0px 0px 2px 1px #bbb"
 ***REMOVED***
-***REMOVED***,
-  symbol: ***REMOVED***
-    margin: 3
-***REMOVED***,
-  smallSymbol: ***REMOVED***
-    margin: 1
+    card_disabled: ***REMOVED***
+      width: 48,
+      height: 70,
+      background: "#fff",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+***REMOVED***
+    selected: ***REMOVED***
+      boxShadow: "0px 0px 0px 4px #f00 ! important",
+***REMOVED***
+    active: ***REMOVED***
+      cursor: "pointer",
+      boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
+***REMOVED***
+    smallCard: ***REMOVED***
+      width: 54,
+      height: 74,
+      margin: 3,
+      "&:hover": ***REMOVED***
+        boxShadow: "0px 0px 2px 1px #bbb"
+***REMOVED***
+***REMOVED***
+    symbol: ***REMOVED***
+      margin: 3
+***REMOVED***
+    smallSymbol: ***REMOVED***
+      margin: 1
 ***REMOVED***
 ***REMOVED***;
 ***REMOVED***else***REMOVED***
- styled = ***REMOVED***
-  card: ***REMOVED***
-    width: 98,
-    height: 136,
-    background: "#fff",
-    borderRadius: 5,
-    display: "inline-flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    flexShrink: 0,
-    margin: 6,
-    cursor: "pointer",
-    transition: "background-color 0.2s, box-shadow 0.2s",
-    "&:hover": ***REMOVED***
-      boxShadow: "0px 0px 5px 3px #bbb"
+  styled = ***REMOVED***
+    card: ***REMOVED***
+      width: 98,
+      height: 136,
+      background: "#fff",
+      borderRadius: 5,
+      display: "inline-flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      flexShrink: 0,
+      margin: 6,
+      cursor: "pointer",
+      transition: "background-color 0.2s, box-shadow 0.2s",
+      "&:hover": ***REMOVED***
+        boxShadow: "0px 0px 5px 3px #bbb"
 ***REMOVED***
-***REMOVED***,
-  card_disabled: ***REMOVED***
-    width: 75,
-    height: 102,
-    background: "#fff",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0
-***REMOVED***,
-  selected: ***REMOVED***
-    boxShadow: "0px 0px 0px 4px #f00 ! important",
-***REMOVED***,
-  active: ***REMOVED***
-    cursor: "pointer",
-    boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
-***REMOVED***,
-  smallCard: ***REMOVED***
-    width: 54,
-    height: 74,
-    margin: 3,
+***REMOVED***
+    card_disabled: ***REMOVED***
+      width: 75,
+      height: 102,
+      background: "#fff",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+***REMOVED***
+    selected: ***REMOVED***
+      boxShadow: "0px 0px 0px 4px #f00 ! important",
+***REMOVED***
+    active: ***REMOVED***
+      cursor: "pointer",
+      boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
+***REMOVED***
+    smallCard: ***REMOVED***
+      width: 54,
+      height: 74,
+      margin: 3,
 
-    "&:hover": ***REMOVED***
-      boxShadow: "0px 0px 2px 1px #bbb"
-***REMOVED***
-***REMOVED***,
-  symbol: ***REMOVED***
-    margin: 3
-***REMOVED***,
-  smallSymbol: ***REMOVED***
-    margin: 1
+      "&:hover": ***REMOVED***
+        boxShadow: "0px 0px 2px 1px #bbb"
 ***REMOVED***
 ***REMOVED***
+    symbol: ***REMOVED***
+      margin: 3
+***REMOVED***
+    smallSymbol: ***REMOVED***
+      margin: 1
+***REMOVED***
+***REMOVED***;
 ***REMOVED***
 const useStyles = makeStyles(styled);
 

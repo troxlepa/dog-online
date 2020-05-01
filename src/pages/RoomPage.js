@@ -1,5 +1,10 @@
 import React, ***REMOVED*** useState, useEffect ***REMOVED*** from "react";
 
+import ***REMOVED*** Link as RouterLink, Redirect ***REMOVED*** from "react-router-dom";
+import ***REMOVED*** animated, useTransition ***REMOVED*** from "react-spring";
+import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
+import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
+
 import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -11,34 +16,31 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Dialog from "@material-ui/core/Dialog";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
-import FaceIcon from "@material-ui/icons/Face";
-import StarsIcon from "@material-ui/icons/Stars";
-import EditIcon from "@material-ui/icons/Edit";
-import ***REMOVED*** Link as RouterLink, Redirect ***REMOVED*** from "react-router-dom";
-import ***REMOVED*** animated, useTransition ***REMOVED*** from "react-spring";
-
-import firebase from "../firebase";
-import ***REMOVED*** initialBallLocations, makeHands ***REMOVED*** from "../util";
-import Loading from "../components/Loading";
-import Chat from "../components/Chat";
-import PromptDialog from "../components/PromptDialog";
-import svgTeams from "../assets/teams.svg";
 import Tooltip from '@material-ui/core/Tooltip';
-import RuleCA from "../assets/rules-02.svg";
-import RuleTV from "../assets/rules-03.svg";
-import RuleTT from "../assets/rules-04.svg";
-import RuleJJ from "../assets/rules-05.svg";
-import RuleLJ from "../assets/rules-06.svg";
 import Icon from '@material-ui/core/Icon';
-import AddIcon from '@material-ui/icons/Add';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
-import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
+import AddIcon from '@material-ui/icons/Add';
+import FaceIcon from "@material-ui/icons/Face";
+import StarsIcon from "@material-ui/icons/Stars";
+import EditIcon from "@material-ui/icons/Edit";
+
+
+import firebase from "../firebase";
+import ***REMOVED*** initialBallLocations, makeHands ***REMOVED*** from "../util";
+import Loading from "../components/Loading";
+import PromptDialog from "../components/PromptDialog";
+
+import svgTeams from "../assets/teams.svg";
+import RuleCA from "../assets/rule_icons/rules-02.svg";
+import RuleTV from "../assets/rule_icons/rules-03.svg";
+import RuleTT from "../assets/rule_icons/rules-04.svg";
+import RuleJJ from "../assets/rule_icons/rules-05.svg";
+import RuleLJ from "../assets/rule_icons/rules-06.svg";
+
 
 const useStyles = makeStyles(***REMOVED***
   container: ***REMOVED***
@@ -92,9 +94,7 @@ function RoomPage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
   const [changeName, setChangeName] = useState(false);
   const [openMobileDialog,setMobileDialog] = useState(true);
 
-  const ***REMOVED*** t, i18n ***REMOVED*** = useTranslation();
-  const [rules, setRules] = useState(); //ca,jj,tt,tv
-    
+  const ***REMOVED*** t ***REMOVED*** = useTranslation();
 
   let players = [];
   if (game && game.meta.users) ***REMOVED***
@@ -178,7 +178,7 @@ function RoomPage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
   useEffect(() => ***REMOVED***
     if (
       game &&
-      game.meta.admin == user.id &&
+      game.meta.admin === user.id &&
       user &&
       game.meta.status === "waiting" &&
       game.order &&
@@ -297,29 +297,31 @@ function RoomPage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
       .update(newUids);
 ***REMOVED***
 
-function shuffle(sourceArray) ***REMOVED***
+  function shuffle(sourceArray) ***REMOVED***
     for (var i = 0; i < sourceArray.length - 1; i++) ***REMOVED***
-        var j = i + Math.floor(Math.random() * (sourceArray.length - i));
+      var j = i + Math.floor(Math.random() * (sourceArray.length - i));
 
-        var temp = sourceArray[j];
-        sourceArray[j] = sourceArray[i];
-        sourceArray[i] = temp;
+      var temp = sourceArray[j];
+      sourceArray[j] = sourceArray[i];
+      sourceArray[i] = temp;
 ***REMOVED***
     return sourceArray;
 ***REMOVED***
 
-function generateLog()***REMOVED***
-  const logEntries = [t('log1'),t('log2'),t('log3'),t('log4')];
-  return( 
-    logEntries.map((val,idx) =>(
-      <ListItem key=***REMOVED***idx***REMOVED***>
-        <ListItemIcon>
-          <AddIcon />
-        </ListItemIcon>
-        <ListItemText
-          primary=***REMOVED***val***REMOVED***
-        />
-      </ListItem>)));
+  function generateLog()***REMOVED***
+    const logEntries = [t('log1'),t('log2'),t('log3'),t('log4')];
+    return( 
+      logEntries.map((val,idx) =>(
+        <ListItem key=***REMOVED***idx***REMOVED***>
+          <ListItemIcon>
+            <AddIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary=***REMOVED***val***REMOVED***
+          />
+        </ListItem>)
+      )
+    );
 ***REMOVED***
 
   if (redirect) return <Redirect to=***REMOVED***`/game/$***REMOVED***gameId***REMOVED***`***REMOVED*** />;
@@ -349,21 +351,21 @@ function generateLog()***REMOVED***
 
   return (
     <Container className=***REMOVED***classes.container***REMOVED***>
-           <Dialog className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***isMobile && openMobileDialog***REMOVED***>
-          <Paper className=***REMOVED***classes.modalBox***REMOVED***>
-            <Typography variant="h5" gutterBottom>
-              ***REMOVED***t("mobileWarning")***REMOVED***
-            </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                disabled=***REMOVED***false***REMOVED***
-                onClick=***REMOVED***() => ***REMOVED***setMobileDialog(false);***REMOVED******REMOVED***
-              >
-                ***REMOVED***t("btnClose")***REMOVED***
-              </Button>
-          </Paper>
-        </Dialog>
+      <Dialog className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***isMobile && openMobileDialog***REMOVED***>
+        <Paper className=***REMOVED***classes.modalBox***REMOVED***>
+          <Typography variant="h5" gutterBottom>
+            ***REMOVED***t("mobileWarning")***REMOVED***
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled=***REMOVED***false***REMOVED***
+            onClick=***REMOVED***() => ***REMOVED***setMobileDialog(false);***REMOVED******REMOVED***
+          >
+            ***REMOVED***t("btnClose")***REMOVED***
+          </Button>
+        </Paper>
+      </Dialog>
       <PromptDialog
         open=***REMOVED***changeName***REMOVED***
         onClose=***REMOVED***handleChangeName***REMOVED***
@@ -383,184 +385,162 @@ function generateLog()***REMOVED***
       </Typography>
       ***REMOVED***game ? (
         <React.Fragment>
-        <Paper className=***REMOVED***classes.gameArea***REMOVED***>
-          <div className=***REMOVED***classes.playerList***REMOVED***>
-            <img alt="" style=***REMOVED******REMOVED***marginBottom:10***REMOVED******REMOVED***src=***REMOVED***svgTeams***REMOVED***/>
-            ***REMOVED***transitions.map((***REMOVED*** item: [id, info], props, key ***REMOVED***) => (
-              <animated.div key=***REMOVED***key***REMOVED*** style=***REMOVED***props***REMOVED***>
-                <Chip
-                  icon=***REMOVED***id === game.meta.admin ? <StarsIcon style=***REMOVED******REMOVED*** color:"#333" ***REMOVED******REMOVED***  /> : <FaceIcon style=***REMOVED******REMOVED*** color:"#333" ***REMOVED******REMOVED*** />***REMOVED***
-                  label=***REMOVED***info.name + (id === user.id ? " ("+t("you")+")" : "")***REMOVED***
-                  className=***REMOVED***classes.chip***REMOVED***
-                  onDelete=***REMOVED***id === user.id ? () => setChangeName(true) : null***REMOVED***
-                  deleteIcon=***REMOVED***<EditIcon style=***REMOVED******REMOVED*** color:"#111" ***REMOVED******REMOVED*** />***REMOVED***
-                  style=***REMOVED******REMOVED***backgroundColor: info.color, margin: 3***REMOVED******REMOVED***
+          <Paper className=***REMOVED***classes.gameArea***REMOVED***>
+            <div className=***REMOVED***classes.playerList***REMOVED***>
+              <img alt="" style=***REMOVED******REMOVED***marginBottom:10***REMOVED******REMOVED***src=***REMOVED***svgTeams***REMOVED***/>
+              ***REMOVED***transitions.map((***REMOVED*** item: [id, info], props, key ***REMOVED***) => (
+                <animated.div key=***REMOVED***key***REMOVED*** style=***REMOVED***props***REMOVED***>
+                  <Chip
+                    icon=***REMOVED***id === game.meta.admin ? <StarsIcon style=***REMOVED******REMOVED*** color:"#333" ***REMOVED******REMOVED***  /> : <FaceIcon style=***REMOVED******REMOVED*** color:"#333" ***REMOVED******REMOVED*** />***REMOVED***
+                    label=***REMOVED***info.name + (id === user.id ? " ("+t("you")+")" : "")***REMOVED***
+                    className=***REMOVED***classes.chip***REMOVED***
+                    onDelete=***REMOVED***id === user.id ? () => setChangeName(true) : null***REMOVED***
+                    deleteIcon=***REMOVED***<EditIcon style=***REMOVED******REMOVED*** color:"#111" ***REMOVED******REMOVED*** />***REMOVED***
+                    style=***REMOVED******REMOVED***backgroundColor: info.color, margin: 3***REMOVED******REMOVED***
+                  />
+                </animated.div>
+              ))***REMOVED***
+            </div>
+            <div className=***REMOVED***classes.center***REMOVED***>
+
+              ***REMOVED***players.length === 4 ? (
+                user.id === game.meta.admin ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick=***REMOVED***startGame***REMOVED***
+                    disabled=***REMOVED***starting***REMOVED***
+                  >
+                    Start
+                  </Button>
+                ) : (
+                  <Button disabled>
+                    ***REMOVED***starting ? t("stating") : t("waitStarting")***REMOVED***
+                  </Button>
+                )
+              ) :
+                (
+                  <Button disabled>
+                    ***REMOVED***t("waiting")***REMOVED*** ***REMOVED***4-players.length***REMOVED*** ***REMOVED***4-players.length === 1 ? t("player") : t("players")***REMOVED*** ***REMOVED***t("rpJoin")***REMOVED***
+                  </Button>
+                )***REMOVED***
+              ***REMOVED***players.length === 4 ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style=***REMOVED******REMOVED***margin:3***REMOVED******REMOVED***
+                  onClick=***REMOVED***rotateTeams***REMOVED***
+                  disabled=***REMOVED***user.id !== game.meta.admin***REMOVED***
+                >
+                  ***REMOVED***t("rotTeams")***REMOVED***
+                </Button>
+              ) :
+                (null)***REMOVED***
+
+            </div>
+          </Paper>
+          ***REMOVED*** game && game.rules ? (<Paper className=***REMOVED***classes.rulesArea***REMOVED***>
+            <Typography variant="h5" align="left" gutterBottom>
+              ***REMOVED***t('rules')***REMOVED***
+            </Typography>
+            <div className=***REMOVED***classes.rulesList***REMOVED***>
+              <FormGroup column="true">
+                <FormControlLabel
+                  control=***REMOVED***
+                    <React.Fragment>
+                      <Checkbox
+                        checked=***REMOVED***game.rules.charAt(4) === "1"***REMOVED***
+                        onChange=***REMOVED***handleSetRules***REMOVED***
+                        name="4"
+                        color="primary"
+                        disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
+                      />
+                      <Icon title=***REMOVED***t('lastJoker')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleLJ***REMOVED*** /></Icon>
+                    </React.Fragment>
+      ***REMOVED***
+                  label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_lj_b')***REMOVED***</b>***REMOVED***t('r_lj')***REMOVED***</React.Fragment>***REMOVED***
                 />
-              </animated.div>
-            ))***REMOVED***
-          </div>
-          <div className=***REMOVED***classes.center***REMOVED***>
-
-            ***REMOVED***players.length === 4 ? (
-            user.id === game.meta.admin ? (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick=***REMOVED***startGame***REMOVED***
-                disabled=***REMOVED***starting***REMOVED***
-              >
-                Start
-              </Button>
-            ) : (
-              <Button disabled>
-                ***REMOVED***starting ? t("stating") : t("waitStarting")***REMOVED***
-              </Button>
-            )) :
-            (
-              <Button disabled>
-                ***REMOVED***t("waiting")***REMOVED*** ***REMOVED***4-players.length***REMOVED*** ***REMOVED***4-players.length === 1 ? t("player") : t("players")***REMOVED*** ***REMOVED***t("rpJoin")***REMOVED***
-              </Button>
-            )***REMOVED***
-            ***REMOVED***players.length === 4 ? (
-              <Button
-                variant="contained"
-                color="primary"
-                style=***REMOVED******REMOVED***margin:3***REMOVED******REMOVED***
-                onClick=***REMOVED***rotateTeams***REMOVED***
-                disabled=***REMOVED***user.id !== game.meta.admin***REMOVED***
-              >
-                ***REMOVED***t("rotTeams")***REMOVED***
-              </Button>
-            ) :
-            (null)***REMOVED***
-
-          </div>
-        </Paper>
-     ***REMOVED***/****REMOVED*** <Paper className=***REMOVED***classes.rulesArea***REMOVED***>
-        <Typography variant="h5" align="left" gutterBottom>
-        Known Bugs (v.1.3.0)
-      </Typography>
-         <Typography align="left" gutterBottom>
-        ***REMOVED***t("bug1")***REMOVED***
-      </Typography>
-      <Typography align="left" gutterBottom>
-        ***REMOVED***t("bug2")***REMOVED***
-      </Typography>
-      </Paper> */***REMOVED***
-
-     ***REMOVED***/* <Paper className=***REMOVED***classes.rulesArea***REMOVED***>
-        <Typography variant="h5" align="left" gutterBottom>
-        ***REMOVED***t("comUp")***REMOVED***
-      </Typography>
-         <Typography align="left" gutterBottom>
-        ***REMOVED***t("cU1")***REMOVED***
-      </Typography>
-      <Typography align="left" gutterBottom>
-        ***REMOVED***t("cU2")***REMOVED***
-      </Typography>
-      </Paper>*/***REMOVED***
-     ***REMOVED*** game && game.rules ? (<Paper className=***REMOVED***classes.rulesArea***REMOVED***>
-      <Typography variant="h5" align="left" gutterBottom>
-        ***REMOVED***t('rules')***REMOVED***
-      </Typography>
-        <div className=***REMOVED***classes.rulesList***REMOVED***>
-          <FormGroup column="true">
-          <FormControlLabel
-            control=***REMOVED***
-              <React.Fragment>
-              <Checkbox
-                checked=***REMOVED***game.rules.charAt(4) === "1"***REMOVED***
-                onChange=***REMOVED***handleSetRules***REMOVED***
-                name="4"
-                color="primary"
-                disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
-              />
-              <Icon title=***REMOVED***t('lastJoker')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleLJ***REMOVED*** /></Icon>
-              </React.Fragment>
-***REMOVED***
-            label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_lj_b')***REMOVED***</b>***REMOVED***t('r_lj')***REMOVED***</React.Fragment>***REMOVED***
-          />
-          <FormControlLabel
-            control=***REMOVED***
-              <React.Fragment>
-              <Checkbox
-                checked=***REMOVED***game.rules.charAt(3) === "1"***REMOVED***
-                onChange=***REMOVED***handleSetRules***REMOVED***
-                name="3"
-                color="primary"
-                disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
-              />
-              <Icon title=***REMOVED***t("turnVerification")***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleTV***REMOVED*** /></Icon>
-              </React.Fragment>
-***REMOVED***
-            label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_tv_b')***REMOVED***</b>***REMOVED***t('r_tv')***REMOVED***</React.Fragment>***REMOVED***
-          />
-          <FormControlLabel
-            control=***REMOVED***
-              <React.Fragment>
-              <Checkbox
-                checked=***REMOVED***game.rules.charAt(0) === "1"***REMOVED***
-                onChange=***REMOVED***handleSetRules***REMOVED***
-                name="0"
-                color="primary"
-                disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
-              />
-              <Icon title=***REMOVED***t('canadian7')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleCA***REMOVED*** /></Icon>
-              </React.Fragment>
-***REMOVED***
-            label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_ca_b')***REMOVED***</b>***REMOVED***t('r_ca')***REMOVED***</React.Fragment>***REMOVED***
-          />
-          <FormControlLabel
-            control=***REMOVED***
-              <React.Fragment>
-              <Checkbox
-                checked=***REMOVED***game.rules.charAt(2) === "1"***REMOVED***
-                onChange=***REMOVED***handleSetRules***REMOVED***
-                name="2"
-                color="primary"
-                disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
-              />
-              <Icon title=***REMOVED***t('twoThief')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleTT***REMOVED*** /></Icon>
-              </React.Fragment>
-***REMOVED***
-            label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_tt_b')***REMOVED***</b>***REMOVED***t('r_tt')***REMOVED***</React.Fragment>***REMOVED***
-          />
-          <Tooltip placement="left" title=***REMOVED***user.id === game.meta.admin ? "Coming in v2.0.0" : "Only usable by admin & Coming in v2.0.0" ***REMOVED***>
-          <FormControlLabel
-            control=***REMOVED***
-              <React.Fragment>
-              <Checkbox
-                checked=***REMOVED***game.rules.charAt(1) === "1"***REMOVED***
-                onChange=***REMOVED***handleSetRules***REMOVED***
-                name="1"
-                color="primary"
-                disabled=***REMOVED***true***REMOVED***
-              />
-              <Icon title=***REMOVED***t('jackJack')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleJJ***REMOVED*** /></Icon>
-              </React.Fragment>
-***REMOVED***
-            label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_jj_b')***REMOVED***</b>***REMOVED***t('r_jj')***REMOVED***</React.Fragment>***REMOVED***
-          />
-          </Tooltip>
+                <FormControlLabel
+                  control=***REMOVED***
+                    <React.Fragment>
+                      <Checkbox
+                        checked=***REMOVED***game.rules.charAt(3) === "1"***REMOVED***
+                        onChange=***REMOVED***handleSetRules***REMOVED***
+                        name="3"
+                        color="primary"
+                        disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
+                      />
+                      <Icon title=***REMOVED***t("turnVerification")***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleTV***REMOVED*** /></Icon>
+                    </React.Fragment>
+      ***REMOVED***
+                  label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_tv_b')***REMOVED***</b>***REMOVED***t('r_tv')***REMOVED***</React.Fragment>***REMOVED***
+                />
+                <FormControlLabel
+                  control=***REMOVED***
+                    <React.Fragment>
+                      <Checkbox
+                        checked=***REMOVED***game.rules.charAt(0) === "1"***REMOVED***
+                        onChange=***REMOVED***handleSetRules***REMOVED***
+                        name="0"
+                        color="primary"
+                        disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
+                      />
+                      <Icon title=***REMOVED***t('canadian7')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleCA***REMOVED*** /></Icon>
+                    </React.Fragment>
+      ***REMOVED***
+                  label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_ca_b')***REMOVED***</b>***REMOVED***t('r_ca')***REMOVED***</React.Fragment>***REMOVED***
+                />
+                <FormControlLabel
+                  control=***REMOVED***
+                    <React.Fragment>
+                      <Checkbox
+                        checked=***REMOVED***game.rules.charAt(2) === "1"***REMOVED***
+                        onChange=***REMOVED***handleSetRules***REMOVED***
+                        name="2"
+                        color="primary"
+                        disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
+                      />
+                      <Icon title=***REMOVED***t('twoThief')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleTT***REMOVED*** /></Icon>
+                    </React.Fragment>
+      ***REMOVED***
+                  label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_tt_b')***REMOVED***</b>***REMOVED***t('r_tt')***REMOVED***</React.Fragment>***REMOVED***
+                />
+                <Tooltip placement="left" title=***REMOVED***user.id === game.meta.admin ? "Coming in v2.0.0" : "Only usable by admin & Coming in v2.0.0" ***REMOVED***>
+                  <FormControlLabel
+                    control=***REMOVED***
+                      <React.Fragment>
+                        <Checkbox
+                          checked=***REMOVED***game.rules.charAt(1) === "1"***REMOVED***
+                          onChange=***REMOVED***handleSetRules***REMOVED***
+                          name="1"
+                          color="primary"
+                          disabled=***REMOVED***true***REMOVED***
+                        />
+                        <Icon title=***REMOVED***t('jackJack')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleJJ***REMOVED*** /></Icon>
+                      </React.Fragment>
+        ***REMOVED***
+                    label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_jj_b')***REMOVED***</b>***REMOVED***t('r_jj')***REMOVED***</React.Fragment>***REMOVED***
+                  />
+                </Tooltip>
 
 
-          </FormGroup>
-        </div>
-      </Paper>):(console.log("init rules..."))***REMOVED***
-      </React.Fragment>
+              </FormGroup>
+            </div>
+          </Paper>):(console.log("init rules..."))***REMOVED***
+        </React.Fragment>
       ) : (
         <Loading />
       )***REMOVED***
-      <Paper className=***REMOVED***classes.rulesArea***REMOVED***>
 
-      <Typography variant="h5" align="left" gutterBottom>
-        ***REMOVED***t('version')***REMOVED***
-      </Typography>
-      <List dense>
-        ***REMOVED***generateLog()***REMOVED***
-      </List>
+      <Paper className=***REMOVED***classes.rulesArea***REMOVED***>
+        <Typography variant="h5" align="left" gutterBottom>
+          ***REMOVED***t('version')***REMOVED***
+        </Typography>
+        <List dense>
+          ***REMOVED***generateLog()***REMOVED***
+        </List>
       </Paper>
-</Container>
+    </Container>
   );
 ***REMOVED***
 

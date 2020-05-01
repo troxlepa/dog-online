@@ -1,0 +1,28 @@
+***REMOVED***
+    "rules": ***REMOVED***
+        "indent": [
+            "error",2
+        ],
+        "semi": [
+            2,
+            "always"
+        ],
+        "react/prop-types": 0,
+        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    	"react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+***REMOVED***
+    "env": ***REMOVED***
+        "es6": true,
+        "browser": true,
+        "node": true
+***REMOVED***
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "plugins": [
+        "react",
+        "react-hooks"
+    ],
+    "parser": "babel-eslint"
+***REMOVED***

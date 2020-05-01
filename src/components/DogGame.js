@@ -2,8 +2,6 @@ import React, ***REMOVED*** useEffect, useState, useCallback***REMOVED*** from "
 
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-// import Snackbar from "@material-ui/core/Snackbar";
-// import SnackContent from "./SnackContent";
 import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
 import Board from "../assets/board.svg";
 import ***REMOVED*** SvgLoader, SvgProxy***REMOVED*** from 'react-svgmt';
@@ -58,8 +56,8 @@ if(isMobile)***REMOVED***
       transition:"0.6s",
 ***REMOVED***
     boardWrapper: ***REMOVED***
-    	display: "flex",
-    	justifyContent: "center"
+      display: "flex",
+      justifyContent: "center"
 ***REMOVED***
     playerCards: ***REMOVED***
       borderMyPositionTop: "1px solid lightgray",
@@ -103,7 +101,7 @@ if(isMobile)***REMOVED***
       textAlign: "center",
       transition:"0.6s",
       "&:not(:hover)": ***REMOVED***
-          opacity: ".15",
+        opacity: ".15",
 ***REMOVED***
 ***REMOVED***
     boardWrapper: ***REMOVED***
@@ -130,15 +128,13 @@ if(isMobile)***REMOVED***
 
 const useStyles = makeStyles(styled);
 
-function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doExchange, gameId, helpDisabled***REMOVED***) ***REMOVED***
+function DogGame(***REMOVED*** game, spectating, onSubmit, user, doExchange, gameId, helpDisabled***REMOVED***) ***REMOVED***
   const classes = useStyles();
-  //console.log("rendering DOGGAME");
-  const ***REMOVED*** t, i18n ***REMOVED*** = useTranslation();
+  const ***REMOVED*** t ***REMOVED*** = useTranslation();
   const [activeCard, setCardState] = useState('');
   const [jokerModal, setJokerModal] = useState('');
   const [twoModal, setTwoModal] = useState(0);
   const [selected, setSelected] = useState([]);
-  const [sevenFlag, setSevenFlag] = useState(0);
   const [snack, setSnack] = useState(***REMOVED*** open: false ***REMOVED***);
   const [recv,setRecv] = useState(false);
 
@@ -152,14 +148,8 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
 
   var myhandObj = ***REMOVED******REMOVED***;
   if(game.hands)***REMOVED***
-  	 myhandObj = game.hands.hasOwnProperty(orderMyPosition) ? game.hands[orderMyPosition] : ***REMOVED******REMOVED***;
+    myhandObj = game.hands[orderMyPosition] ? game.hands[orderMyPosition] : ***REMOVED******REMOVED***;
 ***REMOVED***
-  //console.log(game);
-  //console.log(game.hands.hasOwnProperty(orderMyPosition), game.hands[orderMyPosition]);
-  //const handCards = Object.keys(myhandObj);
-  // console.log(handCards);
-
-  // TODO: if myBalls does not include selected%2 -> reset
   
   useEffect(() => ***REMOVED***
     setSelected([]);
@@ -184,16 +174,15 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
 ***REMOVED***
 ***REMOVED***;
 
- const handleCard = useCallback(
-  card => ***REMOVED***
-    if (spectating) return;
-    if(activeCard.substring(0,2) === card) return '';
-    setCardState(activeCard => ***REMOVED***
-    	return card;
-***REMOVED***);
-***REMOVED***);
+  const handleCard = useCallback(
+    card => ***REMOVED***
+      if (spectating) return;
+      if(activeCard.substring(0,2) === card) return '';
+      setCardState(card);
+***REMOVED***
+  );
 
- const handleOpenRecv = useCallback(
+  const handleOpenRecv = useCallback(
     () => ***REMOVED***
       setRecv(!recv);
 ***REMOVED***
@@ -213,9 +202,9 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
       newHands[orderMyPosition][stolenIndex] = stolenCard[0]; // replace two by stolen card
       onSubmit(game.balls,[],activeCard,newHands,(game.round%4),null,orderMyPosition,newRoot);
       setTwoModal(0);
-***REMOVED***
+***REMOVED***;
 
-    function isAK(aC)***REMOVED*** return (aC==='A' || aC==='K');***REMOVED***
+  function isAK(aC)***REMOVED*** return (aC==='A' || aC==='K');***REMOVED***
 
   const submitSelection = 
     () => ***REMOVED***
@@ -226,17 +215,13 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
       let newRoot = game.rooted ? game.rooted : "";
       if(checkTurnValidity())***REMOVED***    
         const homeFields = [0,16,32,48];
-
-
-
-		    const key = orderMyPosition;
+        const key = orderMyPosition;
         const aC = activeCard.length === 3 ? activeCard.substring(2,3) : activeCard.substring(0,1);
+
         if(aC === '7' && !calcIsSevenSum(selected))***REMOVED***
           setCardState('');
           return;
 ***REMOVED***
-      	
-      	
         if(aC === '7')***REMOVED***
           for(var i=0;i<selected.length;i+=2)***REMOVED***
             // seven moved rooted home field -> unroot
@@ -247,22 +232,20 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
 ***REMOVED***
 ***REMOVED***else***REMOVED***
           if(aC==='J')***REMOVED***
-          	const c1 = game.balls.indexOf(selected[0]);
-          	const c2 = game.balls.indexOf(selected[1]);
-          	[newBallz[c1],newBallz[c2]] = [game.balls[c2],game.balls[c1]];
+            const c1 = game.balls.indexOf(selected[0]);
+            const c2 = game.balls.indexOf(selected[1]);
+            [newBallz[c1],newBallz[c2]] = [game.balls[c2],game.balls[c1]];
 ***REMOVED***else***REMOVED***
-
-            for(var i=0;i<selected.length;i+=2)***REMOVED***
-              if(isAK(aC) && selected[i] >= 64 && selected[i] < 80)***REMOVED***
-                newRoot = replaceChar(game.rooted,getBallColor(selected[i]),"1");
+            for(var j=0;j<selected.length;j+=2)***REMOVED***
+              if(isAK(aC) && selected[j] >= 64 && selected[j] < 80)***REMOVED***
+                newRoot = replaceChar(game.rooted,getBallColor(selected[j]),"1");
                 console.log(newRoot);
   ***REMOVED***
-              else if(homeFields.includes(selected[i]) && newRoot.charAt(homeFields.indexOf(selected[i])) === "1")***REMOVED***
-                newRoot = replaceChar(game.rooted,getBallColor(selected[i]),"0");
+              else if(homeFields.includes(selected[j]) && newRoot.charAt(homeFields.indexOf(selected[j])) === "1")***REMOVED***
+                newRoot = replaceChar(game.rooted,getBallColor(selected[j]),"0");
   ***REMOVED***
-            	newBallz[game.balls.indexOf(selected[i])] = selected[i+1];
+              newBallz[game.balls.indexOf(selected[j])] = selected[j+1];
 ***REMOVED***
-
 ***REMOVED***
 ***REMOVED***
 
@@ -275,25 +258,19 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
             return;
 ***REMOVED***
 ***REMOVED***
-        console.log(newBallz);
         if(newBallz.length !== new Set(newBallz).size)***REMOVED*** // check if two ball on same spot
-            setCardState('');
-            handleSetSnack(t("invalidTurn"));
-            return;
+          setCardState('');
+          handleSetSnack(t("invalidTurn"));
+          return;
 ***REMOVED***
-
         newHands[key].splice(newHands[key].indexOf(activeCard.substring(0,2)),1); // remove card from hand
 ***REMOVED***else***REMOVED***
         setCardState('');
-      	return;
+        handleSetSnack(t("invalidTurn"));
+        return;
 ***REMOVED***
 
-      // idea: if selected[even] includes rooted field -> remove
-      //console.log("calling submit",newBallz,selected,activeCard.substring(0,2),newHands,(game.round%4),null,orderMyPosition)
-      //@bugfix+1.3.0
       onSubmit(newBallz,selected,activeCard,newHands,(game.round%4),null,orderMyPosition,newRoot);
-      
-      //setSelected([]);
 ***REMOVED***;
 
   function calcIsSevenSum(selected)***REMOVED***
@@ -351,15 +328,15 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
 ***REMOVED***
 
   const exchangeCard = useCallback(
-    	() => ***REMOVED***
-    		doExchange(activeCard,orderMyPosition.toString());
-        setCardState('');
-    	***REMOVED***
-  	);
+    () => ***REMOVED***
+      doExchange(activeCard,orderMyPosition.toString());
+      setCardState('');
+***REMOVED***
+  );
 
   const onKeyDownHandler = (e) => ***REMOVED***
     if (e.keyCode === 13) ***REMOVED***
-      if(turn === orderMyPosition) submitSelection();
+      if(turn === orderMyPosition && selected.length > 1 && selected.length % 2 === 0 && activeCard !== '') submitSelection();
 ***REMOVED***else if(e.keyCode === 27)***REMOVED***
       if(!recv)***REMOVED***
         handleOpenRecv();
@@ -381,39 +358,39 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
   const handleSetTwoModal = (state,value) => ***REMOVED***
     setTwoModal(state);
     setCardState(value);
-***REMOVED***
+***REMOVED***;
   const handleSetSnack = (msg) => ***REMOVED***
     setSnack(***REMOVED***
       open: true,
       variant: "error",
       message: msg
 ***REMOVED***);
-***REMOVED***
+***REMOVED***;
 
   return (
-    <>
-    ***REMOVED***isMobile ? (
-      <Dialog closetimeoutms=***REMOVED***2000***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***(!game.exchange || !game.exchange[orderMyPosition]) && !spectating && game.meta.status !== "done" && !helpDisabled.home***REMOVED***>
-        <Paper className=***REMOVED***classes.modalBoxExchange***REMOVED***>
-          <Typography variant="h4" gutterBottom>
-            ***REMOVED***t("selectCard")***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***spectating ? null : teamMate.name***REMOVED***
-          </Typography>
-          <Typography variant="body1">
-            ***REMOVED***t("exchangeCard")***REMOVED***
+    <React.Fragment>
+      ***REMOVED***isMobile ? (
+        <Dialog closetimeoutms=***REMOVED***2000***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***(!game.exchange || !game.exchange[orderMyPosition]) && !spectating && game.meta.status !== "done" && !helpDisabled.home***REMOVED***>
+          <Paper className=***REMOVED***classes.modalBoxExchange***REMOVED***>
+            <Typography variant="h4" gutterBottom>
+              ***REMOVED***t("selectCard")***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***spectating ? null : teamMate.name***REMOVED***
             </Typography>
-        <Box className=***REMOVED***classes.exCards  + " selfCards_mobile"***REMOVED***>
-          ***REMOVED***Object.keys(myhandObj).map((card, idx) => (
-            <JassCard
-              key=***REMOVED***idx***REMOVED***
-              value=***REMOVED***myhandObj[card]***REMOVED***
-              disabled=***REMOVED***false***REMOVED***
-              active=***REMOVED***activeCard===myhandObj[card]***REMOVED***
-              selected=***REMOVED***activeCard===myhandObj[card]***REMOVED***
-              onClick=***REMOVED***(e) => ***REMOVED***handleCard(myhandObj[card])***REMOVED******REMOVED***
-              isLastPlayed=***REMOVED***false***REMOVED***
-            />
-            ))***REMOVED***
-        </Box>
+            <Typography variant="body1">
+              ***REMOVED***t("exchangeCard")***REMOVED***
+            </Typography>
+            <Box className=***REMOVED***classes.exCards  + " selfCards_mobile"***REMOVED***>
+              ***REMOVED***Object.keys(myhandObj).map((card, idx) => (
+                <JassCard
+                  key=***REMOVED***idx***REMOVED***
+                  value=***REMOVED***myhandObj[card]***REMOVED***
+                  disabled=***REMOVED***false***REMOVED***
+                  active=***REMOVED***activeCard===myhandObj[card]***REMOVED***
+                  selected=***REMOVED***activeCard===myhandObj[card]***REMOVED***
+                  onClick=***REMOVED***() => ***REMOVED***handleCard(myhandObj[card]);***REMOVED******REMOVED***
+                  isLastPlayed=***REMOVED***false***REMOVED***
+                />
+              ))***REMOVED***
+            </Box>
             <Button
               className=***REMOVED***classes.play***REMOVED***
               variant="contained"
@@ -423,92 +400,89 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
             >
               ***REMOVED***t("giveCard")***REMOVED***
             </Button>
-        </Paper>
-      </Dialog>
-
-
+          </Paper>
+        </Dialog>
       ):(
-      <Modal closetimeoutms=***REMOVED***2000***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***(!game.exchange || !game.exchange[orderMyPosition]) && !spectating && game.meta.status !== "done" && !helpDisabled.home***REMOVED***>
-        <Paper className=***REMOVED***classes.modalBoxExchange***REMOVED***>
-          <Typography variant="h4" gutterBottom>
-            ***REMOVED***t("selectCard")***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***spectating ? null : teamMate.name***REMOVED***
-          </Typography>
-          <Typography variant="body1">
-            ***REMOVED***t("exchangeCard")***REMOVED***
+        <Modal closetimeoutms=***REMOVED***2000***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***(!game.exchange || !game.exchange[orderMyPosition]) && !spectating && game.meta.status !== "done" && !helpDisabled.home***REMOVED***>
+          <Paper className=***REMOVED***classes.modalBoxExchange***REMOVED***>
+            <Typography variant="h4" gutterBottom>
+              ***REMOVED***t("selectCard")***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***spectating ? null : teamMate.name***REMOVED***
             </Typography>
-		    <Box className=***REMOVED***classes.exCards  + " selfCards"***REMOVED***>
-		      ***REMOVED***Object.keys(myhandObj).map((card, idx) => (
-		        <JassCard
-		          key=***REMOVED***idx***REMOVED***
-		          value=***REMOVED***myhandObj[card]***REMOVED***
-		          disabled=***REMOVED***false***REMOVED***
-		          active=***REMOVED***activeCard===myhandObj[card]***REMOVED***
-		          selected=***REMOVED***activeCard===myhandObj[card]***REMOVED***
-		          onClick=***REMOVED***(e) => ***REMOVED***handleCard(myhandObj[card])***REMOVED******REMOVED***
-              isLastPlayed=***REMOVED***false***REMOVED***
-		        />
-		        ))***REMOVED***
-		    </Box>
-	          <Button
-	            className=***REMOVED***classes.play***REMOVED***
-	            variant="contained"
-	            color="primary"
-	            disabled=***REMOVED***activeCard === ""***REMOVED***
-	            onClick=***REMOVED***() => ***REMOVED***handleOpenRecv();exchangeCard();***REMOVED******REMOVED***
-	          >
-	            ***REMOVED***t("giveCard")***REMOVED***
-	          </Button>
+            <Typography variant="body1">
+              ***REMOVED***t("exchangeCard")***REMOVED***
+            </Typography>
+            <Box className=***REMOVED***classes.exCards  + " selfCards"***REMOVED***>
+              ***REMOVED***Object.keys(myhandObj).map((card, idx) => (
+                <JassCard
+                  key=***REMOVED***idx***REMOVED***
+                  value=***REMOVED***myhandObj[card]***REMOVED***
+                  disabled=***REMOVED***false***REMOVED***
+                  active=***REMOVED***activeCard===myhandObj[card]***REMOVED***
+                  selected=***REMOVED***activeCard===myhandObj[card]***REMOVED***
+                  onClick=***REMOVED***() => ***REMOVED***handleCard(myhandObj[card]);***REMOVED******REMOVED***
+                  isLastPlayed=***REMOVED***false***REMOVED***
+                />
+              ))***REMOVED***
+            </Box>
+            <Button
+              className=***REMOVED***classes.play***REMOVED***
+              variant="contained"
+              color="primary"
+              disabled=***REMOVED***activeCard === ""***REMOVED***
+              onClick=***REMOVED***() => ***REMOVED***handleOpenRecv();exchangeCard();***REMOVED******REMOVED***
+            >
+              ***REMOVED***t("giveCard")***REMOVED***
+            </Button>
+          </Paper>
+        </Modal>
+      )***REMOVED***
+
+      ***REMOVED***/********************* BEGIN EXCHANGE RECV MODAL *************************/***REMOVED***
+      <Modal onKeyDown=***REMOVED***onKeyDownHandler***REMOVED*** onBackdropClick=***REMOVED***handleOpenRecv***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!!game.exchange && Object.keys(game.exchange).length === 4 && !recv && !helpDisabled.home***REMOVED***>
+        <Paper className=***REMOVED***classes.modalBox***REMOVED***>
+          <Typography variant="h4" gutterBottom>
+            ***REMOVED***t("receivedCard")***REMOVED***:
+          </Typography>
+          <JassCard
+            value=***REMOVED***game.exchange ? game.exchange[(orderMyPosition+2)%4] : "YY"***REMOVED***
+            active=***REMOVED***false***REMOVED***
+            selected=***REMOVED***false***REMOVED***
+            disabled=***REMOVED***false***REMOVED***
+          /> 
+          <br/>
+          <Button
+            className=***REMOVED***classes.play***REMOVED***
+            variant="contained"
+            color="primary"
+            disabled=***REMOVED***false***REMOVED***
+            onClick=***REMOVED***handleOpenRecv***REMOVED***
+          >
+            ***REMOVED***t("confirmButton")***REMOVED***
+          </Button>
         </Paper>
       </Modal>
-    )***REMOVED***
+      ***REMOVED***/********************* END EXCHANGE RECV MODAL *************************/***REMOVED***
 
-    ***REMOVED***/********************* BEGIN EXCHANGE RECV MODAL *************************/***REMOVED***
-    <Modal onKeyDown=***REMOVED***onKeyDownHandler***REMOVED*** onBackdropClick=***REMOVED***handleOpenRecv***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!!game.exchange && Object.keys(game.exchange).length === 4 && !recv && !helpDisabled.home***REMOVED***>
-      <Paper className=***REMOVED***classes.modalBox***REMOVED***>
-        <Typography variant="h4" gutterBottom>
-          ***REMOVED***t("receivedCard")***REMOVED***:
-        </Typography>
-        <JassCard
-              value=***REMOVED***game.exchange ? game.exchange[(orderMyPosition+2)%4] : "YY"***REMOVED***
-              active=***REMOVED***false***REMOVED***
-              selected=***REMOVED***false***REMOVED***
-              disabled=***REMOVED***false***REMOVED***
-        /> 
-        <br/>
-        <Button
-          className=***REMOVED***classes.play***REMOVED***
-          variant="contained"
-          color="primary"
-          disabled=***REMOVED***false***REMOVED***
-          onClick=***REMOVED***handleOpenRecv***REMOVED***
-        >
-          ***REMOVED***t("confirmButton")***REMOVED***
-        </Button>
-      </Paper>
-    </Modal>
-    ***REMOVED***/********************* END EXCHANGE RECV MODAL *************************/***REMOVED***
-
-      ***REMOVED***<Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!!game.exchange && game.exchange.hasOwnProperty(orderMyPosition) && Object.keys(game.exchange).length !== 4  && !spectating && !helpDisabled.home***REMOVED***>
+      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!!game.exchange && game.exchange[orderMyPosition] && Object.keys(game.exchange).length !== 4  && !spectating && !helpDisabled.home***REMOVED***>
         <Paper className=***REMOVED***classes.modalBox***REMOVED***>
           <Typography variant="h4" gutterBottom>
             ***REMOVED***t("waitingPlayers")***REMOVED***...
           </Typography>
         </Paper>
-      </Modal>***REMOVED***
+      </Modal>
 
-    ***REMOVED***/********************* BEGIN 2 MODAL *************************/***REMOVED***
+      ***REMOVED***/********************* BEGIN 2 MODAL *************************/***REMOVED***
 
-      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***twoModal===2 && ttEnabled***REMOVED*** onBackdropClick=***REMOVED***(e) => ***REMOVED***setTwoModal(0)***REMOVED******REMOVED***>
+      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***twoModal===2 && ttEnabled***REMOVED*** onBackdropClick=***REMOVED***() => ***REMOVED***setTwoModal(0);***REMOVED******REMOVED***>
         <Paper className=***REMOVED***classes.jokerBox***REMOVED***>
-
           <Typography variant="h4" gutterBottom>
             ***REMOVED***t("twoFuncPlayer")***REMOVED***
-            </Typography>
-            <div>
-                <div className=***REMOVED***classes.jokerModalCard***REMOVED***>
+          </Typography>
+          <div>
+            <div className=***REMOVED***classes.jokerModalCard***REMOVED***>
               ***REMOVED*** /* all other players, display cards to steal */ ***REMOVED***
-                ***REMOVED***[0,1,2,3].map((val,idx) => (idx!==orderMyPosition && game.hands[""+idx] && (
-                  <React.Fragment key=***REMOVED***idx***REMOVED***>
+              ***REMOVED***[0,1,2,3].map((val,idx) => (idx!==orderMyPosition && game.hands[""+idx] && (
+                <React.Fragment key=***REMOVED***idx***REMOVED***>
                   <div style=***REMOVED******REMOVED***backgroundColor:game.meta.users[game.order[idx]].color***REMOVED******REMOVED*** key=***REMOVED***idx***REMOVED***>
                     ***REMOVED***Object.values(game.hands[""+idx]).map((card,card_idx) => (
                       <JassCard
@@ -517,64 +491,63 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
                         active=***REMOVED***false***REMOVED***
                         selected=***REMOVED***false***REMOVED***
                         disabled=***REMOVED***false***REMOVED***
-                        onClick=***REMOVED***() => ***REMOVED***handleStealSubmit(idx,card_idx)***REMOVED******REMOVED***
+                        onClick=***REMOVED***() => ***REMOVED***handleStealSubmit(idx,card_idx);***REMOVED******REMOVED***
                       />
                     ))***REMOVED***
                   </div>
                   <Typography style=***REMOVED******REMOVED***color:game.meta.users[game.order[idx]].color***REMOVED******REMOVED***>***REMOVED***game.meta.users[game.order[idx]].name***REMOVED******REMOVED***(orderMyPosition+2)%4===idx ? " ("+t('teammate')+")":""***REMOVED*** </Typography>
-                  </React.Fragment>
-                )))***REMOVED***
-                </div>
+                </React.Fragment>
+              )))***REMOVED***
             </div>
+          </div>
         </Paper>
       </Modal>
 
-      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***twoModal===1 && ttEnabled***REMOVED*** onBackdropClick=***REMOVED***(e) => ***REMOVED***setTwoModal(0)***REMOVED******REMOVED***>
+      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***twoModal===1 && ttEnabled***REMOVED*** onBackdropClick=***REMOVED***() => ***REMOVED***setTwoModal(0);***REMOVED******REMOVED***>
         <Paper className=***REMOVED***classes.jokerBox***REMOVED***>
-
           <Typography variant="h4" gutterBottom>
             ***REMOVED***t("twoFunc")***REMOVED***
-            </Typography>
-            <div>
-              <div className=***REMOVED***classes.jokerModalCard***REMOVED***>
-                <JassCard
-                  value=***REMOVED***"2"+activeCard.charAt(1)***REMOVED***
-                  active=***REMOVED***false***REMOVED***
-                  selected=***REMOVED***false***REMOVED***
-                  disabled=***REMOVED***false***REMOVED***
-                  onClick=***REMOVED***() => ***REMOVED***handleCard(activeCard);setTwoModal(0);***REMOVED******REMOVED***
-                /> 
-               <Typography>
-              ***REMOVED***t("moveTwo")***REMOVED***
+          </Typography>
+          <div>
+            <div className=***REMOVED***classes.jokerModalCard***REMOVED***>
+              <JassCard
+                value=***REMOVED***"2"+activeCard.charAt(1)***REMOVED***
+                active=***REMOVED***false***REMOVED***
+                selected=***REMOVED***false***REMOVED***
+                disabled=***REMOVED***false***REMOVED***
+                onClick=***REMOVED***() => ***REMOVED***handleCard(activeCard);setTwoModal(0);***REMOVED******REMOVED***
+              /> 
+              <Typography>
+                ***REMOVED***t("moveTwo")***REMOVED***
               </Typography>
-                </div>
-                <div className=***REMOVED***classes.jokerModalCard***REMOVED***>
-                <JassCard
-                  value=***REMOVED***'YY'***REMOVED***
-                  active=***REMOVED***false***REMOVED***
-                  selected=***REMOVED***false***REMOVED***
-                  disabled=***REMOVED***false***REMOVED***
-                  onClick=***REMOVED***() => ***REMOVED***handleCard(activeCard);setTwoModal(2);***REMOVED******REMOVED***
-                />
-               <Typography>
-              ***REMOVED***t("stealCard")***REMOVED***
-              </Typography> 
-                </div>
             </div>
+            <div className=***REMOVED***classes.jokerModalCard***REMOVED***>
+              <JassCard
+                value=***REMOVED***'YY'***REMOVED***
+                active=***REMOVED***false***REMOVED***
+                selected=***REMOVED***false***REMOVED***
+                disabled=***REMOVED***false***REMOVED***
+                onClick=***REMOVED***() => ***REMOVED***handleCard(activeCard);setTwoModal(2);***REMOVED******REMOVED***
+              />
+              <Typography>
+                ***REMOVED***t("stealCard")***REMOVED***
+              </Typography> 
+            </div>
+          </div>
         </Paper>
       </Modal>
 
-    ***REMOVED***/********************* BEGIN JOKER MODAL *************************/***REMOVED***
+      ***REMOVED***/********************* BEGIN JOKER MODAL *************************/***REMOVED***
 
-      ***REMOVED***<Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!!jokerModal***REMOVED*** onBackdropClick=***REMOVED***(e) => ***REMOVED***setJokerModal('')***REMOVED******REMOVED***>
+      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!!jokerModal***REMOVED*** onBackdropClick=***REMOVED***() => ***REMOVED***setJokerModal('');***REMOVED******REMOVED***>
         <Paper className=***REMOVED***classes.jokerBox***REMOVED***>
-
           <Typography variant="h4" gutterBottom>
-            ***REMOVED***t("jokerFunc")***REMOVED*** ***REMOVED***"  "***REMOVED***  <Tooltip placement=***REMOVED***"top"***REMOVED*** title=***REMOVED***t("tooltipJoker")***REMOVED***>
-            <HelpOutlineIcon style=***REMOVED******REMOVED***color:"#888"***REMOVED******REMOVED***/>
+            ***REMOVED***t("jokerFunc")***REMOVED*** ***REMOVED***"  "***REMOVED***
+            <Tooltip placement=***REMOVED***"top"***REMOVED*** title=***REMOVED***t("tooltipJoker")***REMOVED***>
+              <HelpOutlineIcon style=***REMOVED******REMOVED***color:"#888"***REMOVED******REMOVED***/>
             </Tooltip>
-            </Typography>
-            <div>
+          </Typography>
+          <div>
             ***REMOVED***playingCards.map((card,key) =>(
               <div key=***REMOVED***key***REMOVED*** className=***REMOVED***classes.jokerModalCard***REMOVED***>
                 <JassCard
@@ -582,19 +555,20 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
                   active=***REMOVED***false***REMOVED***
                   selected=***REMOVED***false***REMOVED***
                   disabled=***REMOVED***false***REMOVED***
-                  onClick=***REMOVED***card.charAt(0) === "2" ? (() => ***REMOVED***handleSetTwoModal(1,jokerModal+'2');setJokerModal('');console.log("i wanna be thief");***REMOVED***) : (() => ***REMOVED***handleCard(jokerModal+card);setJokerModal('');***REMOVED***)***REMOVED***
+                  onClick=***REMOVED***card.charAt(0) === "2" ? (() => ***REMOVED***handleSetTwoModal(1,jokerModal+'2');setJokerModal('');***REMOVED***) : (() => ***REMOVED***handleCard(jokerModal+card);setJokerModal('');***REMOVED***)***REMOVED***
                 /> 
-                </div>
-              ))***REMOVED***
-            </div>
+              </div>
+            ))***REMOVED***
+          </div>
         </Paper>
-      </Modal>***REMOVED***
+      </Modal>
+
       <div style=***REMOVED******REMOVED***display:"none",position:"fixed","top":0,"right":0,height:60,width:120,backgroundColor:"#ddd",border:"1px solid red"***REMOVED******REMOVED***>
-      - Alpha Debug -
-      Active Card: ***REMOVED***" "***REMOVED******REMOVED***activeCard***REMOVED***<br/>
-      Selection: ***REMOVED***" "***REMOVED******REMOVED***selected.map((value) => ***REMOVED***return value+","***REMOVED***)***REMOVED***
+        - Debug -
+        Active Card: ***REMOVED***" "***REMOVED******REMOVED***activeCard***REMOVED***<br/>
+        Selection: ***REMOVED***" "***REMOVED******REMOVED***selected.map((value) => ***REMOVED***return value+",";***REMOVED***)***REMOVED***
       </div>
-            <Snackbar
+      <Snackbar
         anchorOrigin=***REMOVED******REMOVED***
           vertical: "bottom",
           horizontal: "center"
@@ -619,49 +593,44 @@ function DogGame(***REMOVED*** game, gameState, spectating, onSubmit, user, doEx
         gameId=***REMOVED***gameId***REMOVED***
         setActiveCard=***REMOVED***setCardState***REMOVED***
         activeCard=***REMOVED***activeCard***REMOVED***
-        /*sevenFlag=***REMOVED***sevenFlag***REMOVED****/
       />
-    <Box  tabIndex="0" onKeyDown=***REMOVED***onKeyDownHandler***REMOVED*** p=***REMOVED***2***REMOVED*** display="flex" alignItems="center" justifyContent="center" className=***REMOVED***classes.gameControl  + (isMobile?" gameControl_mobile" :" gameControl")***REMOVED***>
-    <div className=***REMOVED***classes.gameContainer***REMOVED***>
-	    <div className=***REMOVED***classes.boardWrapper***REMOVED***>
-	      <SvgLoader style=***REMOVED******REMOVED***height: "100%", transform:'rotate(' + 90*(orderMyPosition-1) + 'deg)'***REMOVED******REMOVED*** path=***REMOVED***Board***REMOVED***>
-            <Balls
-              gameBalls=***REMOVED***game.balls***REMOVED***
-              selected=***REMOVED***selected***REMOVED***
-              setSelected=***REMOVED***setSelected***REMOVED***
-              turn=***REMOVED***turn***REMOVED***
-              lastFour=***REMOVED***game.lastFour***REMOVED***
-              orderMyPosition=***REMOVED***orderMyPosition***REMOVED***
-              activeCard=***REMOVED***activeCard***REMOVED***
-              spectating=***REMOVED***spectating***REMOVED***
-              gameRooted=***REMOVED***game.rooted***REMOVED***
-              gameRules=***REMOVED***game.rules***REMOVED***
-              setSnack=***REMOVED***handleSetSnack***REMOVED***
-              /*increaseSevenFlag=***REMOVED***increaseSevenFlag***REMOVED****/
-            />
+      <Box  tabIndex="0" onKeyDown=***REMOVED***onKeyDownHandler***REMOVED*** p=***REMOVED***2***REMOVED*** display="flex" alignItems="center" justifyContent="center" className=***REMOVED***classes.gameControl  + (isMobile?" gameControl_mobile" :" gameControl")***REMOVED***>
+        <div className=***REMOVED***classes.gameContainer***REMOVED***>
+          <div className=***REMOVED***classes.boardWrapper***REMOVED***>
+            <SvgLoader style=***REMOVED******REMOVED***height: "100%", transform:'rotate(' + 90*(orderMyPosition-1) + 'deg)'***REMOVED******REMOVED*** path=***REMOVED***Board***REMOVED***>
+              <Balls
+                gameBalls=***REMOVED***game.balls***REMOVED***
+                selected=***REMOVED***selected***REMOVED***
+                setSelected=***REMOVED***setSelected***REMOVED***
+                turn=***REMOVED***turn***REMOVED***
+                lastFour=***REMOVED***game.lastFour***REMOVED***
+                orderMyPosition=***REMOVED***orderMyPosition***REMOVED***
+                activeCard=***REMOVED***activeCard***REMOVED***
+                spectating=***REMOVED***spectating***REMOVED***
+                gameRooted=***REMOVED***game.rooted***REMOVED***
+                gameRules=***REMOVED***game.rules***REMOVED***
+                setSnack=***REMOVED***handleSetSnack***REMOVED***
+              />
 
               ***REMOVED***[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((val,idx) => (
                 <SvgProxy key=***REMOVED***idx***REMOVED*** selector=***REMOVED***"#lastcard"+Math.floor(val/4)+"x"+(val%4)***REMOVED*** xlink_href=***REMOVED***""***REMOVED***/>
-              ))
-  ***REMOVED***
+              ))***REMOVED***
 
               ***REMOVED***game.history ? Object.values(game.history).sort(comparer).slice(Math.max(Object.keys(game.history).length - 4, 0)).map((hist,idx) => (
                 <SvgProxy key=***REMOVED***idx***REMOVED*** selector=***REMOVED***"#lastcard"+(hist.roundPlayed+3)%4+"x"+(3-parseInt(idx))***REMOVED*** xlink_href=***REMOVED***require("../assets/cards/"+ hist.card.substring(0,2) +".svg")***REMOVED***/>
               )) : (console.log("no history"))***REMOVED***
-	      </SvgLoader>
-	      </div>
-    </div>
-    </Box>
-  
-    <HandCards 
-      myhandObj=***REMOVED***myhandObj***REMOVED***
-      activeCard=***REMOVED***activeCard***REMOVED***
-      setJokerModal=***REMOVED***setJokerModal***REMOVED***
-      handleCard=***REMOVED***handleCard***REMOVED***
-      handleSetTwoModal=***REMOVED***handleSetTwoModal***REMOVED***
-    />
-
-    </>
+            </SvgLoader>
+          </div>
+        </div>
+      </Box>
+      <HandCards 
+        myhandObj=***REMOVED***myhandObj***REMOVED***
+        activeCard=***REMOVED***activeCard***REMOVED***
+        setJokerModal=***REMOVED***setJokerModal***REMOVED***
+        handleCard=***REMOVED***handleCard***REMOVED***
+        handleSetTwoModal=***REMOVED***handleSetTwoModal***REMOVED***
+      />
+    </React.Fragment>
   );
 ***REMOVED***
 

@@ -60,7 +60,7 @@ function LobbyPage(***REMOVED*** user ***REMOVED***) ***REMOVED***
   const [joinTwo, setJoinTwo] = useState(false);
   const [spectate, setSpectate] = useState(false);
   const [options, setOptions] = useState(false);
-  const ***REMOVED*** t, i18n ***REMOVED*** = useTranslation();
+  const ***REMOVED*** t ***REMOVED*** = useTranslation();
 
   if (redirect) return <Redirect push to=***REMOVED***redirect***REMOVED*** />;
 

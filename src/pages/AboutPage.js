@@ -9,7 +9,7 @@ import ***REMOVED*** Link as RouterLink ***REMOVED*** from "react-router-dom";
 import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
 
 function AboutPage() ***REMOVED***
-  const ***REMOVED*** t, i18n ***REMOVED*** = useTranslation();
+  const ***REMOVED*** t ***REMOVED*** = useTranslation();
   return (
     <Container>
       <Box m=***REMOVED***3***REMOVED***>

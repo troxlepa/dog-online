@@ -5,8 +5,8 @@ import LoserImage from "../assets/loser.svg";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import WinnerAudio from "../assets/win.mp3";
-import LoserAudio from "../assets/losing.mp3";
+import WinnerAudio from "../assets/sounds/win.mp3";
+import LoserAudio from "../assets/sounds/losing.mp3";
 import Typography from "@material-ui/core/Typography";
 import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
 
@@ -14,9 +14,28 @@ function GameEnd(***REMOVED***spectating,userId,gameOrder,metaUsers,winnerTeam, 
   const winAudio = new Audio(WinnerAudio);
   const loseAudio = new Audio(LoserAudio);
   const isWinner=(userId === gameOrder[winnerTeam]) || (userId === gameOrder[winnerTeam+2]);
-  const winner1=metaUsers[gameOrder[winnerTeam]];
-  const winner2=metaUsers[gameOrder[winnerTeam+2]];
   const ***REMOVED*** t ***REMOVED*** = useTranslation();
+
+  function getWinners()***REMOVED***
+    const winner1=metaUsers[gameOrder[winnerTeam]];
+    const winner2=metaUsers[gameOrder[winnerTeam+2]];
+    return(
+      <React.Fragment>
+        <ListItem button>
+          <ColorSquare color=***REMOVED***winner1.color***REMOVED*** />
+          <ListItemText>
+            ***REMOVED***winner1.name***REMOVED***
+          </ListItemText>
+        </ListItem>
+        <ListItem button>
+          <ColorSquare color=***REMOVED***winner2.color***REMOVED*** />
+          <ListItemText>
+            ***REMOVED***winner2.name***REMOVED***
+          </ListItemText>
+        </ListItem>
+      </React.Fragment>
+    );
+***REMOVED***
 
   if(spectating)***REMOVED***
     return(
@@ -27,19 +46,8 @@ function GameEnd(***REMOVED***spectating,userId,gameOrder,metaUsers,winnerTeam, 
         <Typography variant="body1">
           ***REMOVED***t("doneMessage")***REMOVED***:
         </Typography>
-        <ListItem button>
-          <ColorSquare color=***REMOVED***winner1.color***REMOVED*** />
-              <ListItemText>
-              ***REMOVED***winner1.name***REMOVED***
-            </ListItemText>
-          </ListItem>
-          <ListItem button>
-          <ColorSquare color=***REMOVED***winner2.color***REMOVED*** />
-            <ListItemText>
-              ***REMOVED***winner2.name***REMOVED***
-            </ListItemText>
-          </ListItem>
-        </div>    
+        ***REMOVED***getWinners()***REMOVED***
+      </div>    
     );
 ***REMOVED***
   if(!isWinner)***REMOVED***
@@ -53,18 +61,7 @@ function GameEnd(***REMOVED***spectating,userId,gameOrder,metaUsers,winnerTeam, 
         <Typography variant="body1">
           ***REMOVED***t('gameEnded')***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***t("doneMessage")***REMOVED***:
         </Typography>
-        <ListItem button>
-          <ColorSquare color=***REMOVED***winner1.color***REMOVED*** />
-          <ListItemText>
-            ***REMOVED***winner1.name***REMOVED***
-          </ListItemText>
-        </ListItem>
-        <ListItem button>
-        <ColorSquare color=***REMOVED***winner2.color***REMOVED*** />
-          <ListItemText>
-            ***REMOVED***winner2.name***REMOVED***
-          </ListItemText>
-        </ListItem>
+        ***REMOVED***getWinners()***REMOVED***
       </div>
     );
 ***REMOVED***
@@ -78,18 +75,7 @@ function GameEnd(***REMOVED***spectating,userId,gameOrder,metaUsers,winnerTeam, 
       <Typography variant="body1">
         ***REMOVED***t('gameEnded')***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***t("doneMessage")***REMOVED***:
       </Typography>
-      <ListItem button>
-        <ColorSquare color=***REMOVED***winner1.color***REMOVED*** />
-        <ListItemText>
-          ***REMOVED***winner1.name***REMOVED***
-        </ListItemText>
-      </ListItem>
-      <ListItem button>
-        <ColorSquare color=***REMOVED***winner2.color***REMOVED*** />
-        <ListItemText>
-          ***REMOVED***winner2.name***REMOVED***
-        </ListItemText>
-      </ListItem>
+      ***REMOVED***getWinners()***REMOVED***
     </div>
   );
 ***REMOVED***
