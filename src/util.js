@@ -19,7 +19,8 @@ export function isMyBall(field,gameBalls,orderMyPosition){
 }
 
 export function isHomeField(field){
-  return [64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79].includes(field);
+  
+  return field <= 64 && field < 80;
 }
 
 export function isMyFinish(field,orderMyPosition){
@@ -44,6 +45,7 @@ export function iHaveFinished(gameBalls,orderMyPosition){
   }
   return true;
 }
+
 export function getLastField(field){
   if(field >= 92){
     return 48;
@@ -56,8 +58,6 @@ export function getLastField(field){
   }
 }
 
-
-
 export function trim(str, maxlen) {
   if (str.length <= maxlen) return str;
   return str.substring(0, maxlen) + "…";
@@ -69,6 +69,7 @@ export function generateName() {
 }
 
 function reverseComparer( a, b ) {
+
   return a.time > b.time ? -1 : 1;
 }
 
@@ -172,4 +173,242 @@ export function computeRandomState(game) {
     }
   }
   return {history};
+}
+export function initialGameState(){
+  let balls = initialBallLocations();
+  let hands = history[0].newHands; // @TODO
+  let blocked = '0000';
+  let numCards = 5;
+  return {balls, blocked, numCards}
+}
+
+export function getRank(card){
+  return card.length === 3 ? card.chatAt(2) : card.charAt(0);
+}
+
+export function calcRegularTurn(balls,hands,blocked,activeCard,selection,turn){ 
+  /*
+  *   Calculates turn validity and returns the new gameState
+  */
+
+  const homeFields = [0,16,32,48];
+  const cardRank = activeCard.length === 3 ? activeCard.charAt(2) : activeCard.charAt(0);
+
+  if(cardRank === '7' && !calcIsSevenSum(selected)) return {'error':'notSeven'};
+
+  if(cardRank === '7'){
+    for(var i=0;i<selected.length;i+=2){
+      // seven moved blocked home field -> unroot
+      if(homeFields.includes(selected[i]) && blocked.charAt(homeFields.indexOf(selected[j])) === '1'){
+        blocked = replaceChar(blocked,homeFields.indexOf(selected[i]),'0');
+      }
+      balls[balls.indexOf(selected[i])] = selected[i+1];
+    }
+  }else{
+    const start = selection[0];
+    const dest = selection[1];
+    const start_idx = balls.indexOf(start);
+
+    if(cardRank==='J'){
+      const dest_idx = balls.indexOf(dest);
+      [balls[start_idx],balls[dest_idx]] = [balls[dest_idx],balls[start_idx]];
+    }else{
+      if(isAK(cardRank) && isHomeField(selected[0])){
+        blocked = replaceChar(blocked,getBallColor(selected[0]),'1');
+      }
+      else if(homeFields.includes(selected[0]) && blocked.charAt(homeFields.indexOf(selected[0])) === '1'){
+        blocked = replaceChar(blocked,getBallColor(selected[0]),'0');
+      }
+      balls[start_idx] = dest;
+    }
+  }
+
+  if(game.rules){
+    const ljEnabled = game.rules.charAt(4) === '1';
+    const partnerPos = (orderMyPosition+2)%4;
+    if(ljEnabled && activeCard.charAt(0) === 'Z' && balls.slice(orderMyPosition*4,(orderMyPosition*4)+4).every(x => x >= 80) && balls.slice(partnerPos*4,(partnerPos*4)+4).every(x => x >= 80)){
+      return {'error':t("ljEnabled")};
+    }
+  }
+  if(balls.length !== new Set(balls).size){ // check if two ball on same spot
+    return {'error':'two balls on same spot'};
+  }
+  hands[turn].splice(hands[turn].indexOf(activeCard.substring(0,2)),1); // remove card from hand
+
+  return {hands, balls, blocked}
+}
+
+//export function calcUndoTurn(balls,hands,blocked,activeCard,selection,turn){
+  /*
+  * undo single turn, doesnt support undoing thrown cards or two thief
+  * note: doesn't remember blocked settings! @TODO
+  * note: copied from Header.js
+  */
+  /*if(turn === -1){
+    return;
+  }
+  if(hands[turn]){
+    for(var i=0;i<6;i++){
+      if(!hands[turn][i]){
+        hands[turn][i] = card;
+        break;
+      }
+    }
+  } else {
+    // empty hand, was last card
+    hands[turn] = [];
+    hands[turn].push(card);
+  }
+
+  var starts = selection.filter(function(element, index) {
+    return (index % 2 === 0);
+  });
+  var dests = selection.filter(function(element, index) {
+    return (index % 2 === 1);
+  });
+  var balls = [...oldballs];
+  var dId = dests.map(x => balls.indexOf(x));
+  if(card.substring(0,1) === 'J' || (card.length === 3 && card.substring(2,3) === 'J')){
+    var sId = starts.map(x => balls.indexOf(x));
+    [ balls[sId], balls[dId] ] = [ balls[dId], balls[sId] ];
+  }else{
+    for(var j=dests.length-1;j>=0;j--){
+      balls[dId[j]] = starts[j];
+    }
+  }
+
+  return {balls,hands,turn};
+}*/
+
+export function historyRegularTurn(gameState, event){
+  /*
+  *  calculates a regular turn: applies selection and removes card from hand   
+  */
+  var balls = gameState.balls;
+  var hands = gameState.hands;
+  var blocked = gameState.blocked;
+  const card = event.card;
+  const selection = event.selection;
+  const turn = event.turn; // [0-3]
+
+
+
+  let newGameState = verifyRegularTurn(balls, hands, blocked, card, selection, turn);
+  return {...gameState,...newGameState};
+}
+
+export function historyStealCard(gameState, event){
+  /*
+  *  calculates a thief turn: removes card from victim and replaces 2 by stolen card 
+  */
+  const balls = gameState.balls;
+  var hands = gameState.hands;
+  var blocked = gameState.blocked;
+  const thief = event.turn; // equal to event.start
+  const card = event.card;
+  const victim = event.dest;
+  const stolenCard = event.stolenCard;
+  const turn = event.turn;
+  
+  const stolenCard_idx = hands[victim].indexOf(stolenCard);
+  let stolenCard = hands[victim].splice(stolenCard_idx,1);  // remove stolen card
+  let stolenIndex = hands[turn].indexOf(card.substring(0,2));
+  hands[turn][stolenIndex] = stolenCard[0]; // replace two by stolen card
+
+  return {...gameState, hands, blocked}
+}
+
+export function historyThrowCards(gameState, event){
+  /*
+  * calculates a throwing cards turn: removes all cards of a given player
+  * additionally: checks for gameState inconsistencies
+  * @TODO: a byzantine node might throw a valid hand
+  */
+  var hands = gameState.hands;
+  const turn = event.turn;
+  const throwed = event.throwed;
+
+  const cards = hand[turn];
+  if(throwed !== cards) return {'error':'gameState inconsistent, calcThrowCards'}
+  hands[turn] = [];
+
+  return {...gameState, hands};
+}
+
+export function historyCardsDist(gameState, event){
+  const hands = event.newHands;
+
+  return {...gameState, hands};
+}
+
+export function historyApplyExchange(gameState, event){
+  const balls = gameState.balls;
+  var hands = gameState.hands;
+  const blocked = gameState.blocked;
+  const exchange = event.exchange;
+
+  // for all players get index of exchanged card
+  var indexOfExchange = [];
+  for(var i=0;i<4;i++){ 
+    indexOfExchange.push(hands[i].indexOf(exchange[i]));
+    if(hands[i].indexOf(exchange[i])===-1){
+      return {'error':'invalid card supplied historyApplyExchange'};
+    }
+  }
+  // replace cards
+  for(var k=0;k<4;k++){ 
+    hands[k][indexOfExchange[k]] = exchange[(k+2)%4]; 
+  }
+
+  return {...gameState, hands};
+}
+
+/**
+ * updates the game state by one history item
+ * undoing a turns out complex, therefore we re-compute the whole gamestate (for now)
+ * @param  {GameState} gameState  consisting of {balls, hands, blocked, nc, np}
+ * @param  {Object}    event      history item
+ * @return {GameState}            new game state
+ */
+export function applyHistoryStep(gameState, event){
+  switch(event.type){
+  case 0:
+    return historyRegularTurn(gameState, event);
+  case 1:
+    return historyStealCard(gameState, event);
+  case 2:
+    return historyThrowCards(gameState, event);
+  case 3:
+    return historyCardsDist(gameState, event);
+  case 4:
+    return historyApplyExchange(gameState, event);
+  /*case 5:
+    return historyUndoTurn(gameState, event);*/
+  default:
+    return {'error':'unrecognized type in history'};
+  }
+}
+/**
+ * updates the state of the game
+ * @param  {GameState} gameState  consisting of {balls, hands, blocked}
+ * @return {GameState}            new game state
+ */
+export function computeGameState(gameState, history){
+
+  if(gameState){
+    if(history){
+      //gameState.history.sort();
+      for (const event of Object.values(history)){
+        gameState = applyHistoryStep(gameState, event);
+        if(newGameState.error){
+          console.error(newGameState.error);
+          return;
+        }
+      }
+    }else{
+      return initialGameState();
+    }
+  else{
+    return initialGameState();
+  }
 }
