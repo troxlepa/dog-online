@@ -19,7 +19,7 @@ export function isMyBall(field,gameBalls,orderMyPosition){
 }
 
 export function isHomeField(field){
-  
+
   return field <= 64 && field < 80;
 }
 
@@ -174,16 +174,30 @@ export function computeRandomState(game) {
   }
   return {history};
 }
+
 export function initialGameState(){
   let balls = initialBallLocations();
   let hands = history[0].newHands; // @TODO
   let blocked = '0000';
-  let numCards = 5;
-  return {balls, blocked, numCards}
+  let nc = 5;
+  let np = 1
+  return {balls, hands, blocked, np, nc, turn}
 }
 
 export function getRank(card){
   return card.length === 3 ? card.chatAt(2) : card.charAt(0);
+}
+
+export function getNextPlayer(turn, hands){
+    if(hands[(turn+1)%4]){
+    return (turn+1)%4;
+  } else if(hands[(turn+2)%4]){
+    return (turn+2)%4;
+  } else if(hands[(turn+3)%4]){
+    return (turn+3)%4;
+  } else {
+    return -1;
+  }
 }
 
 export function calcRegularTurn(balls,hands,blocked,activeCard,selection,turn){ 
@@ -289,12 +303,18 @@ export function historyRegularTurn(gameState, event){
   var blocked = gameState.blocked;
   const card = event.card;
   const selection = event.selection;
-  const turn = event.turn; // [0-3]
-
-
+  var turn = gameState.turn; // [0-3]
 
   let newGameState = verifyRegularTurn(balls, hands, blocked, card, selection, turn);
-  return {...gameState,...newGameState};
+
+  turn = getNextPlayer(hands,turn);
+  if(turn === -1){
+    // tell server to make new cards
+    // set turn to np
+    return {...gameState,...newGameState}
+  }
+
+  return {...gameState,...newGameState, turn};
 }
 
 export function historyStealCard(gameState, event){
@@ -332,13 +352,23 @@ export function historyThrowCards(gameState, event){
   if(throwed !== cards) return {'error':'gameState inconsistent, calcThrowCards'}
   hands[turn] = [];
 
-  return {...gameState, hands};
+  turn = getNextPlayer(hands,turn);
+  if(turn === -1){
+    return {...gameState, hands};
+  }
+  return {...gameState, hands, turn};
 }
 
 export function historyCardsDist(gameState, event){
   const hands = event.newHands;
+  var nc = gameState.nc;
+  var np = gameState.np;
+  var turn = np;
+  np--;
+  nc--;
+  if(nc === 1) nc = 6;
 
-  return {...gameState, hands};
+  return {...gameState, hands, turn, nc, np};
 }
 
 export function historyApplyExchange(gameState, event){
@@ -370,6 +400,7 @@ export function historyApplyExchange(gameState, event){
  * @param  {Object}    event      history item
  * @return {GameState}            new game state
  */
+
 export function applyHistoryStep(gameState, event){
   switch(event.type){
   case 0:
@@ -388,11 +419,13 @@ export function applyHistoryStep(gameState, event){
     return {'error':'unrecognized type in history'};
   }
 }
+
 /**
  * updates the state of the game
- * @param  {GameState} gameState  consisting of {balls, hands, blocked}
+ * @param  {GameState} gameState  consisting of {balls, hands, blocked, nc, np ,turn}
  * @return {GameState}            new game state
  */
+
 export function computeGameState(gameState, history){
 
   if(gameState){
