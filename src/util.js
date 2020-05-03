@@ -137,6 +137,8 @@ export function calcTurnTimes(game)***REMOVED***
       playerToStart++;
 ***REMOVED***
 ***REMOVED***
+  let avgMoveTimes = moveTimes.map((value,idx) => ***REMOVED***return ((value*0.001)/moveCount[idx]).toFixed(2);***REMOVED***);
+  return ***REMOVED***moveTimes, moveCount, avgMoveTimes, jokerCount, akCount, sendCount***REMOVED***;
 ***REMOVED***
 
 export function initialBallLocations()***REMOVED***
