@@ -170,9 +170,11 @@
   "undoThiefAlert":"Karte stehlen rückgängig machen nicht möglich!",
   "stealsCard":"stiehlt Karte",
   "blocking":"Blockierte Felder",
-  "version":"Neu in v.1.4.0e",
-  "log1":"Multi-Selection with card 7: you are now able to move a ball to a previous ball's field",
-  "log2":"Introducing Rules",
-  "log3":"Card 2: steal card",
-  "log4":"various bug fixes concerning selection"
+  "version":"Neu in v.1.4.1",
+  "log1":"Multi-Selektion mit einer 7: du kannst ab jetzt eine Kugel auf das Feld einer anderen Kugel bewegen",
+  "log2":"Neu: Lege diverse Spielregeln vor dem Spiel fest!",
+  "log3":"Statistik nach dem Spiel wird nicht angezeigt - bugfix",
+  "log4":"bei Problemen auf dieser Seite -> Seite neu laden oder neuen Raum erstellen",
+  "log5":"Karte stehlen, obwohl man nicht am Zug ist nicht mehr möglich",
+  "notYourTurn":"Bitte warte auf deinen Zug. An der Reihe ist: "
 ***REMOVED***

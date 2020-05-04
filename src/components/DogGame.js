@@ -195,6 +195,10 @@ function DogGame(***REMOVED*** game, spectating, onSubmit, user, doExchange, gam
 
   const handleStealSubmit = 
     (hand_idx,card_idx) => ***REMOVED***
+      if(turn !== orderMyPosition)***REMOVED***
+        handleSetSnack(t("notYourTurn")+game.meta.users[game.order[turn]].name);
+        return;
+***REMOVED***
       let newHands = game.hands;
       let newRoot = game.rooted ? game.rooted : "";
       let stolenCard = newHands[hand_idx].splice(card_idx,1);  // remove stolen card
@@ -209,7 +213,10 @@ function DogGame(***REMOVED*** game, spectating, onSubmit, user, doExchange, gam
   const submitSelection = 
     () => ***REMOVED***
       if(activeCard === '') return; //no card selected
-      if(turn !== orderMyPosition) return;
+      if(turn !== orderMyPosition)***REMOVED***
+        handleSetSnack(t("notYourTurn")+game.meta.users[game.order[turn]].name);
+        return;
+***REMOVED***
       let newBallz = [...game.balls];
       let newHands = game.hands;
       let newRoot = game.rooted ? game.rooted : "";
@@ -336,7 +343,11 @@ function DogGame(***REMOVED*** game, spectating, onSubmit, user, doExchange, gam
 
   const onKeyDownHandler = (e) => ***REMOVED***
     if (e.keyCode === 13) ***REMOVED***
-      if(turn === orderMyPosition && selected.length > 1 && selected.length % 2 === 0 && activeCard !== '') submitSelection();
+      if(turn !== orderMyPosition)***REMOVED***
+        handleSetSnack(t("notYourTurn")+game.meta.users[game.order[turn]].name);
+        return;
+***REMOVED***
+      if(selected.length > 1 && selected.length % 2 === 0 && activeCard !== '') submitSelection();
 ***REMOVED***else if(e.keyCode === 27)***REMOVED***
       if(!recv)***REMOVED***
         handleOpenRecv();

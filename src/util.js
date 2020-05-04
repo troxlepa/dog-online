@@ -75,65 +75,65 @@ function reverseComparer( a, b ) ***REMOVED***
 export function calcTurnTimes(game)***REMOVED***
   const DEFAULT_MOVE_TIME = 50000;
   const THRES_MOVE_TIME = 60000;
-  let moveTimes = [0,0,0,0];
-  let moveCount = [0,0,0,0];
-  let jokerCount = [0,0,0,0];
-  let akCount = [0,0,0,0];
-  let sendCount = [0,0,0,0];
+  let moveTimes = [0,0,0,0], moveCount = [0,0,0,0], jokerCount = [0,0,0,0], akCount = [0,0,0,0], sendCount = [0,0,0,0];
   let hist = [...Object.values(game.history)];
   hist.sort(reverseComparer);
-  let prevTime = 0;
-  let thisTime = 0;
-  let playerToStart = 0;
+  let prevTime = 0,totalCards = 0, thisTime = 0, playerToStart = 0;
   let popp = ***REMOVED******REMOVED***;
   while(hist.length > 0)***REMOVED***
     for(let numCards=6;numCards>=2;--numCards)***REMOVED***
       let thrown = [false, false, false, false];
       let firstTurn = true;
-      for(let j=0;j<numCards;++j)***REMOVED***
-        for(let k=0;k<4;++k)***REMOVED***
-          let i = (playerToStart+k)%4;
-          if(hist.length===0)***REMOVED***
-            let avgMoveTimes = moveTimes.map((value,idx) => ***REMOVED***return ((value*0.001)/moveCount[idx]).toFixed(2);***REMOVED***);
-            return ***REMOVED***moveTimes, moveCount, avgMoveTimes, jokerCount, akCount, sendCount***REMOVED***;
-***REMOVED***
-          if(!thrown[i])***REMOVED***
-            if(hist[hist.length-1].card === "YY")***REMOVED***
-              thrown[i] = true;
-***REMOVED***
-            if(!firstTurn)***REMOVED***
-              popp = hist.pop();
-              if(popp.card.charAt(0) === "Z") jokerCount[i]++;
-              if(popp.card.charAt(0) === "A" || popp.card.charAt(0) === "K") akCount[i]++;
-              if(popp.selection)***REMOVED*** // Thief 2 has no selection
-                for(var s = 1; s < popp.selection.length; s+=2)***REMOVED***
-                  if(popp.selection[s] >= 64 && popp.selection[s] < 80 && popp.selection[s] !== popp.selection[s-1]) sendCount[i]++;
-    ***REMOVED***
-  ***REMOVED***
-              thisTime = popp.time;
-              if(thisTime - prevTime > THRES_MOVE_TIME)***REMOVED***
-                moveTimes[i] += DEFAULT_MOVE_TIME;
-  ***REMOVED***else***REMOVED***
-                moveTimes[i] += thisTime - prevTime;
-  ***REMOVED***
-              moveCount[i]++;
-              prevTime = thisTime;
-***REMOVED***else***REMOVED***
-              popp = hist.pop();
-              if(popp.card.charAt(0) === "Z") jokerCount[i]++;
-              if(popp.card.charAt(0) === "A" || popp.card.charAt(0) === "K") akCount[i]++;
-              if(popp.selection)***REMOVED*** // Thief 2 has no selection
-                for(var t = 1; t < popp.selection.length; t+=2)***REMOVED***
-                  if(popp.selection[t] >= 64 && popp.selection[t] < 80 && popp.selection[t] !== popp.selection[t-1]) sendCount[i]++;
-    ***REMOVED***
-  ***REMOVED***
-              prevTime = popp.time;
-              firstTurn = false;
+      for(let j=0;j<(numCards*4);++j)***REMOVED***
+        if(hist.length===0)***REMOVED***
+          let avgMoveTimes = moveTimes.map((value,idx) => ***REMOVED***return ((value*0.001)/moveCount[idx]).toFixed(2);***REMOVED***);
+          return ***REMOVED***moveTimes, moveCount, avgMoveTimes, jokerCount, akCount, sendCount***REMOVED***;
 ***REMOVED***
 
+        if(!firstTurn)***REMOVED***
+          popp = hist.pop();
+          if(popp.card === "YY") ***REMOVED***
+            j +=popp.selection[0]-1; //number of cards thrown
+***REMOVED***
+          var i = popp.roundPlayed;
+          if(popp.card.charAt(0) === "Z") jokerCount[i]++;
+          if(popp.card.charAt(0) === "A" || popp.card.charAt(0) === "K") akCount[i]++;
+          if(popp.selection)***REMOVED*** // Thief 2 has no selection
+            for(var s = 1; s < popp.selection.length; s+=2)***REMOVED***
+              if(popp.selection[s] >= 64 && popp.selection[s] < 80 && popp.selection[s] != popp.selection[s-1]) ***REMOVED***
+                sendCount[i]++;
+  ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+          thisTime = popp.time;
+          if(thisTime - prevTime > THRES_MOVE_TIME)***REMOVED***
+            moveTimes[i] += DEFAULT_MOVE_TIME;
+***REMOVED***else***REMOVED***
+            moveTimes[i] += thisTime - prevTime;
 ***REMOVED***
+          moveCount[i]++;
+          prevTime = thisTime;
+***REMOVED***else***REMOVED***
+          popp = hist.pop();
+          if(popp.card === "YY") ***REMOVED***
+            j +=popp.selection[0]-1; //number of cards thrown
+***REMOVED***
+          var i = popp.roundPlayed;
+          if(popp.card.charAt(0) === "Z") jokerCount[i]++;
+          if(popp.card.charAt(0) === "A" || popp.card.charAt(0) === "K") akCount[i]++;
+          if(popp.selection)***REMOVED*** // Thief 2 has no selection
+            for(var s = 1; s < popp.selection.length; s+=2)***REMOVED***
+              if(popp.selection[s] >= 64 && popp.selection[s] < 80 && popp.selection[s] != popp.selection[s-1]) ***REMOVED***
+                sendCount[i]++;
+    ***REMOVED***
+***REMOVED***
+***REMOVED***
+          moveCount[i]++;
+          prevTime = popp.time;
+          firstTurn = false;
+***REMOVED***
+***REMOVED***
+      totalCards += numCards;
       playerToStart++;
 ***REMOVED***
 ***REMOVED***
@@ -166,7 +166,7 @@ export function makeHands(n)***REMOVED***
 ***REMOVED***
 
 
-export function computeRandomState(game) ***REMOVED***
+export function computeHistory(game) ***REMOVED***
   const history = [];
   if(game.history) ***REMOVED***
     for (const event of Object.values(game.history)) ***REMOVED***

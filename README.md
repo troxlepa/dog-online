@@ -3,13 +3,13 @@ The real-time firebase dog game application, built on react.
 
 ## Roadmap v.1.4.0f (bugfix)
 
-- [ ] Double move bug (verification needed!)
-- [ ] Card 2: stealing last card of next player in order bug (cannot reproduce)
+- [x] Double move bug (verification needed!)
+- [x] Card 2: stealing last card of next player in order bug (cannot reproduce)
 - [x] Turn verification - finish from homefield bug
 - [x] Finish with seven overhop bug
 - [x] Fix early submitting with Enter key
 
-## Roadmap v.1.4.1
+## Roadmap v.1.5.0 (former v.1.4.1, version lifted)
 
 - [ ] Disable turnMsg in Header, just disable button while selection is not valid
 - [ ] prevent submitting invalid selection with Enter key

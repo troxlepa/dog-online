@@ -18,7 +18,7 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
-import ***REMOVED*** computeRandomState, makeHands ***REMOVED*** from "../util";
+import ***REMOVED*** computeHistory, makeHands ***REMOVED*** from "../util";
 import firebase from "../firebase";
 import DogGame from "../components/DogGame";
 import Sidebar from "../components/Sidebar";
@@ -391,7 +391,7 @@ function GamePage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
 
   const spectating = !game.meta.users || !game.meta.users[user.id];
 
-  const gameState = computeRandomState(game);
+  const gameState = computeHistory(game);
 
   function handlePlayAgain() ***REMOVED***
     const idx = gameId.lastIndexOf("-");

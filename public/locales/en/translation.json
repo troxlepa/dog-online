@@ -170,11 +170,13 @@
   "undoThiefAlert":"Cannot undo stealing card",
   "stealsCard":"steals card",
   "blocking":"Blocking",
-  "version":"v.1.4.0e released",
+  "version":"v.1.4.1 released",
   "log1":"Multi-Selection with card 7: you are now able to move a ball to a previous ball's field",
   "log2":"Introducing Rules",
   "log3":"Card 2: steal card",
-  "log4":"various bug fixes concerning selection"
+  "log4":"various bug fixes concerning selection",
+  "log5":"Stealing card while another player's turn not possible anymore",
+  "notYourTurn":"It's not your turn. Please wait for: "
 ***REMOVED***
 
 

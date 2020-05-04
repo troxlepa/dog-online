@@ -41,7 +41,7 @@ function Stats(***REMOVED***game***REMOVED***)***REMOVED***
 
 
   return(
-    <>
+    <React.Fragment>
       <Typography variant="h4" gutterBottom>
         ***REMOVED***t('stats')***REMOVED***
       </Typography>
@@ -94,7 +94,7 @@ function Stats(***REMOVED***game***REMOVED***)***REMOVED***
           </Grid>
       ))***REMOVED***
     </Grid>
-    </>
+    </React.Fragment>
   );
 ***REMOVED***
 export default Stats;
