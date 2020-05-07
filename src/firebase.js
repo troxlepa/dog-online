@@ -16,6 +16,6 @@ const config = ***REMOVED***
 
 
 ***REMOVED***
-firebase.analytics();
+***REMOVED***
 
 ***REMOVED***

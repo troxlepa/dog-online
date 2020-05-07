@@ -35,6 +35,12 @@
 .selected***REMOVED***
     boxShadow: 0px 0px 5px 3px #4b9e9e !important
 ***REMOVED***
+.suggested***REMOVED***
+  animation-duration: 2s;
+  animation-name: pulsing;
+  animation-iteration-count: infinite;
+  stroke: red;
+***REMOVED***
 .destination:hover***REMOVED***
 	fill:red ! important;
 ***REMOVED***

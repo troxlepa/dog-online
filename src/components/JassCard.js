@@ -127,7 +127,7 @@ function JassCard(props) ***REMOVED***
   const cardSource = require("../assets/cards/"+value+".svg");
 
   return (
-    <div onClick=***REMOVED***click***REMOVED*** className=***REMOVED***smallCard === "" && className***REMOVED***>
+    <div onClick=***REMOVED***click***REMOVED*** className=***REMOVED***smallCard === "" ? className : undefined***REMOVED***>
       <img alt="" className=***REMOVED***smallCard***REMOVED*** src=***REMOVED***cardSource***REMOVED***/>
     </div>
   );

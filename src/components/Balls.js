@@ -2,13 +2,14 @@ import React from "react";
 
 import ***REMOVED*** SvgProxy ***REMOVED*** from 'react-svgmt';
 import ***REMOVED*** Motion, spring ***REMOVED*** from "react-motion";
-import ***REMOVED*** useCallback***REMOVED*** from "react";
+import ***REMOVED*** useCallback, useState, useEffect ***REMOVED*** from "react";
 import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
 
 import ***REMOVED*** getEmptyHomeField, isMyBall, isHomeField, isPartnerBall, iHaveFinished, getLastField ***REMOVED*** from "../util";
 
 function Balls(***REMOVED***gameBalls, selected, setSelected, turn, lastFour, orderMyPosition, activeCard, spectating,gameRooted, gameRules, setSnack***REMOVED***)***REMOVED***
 
+  const [suggestion,setSuggestion] = useState([]);
   const ***REMOVED*** t ***REMOVED*** = useTranslation();
   const configMotion = ***REMOVED*** stiffness: 89, damping: 13***REMOVED***;
   const COORDS = [[33.75, 132], [58.34, 156.59], [82.93, 181.18], [107.51, 205.77], [132.1, 230.36], [132.1, 265.13], [132.1, 299.9], [132.1, 334.67], [132.1, 369.45], [107.51, 394.03], [82.93, 418.62], [58.34, 443.21], [33.75, 467.8], [58.34, 492.39], [82.93, 516.97], [107.51, 541.56], [132.1, 566.15], [156.69, 541.56], [181.28, 516.97], [205.87, 492.39], [230.45, 467.8], [265.23, 467.8], [300, 467.8], [334.77, 467.8], [369.55, 467.8], [394.13, 492.39], [418.72, 516.97], [443.31, 541.56], [467.9, 566.15], [492.49, 541.56], [517.07, 516.97], [541.66, 492.39], [566.25, 467.8], [541.66, 443.21], [517.07, 418.62], [492.49, 394.03], [467.9, 369.45], [467.9, 334.67], [467.9, 299.9], [467.9, 265.13], [467.9, 230.36], [492.49, 205.77], [517.07, 181.18], [541.66, 156.59], [566.25, 132], [541.66, 107.42], [517.07, 82.83], [492.49, 58.24], [467.9, 33.65], [443.31, 58.24], [418.72, 82.83], [394.13, 107.42], [369.55, 132], [334.77, 132], [300, 132], [265.23, 132], [230.45, 132], [205.87, 107.42], [181.28, 82.83], [156.69, 58.24], [132.1, 33.65], [107.51, 58.24], [82.93, 82.83], [58.34, 107.42], [31.48, 195.58], [31.48, 230.36], [31.48, 265.13], [31.48, 299.9], [195.58, 568.52], [230.36, 568.52], [299.9, 568.52], [265.13, 568.52], [568.52, 404.42], [568.52, 369.64], [568.52, 334.87], [568.52, 300.1], [404.42, 31.48], [369.64, 31.48], [334.87, 31.48], [300.1, 31.48], [92.15, 132], [131.47, 131.47], [161.69, 161.69], [192.05, 192.05], [132, 507.85], [131.47, 468.53], [161.69, 438.31], [192.05, 407.95], [507.85, 468], [468.53, 468.53], [438.31, 438.31], [407.95, 407.95], [468, 92.15], [468.53, 131.47], [438.31, 161.69], [407.95, 192.05]];
@@ -17,7 +18,104 @@ function Balls(***REMOVED***gameBalls, selected, setSelected, turn, lastFour, or
   const animatedBalls = prevSel.filter(function(element, index) ***REMOVED*** return (index % 2 === 1);***REMOVED***);
   const allFields = [...Array(96).keys()];
   const currentPlayerBalls = gameBalls.slice(turn*4,(turn*4)+4);
- 
+
+  useEffect(() => ***REMOVED***
+    if(selected.length % 2 === 1) setSuggestion(trySuggestion());
+    else setSuggestion([]);
+***REMOVED***, [selected]);
+
+  function trySuggestion()***REMOVED***
+    var s = buildSuggestion();
+    if(s === -1)***REMOVED***
+      return [];
+***REMOVED***
+    if(s.length < 1)***REMOVED***
+      setSnack("no valid moves with this ball");
+      setSelected([]);
+      return [];
+***REMOVED***else if(s.length === 1)***REMOVED***
+      setSelected([...selected,s[0]]);
+***REMOVED***
+    return s;
+***REMOVED***
+
+  function buildSuggestion()***REMOVED***
+    var start = selected[0];
+    var ballColor = getBallColor(start);
+    let aC = activeCard.length === 3 ? activeCard.charAt(2) : activeCard.charAt(0);
+    if(aC === '7' || aC === 'J') return -1;
+    if(start >= 64 && start < 80)***REMOVED***
+      console.log('yoll',aC);
+      if(aC === 'A' || aC === 'K') return [ballColor*16];
+      return [];
+***REMOVED*** 
+    let cardval = 0;
+    if(aC === 'A') cardval = 11;
+    else if(aC === 'K') cardval = 13;
+    else if(aC === 'Q') cardval = 12;
+    else if(aC === 'T') cardval = 10;
+    else cardval = parseInt(aC);
+    if(cardval < 4 && start >= 80)***REMOVED*** // ball in finish
+      if((start%4)+cardval <= 4)***REMOVED*** // ball field < max field
+        if(noBallsInRange(start+1,start+cardval+1)) return [start+cardval];// no balls in between
+          
+***REMOVED***
+      return [];
+***REMOVED***
+    var out = [];
+    
+    //ball not in finish
+    console.log(cardval);
+    if(cardval === 4 && moveFourBk)***REMOVED***
+      out.push((64+start-4)%64);
+***REMOVED***
+    var homeFields = [0,16,32,48];
+    var ownHomeUnblocked = gameRooted.charAt(ballColor) === '0';
+    if(start === homeFields[ballColor])***REMOVED***
+      if(ownHomeUnblocked && cardval <= 4 && noBallsInRange(79+4*ballColor,79+4*ballColor+cardval)) 
+        out.push(79+4*ballColor+cardval);
+***REMOVED***
+    //ball not in finish or own unblocked homefield
+    
+    if(movesOverBlocked(start,cardval)) return [];
+    // possibly finishes
+    if(possibleMoveIntoFinish(cardval,ballColor,start))***REMOVED***
+      var dest = 80+4*ballColor+((start+cardval)%64)-homeFields[ballColor]-1;
+      if(noBallsInRange(80+4*ballColor,dest) && (dest <= 83+4*ballColor))***REMOVED*** // no overshoot
+        out.push(dest);
+***REMOVED***
+***REMOVED***
+    
+    
+    return [...out,(selected[0]+cardval)%64];
+***REMOVED***
+  function moveFourBk(start)***REMOVED***
+    var homeFields = [0,16,32,48];
+    console.log('fired');
+    return !(homeFields.some((f,i) => start > f && start <= f+4 && gameRooted.charAt(i) === '1'));
+
+***REMOVED***
+
+  function movesOverBlocked(start,val)***REMOVED***
+    // moving over 0
+    if(start < 64 && start > 50 && (start+val)%64 <= 13 && gameRooted.charAt(0) === '1') return true;
+    var homeFields = [16,32,48];
+    return homeFields.some((f,i) => (start < f && start+val >= f && gameRooted.charAt(i+1) === '1'));
+***REMOVED***
+  function possibleMoveIntoFinish(val,ballColor,start)***REMOVED***
+    if(ballColor === 0)***REMOVED***
+      return gameRooted.charAt(ballColor) === '0' && start < 64 && start > 50 && (start+val)%64 <= 13;
+***REMOVED***else***REMOVED***
+      var homeFields = [16,32,48];
+      return gameRooted.charAt(ballColor) === '0' && start < homeFields[ballColor] && start+val >= homeFields[ballColor];
+***REMOVED***
+    
+    
+***REMOVED***
+
+  function noBallsInRange(start,dest)***REMOVED***
+    return ![...Array(dest-start).keys()].map(i => start+i).some(x => gameBalls.includes(x));
+***REMOVED***
 
   function ballFinishSeven(field,selected,orderMyPosition,gameBalls)***REMOVED***
     const lastField = getLastField(field);
@@ -171,7 +269,7 @@ function Balls(***REMOVED***gameBalls, selected, setSelected, turn, lastFour, or
       if(!fc && isHomeField(field)) return []; //destinationNotHome
 
       if(fc && !isBall) return []; //noBallSelected
-      if(selected.length >= 2 && aC!=="7") return [...selected]; // onlyTwoSelected
+      if(selected.length >= 2 && aC!=="7") return []; // onlyTwoSelected
       if(isHomeField(field) && aC!=="A" && aC!=="K") return []; // noSelectHome
 
       switch(aC)***REMOVED***
@@ -490,7 +588,7 @@ function Balls(***REMOVED***gameBalls, selected, setSelected, turn, lastFour, or
           )))) : (console.log("no entries"))
 ***REMOVED***
       ***REMOVED***gameBalls ? allFields.map((field, ix) => (
-        <SvgProxy key=***REMOVED***"f"+ix***REMOVED*** selector=***REMOVED***setStone(field)***REMOVED*** onClick=***REMOVED***() => ***REMOVED***handleClick(field,false);***REMOVED******REMOVED*** class=***REMOVED***"white " + (selected.includes(field) ? "active active"+Math.floor(selected.lastIndexOf(field)/2)+" ": " ") + (selected.length % 2 === 0 ? "" : "destination") ***REMOVED*** /> //***REMOVED***setColor(ix)***REMOVED***  ***REMOVED***setStone(ball)***REMOVED***
+        <SvgProxy key=***REMOVED***"f"+ix***REMOVED*** selector=***REMOVED***setStone(field)***REMOVED*** onClick=***REMOVED***() => ***REMOVED***handleClick(field,false);***REMOVED******REMOVED*** class=***REMOVED***"white " + (suggestion.includes(field) ? "suggested " : "") +(selected.includes(field) ? "active active"+Math.floor(selected.lastIndexOf(field)/2)+" ": " ") + (selected.length % 2 === 0 ? "" : "destination") ***REMOVED*** /> //***REMOVED***setColor(ix)***REMOVED***  ***REMOVED***setStone(ball)***REMOVED***
       )) : (console.log("no entries"))***REMOVED***
     </React.Fragment>
   );
