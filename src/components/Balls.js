@@ -33,9 +33,13 @@ function Balls(***REMOVED***gameBalls, selected, setSelected, turn, lastFour, or
       setSnack("no valid moves with this ball");
       setSelected([]);
       return [];
-***REMOVED***else if(s.length === 1)***REMOVED***
-      setSelected([...selected,s[0]]);
+***REMOVED***/*else if(s.length === 1)***REMOVED***
+      if(gameBalls.includes(s[0]))***REMOVED***
+
+***REMOVED***else***REMOVED***
+        setSelected([s[0],getEmptyHomeField(selected,s[0],gameBalls),...selected,s[0]]);
 ***REMOVED***
+***REMOVED****/
     return s;
 ***REMOVED***
 

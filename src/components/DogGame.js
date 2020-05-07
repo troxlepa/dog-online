@@ -631,6 +631,20 @@ function DogGame(***REMOVED*** game, spectating, onSubmit, user, doExchange, gam
                 <SvgProxy key=***REMOVED***idx***REMOVED*** selector=***REMOVED***"#lastcard"+(hist.roundPlayed+3)%4+"x"+(3-parseInt(idx))***REMOVED*** xlink_href=***REMOVED***require("../assets/cards/"+ hist.card.substring(0,2) +".svg")***REMOVED***/>
               )) : (console.log("no history"))***REMOVED***
             </SvgLoader>
+            ***REMOVED***isMobile ? null : (<div style=***REMOVED******REMOVED***position:'absolute','top':'50%','opacity':(turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0) ? '0' : '1','transition':'.4s linear'***REMOVED******REMOVED***>
+              <div style=***REMOVED******REMOVED***'transform':'translateY(-50%)'***REMOVED******REMOVED***>
+                <Button
+                  className="controlButtonSingle_mobile"
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  disabled=***REMOVED***turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0***REMOVED***
+                  onClick=***REMOVED***submitSelection***REMOVED***
+                >
+                  <Typography>***REMOVED***t('submitTurnButton')***REMOVED***</Typography>
+                </Button>
+              </div>
+            </div>)***REMOVED***
           </div>
         </div>
       </Box>
