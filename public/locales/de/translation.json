@@ -170,11 +170,15 @@
   "undoThiefAlert":"Karte stehlen rückgängig machen nicht möglich!",
   "stealsCard":"stiehlt Karte",
   "blocking":"Blockierte Felder",
-  "version":"Neu in v.1.4.1",
-  "log1":"Multi-Selektion mit einer 7: du kannst ab jetzt eine Kugel auf das Feld einer anderen Kugel bewegen",
-  "log2":"Neu: Lege diverse Spielregeln vor dem Spiel fest!",
-  "log3":"Statistik nach dem Spiel wird nicht angezeigt - bugfix",
+  "version":"Neu in v.1.4.2",
+  "log1":"Neu: Zugmöglicheiten werden mit einem roten, pulsierenden angezeigt (noch nicht für die Karten 7,J,A)",
+  "log2":"Neu: Zug einreichen Knopf in der Mitte des Spielfelds",
+  "log3":"Banner mit deiner Farbe, wenn du am Zug bist",
   "log4":"bei Problemen auf dieser Seite -> Seite neu laden oder neuen Raum erstellen",
-  "log5":"Karte stehlen, obwohl man nicht am Zug ist nicht mehr möglich",
-  "notYourTurn":"Bitte warte auf deinen Zug. An der Reihe ist: "
+  "log5":"",
+  "notYourTurn":"Bitte warte auf deinen Zug. An der Reihe ist: ",
+  "confirmThrowTitle":"Karten abwerfen bestätigen",
+  "confirmThrow":"Laut den Spielregeln musst du einen Zug machen, solange du kannst. Möchtest du alle deine Handkarten abwerfen?",
+  "yes":"Ja",
+  "no":"Nein"
 ***REMOVED***

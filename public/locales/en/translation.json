@@ -170,13 +170,17 @@
   "undoThiefAlert":"Cannot undo stealing card",
   "stealsCard":"steals card",
   "blocking":"Blocking",
-  "version":"v.1.4.1 released",
-  "log1":"Multi-Selection with card 7: you are now able to move a ball to a previous ball's field",
-  "log2":"Introducing Rules",
-  "log3":"Card 2: steal card",
-  "log4":"various bug fixes concerning selection",
-  "log5":"Stealing card while another player's turn not possible anymore",
-  "notYourTurn":"It's not your turn. Please wait for: "
+  "version":"v.1.4.2 released",
+  "log1":"New: turn possibilities are displayed with a red, pulsing ring (not yet for cards 7,J,A)",
+  "log2":"New: sumbit turn in the middle of the board",
+  "log3":"banner with your color, when it's your turn",
+  "log4":"if joining this room does not work -> create new room",
+  "log5":"",
+  "notYourTurn":"It's not your turn. Please wait for: ",
+  "confirmThrowTitle":"Confirm throwing cards",
+  "confirmThrow":"According to the rules, you have to move as long as you are able to. Do you want to throw away all of your hand cards?",
+  "yes":"Yes",
+  "no":"No"
 ***REMOVED***
 
 

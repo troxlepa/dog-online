@@ -87,15 +87,12 @@ display: flex;
 flex-flow: row wrap;
 justify-content: space-around;
 justify-items: center;
-flex: 0 0 auto;
-height: 4rem;
 ***REMOVED***
 
 .gameControl***REMOVED***
 justify-content: space-around;
 justify-items: center;
 align-items: center;
-/*border: 2px solid green;*/
 flex: 1 1 auto;
 display: flex;
 flex-flow: column wrap;
@@ -107,11 +104,10 @@ outline: none;
 justify-content: space-around;
 justify-items: center;
 align-items: center;
-/*border: 2px solid green;*/
 flex: 1 1 auto;
 display: flex;
 flex-flow: column wrap;
-height: calc(100% - 20rem );
+height: calc(100% - 25rem );
 ***REMOVED***
 
 
@@ -222,21 +218,6 @@ flex: 0 0 auto;
 .tooltipbigger***REMOVED***
   font-size: 3em;
 ***REMOVED***
-
-/*@keyframes pulsingBackdrop ***REMOVED***
-  0%,15% ***REMOVED***
-    opacity: 0.05
-***REMOVED***
-  50% ***REMOVED***
-    opacity: 0.3
-***REMOVED***
-  85% ***REMOVED***
-    opacity: 0.05
-***REMOVED***
-  100% ***REMOVED***
-    opacity: 0.05
-***REMOVED***
-***REMOVED****/
 
 .user_cardheader0***REMOVED***
     background: -moz-linear-gradient(45deg, rgba(71,112,201,1) 0%, rgba(34,83,153,1) 100%); /* ff3.6+ */

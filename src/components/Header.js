@@ -1,4 +1,4 @@
-import React, ***REMOVED***useCallback***REMOVED*** from "react";
+import React, ***REMOVED***useCallback, useState***REMOVED*** from "react";
 
 import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
 import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
@@ -10,6 +10,11 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
 
 import firebase from "../firebase";
 
@@ -21,7 +26,7 @@ const useStyles = makeStyles(***REMOVED***
     justifyItems: "center",
     alignItems: "center",
     flex: "0 0 auto",
-    height: "4rem",
+    height: "3.5rem",
 ***REMOVED***,
   headerPaper: ***REMOVED***
     display: "flex",
@@ -30,7 +35,26 @@ const useStyles = makeStyles(***REMOVED***
     justifyItems: "center",
     alignItems: "center",
     flex: "1 1 auto",
-    height: "3rem",
+    height: "3.5rem",
+***REMOVED***,
+  headerPaperMobile: ***REMOVED***
+    display: "flex",
+  flexFlow: "row wrap",
+  justifyContent: "space-around",
+  justifyItems: "center",
+  alignItems: "center",
+  flex: "1 1 auto",
+  height: "14rem",
+  transition:"2s linear"
+***REMOVED***,
+  lowHeaderPaperMobile: ***REMOVED***
+    display: "flex",
+    flexFlow: "row wrap",
+    justifyContent: "space-around",
+    justifyItems: "center",
+    alignItems: "center",
+    flex: "1 1 auto",
+    height: "3.5rem",
 ***REMOVED***,
   headerDiv: ***REMOVED***
     display: "flex",
@@ -41,6 +65,26 @@ const useStyles = makeStyles(***REMOVED***
     flex: "0 0 auto",
     height: "4rem",
     padding: 10
+***REMOVED***,
+  headerDivMobile: ***REMOVED***
+    display: "flex",
+  flexFlow: "row wrap",
+  justifyContent: "space-around",
+  justifyItems: "center",
+  alignItems: "start",
+  flex: "0 0 auto",
+  height: "15rem",
+  padding: 10
+***REMOVED***,
+  lowHeaderDivMobile: ***REMOVED***
+    display: "flex",
+  flexFlow: "row wrap",
+  justifyContent: "space-around",
+  justifyItems: "center",
+  alignItems: "start",
+  flex: "0 0 auto",
+  height: "4rem",
+  padding: 10
 ***REMOVED***,
   controlButtons: ***REMOVED***
     display: "flex",
@@ -61,6 +105,8 @@ const useStyles = makeStyles(***REMOVED***
 
 
 function Header(***REMOVED***game, orderMyPosition, selected, submitSelection, onSubmit, setSelected, gameId, setActiveCard, activeCard***REMOVED***)***REMOVED***
+  
+  const [confirmThrow,setConfirmThrow] = useState(false);
   const classes = useStyles();
   const ***REMOVED*** t ***REMOVED*** = useTranslation();
   const turn = game.round % 4;
@@ -155,8 +201,8 @@ function Header(***REMOVED***game, orderMyPosition, selected, submitSelection, o
 
   if(turn !== orderMyPosition)***REMOVED***
     return(
-      <div className=***REMOVED***classes.headerDiv***REMOVED***>
-        <Paper className=***REMOVED***classes.headerPaper***REMOVED*** style=***REMOVED******REMOVED***backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"***REMOVED******REMOVED***>
+        <div className=***REMOVED***isMobile ? classes.lowHeaderDivMobile : classes.headerDiv***REMOVED***>
+        <Paper className=***REMOVED***isMobile ? classes.lowHeaderPaperMobile : classes.headerPaper***REMOVED*** style=***REMOVED******REMOVED***backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"***REMOVED******REMOVED***>
           <Typography  variant=***REMOVED***isMobile ? "body1" : "h6"***REMOVED*** component=***REMOVED***isMobile ? "h6" : "h6"***REMOVED*** className=***REMOVED***classes.turnTypo + " loading"***REMOVED***>***REMOVED***game.meta.users[game.order[turn]].name***REMOVED*** ***REMOVED***t("headerPlaying")***REMOVED***</Typography>
         </Paper>
       </div>
@@ -185,57 +231,96 @@ function Header(***REMOVED***game, orderMyPosition, selected, submitSelection, o
 ***REMOVED***;
 
   const clearSelection = () => ***REMOVED***
-    setSelected([]);
+    setSelected([]); // guess we can remove that (DogGame.js contains hook effect on activeCard)
     setActiveCard('');
 ***REMOVED***;
 
   return(
-    <Box  p=***REMOVED***2***REMOVED*** className=***REMOVED***isMobile ? "header_mobile" : classes.header***REMOVED***>
-      <div className=***REMOVED***isMobile ? "controlButtons_mobile": classes.controlButtons***REMOVED***>
-        <Button
-          className="pulsingButton controlButtonSingle_mobile"
-          variant="contained"
-          color="secondary"
-          size="small"
-          disabled=***REMOVED***turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0***REMOVED***
-          onClick=***REMOVED***submitSelection***REMOVED***
-        >
-          <Typography>***REMOVED***turnMsg()***REMOVED***</Typography>
-        </Button>
-        <Button
-          variant="contained"
-          className="controlButtonSingle_mobile"
-          startIcon=***REMOVED***<DeleteIcon />***REMOVED***
-          color="primary"
-          size="small"
-          disabled=***REMOVED***(selected.length === 0 ? true : false) || (turn !== orderMyPosition)***REMOVED***
-          onClick=***REMOVED***clearSelection***REMOVED***
-        >
-          <Typography>***REMOVED***t('clearSelectionButton')***REMOVED***</Typography>
-        </Button>
-        <Button
-          variant="contained"
-          className="controlButtonSingle_mobile"
-          color="primary"
-          size="small"
-          disabled=***REMOVED***(Object.keys(myhandObj).length === 0 ? true : false) || (turn !== orderMyPosition)***REMOVED***
-          onClick=***REMOVED***throwHand***REMOVED***
-        >
-          <Typography>***REMOVED***t('cardThrowButton')***REMOVED***</Typography>
-        </Button>
-        <Button
-          variant="outlined"
-          className="controlButtonSingle_mobile"
-          color="default"
-          size="small"
-          disabled=***REMOVED***(turn === (orderMyPosition+1)%4)***REMOVED***
-          startIcon=***REMOVED***<DeveloperModeIcon />***REMOVED***
-          onClick=***REMOVED***undoMove***REMOVED***
-        >
-          <Typography>***REMOVED***t('undoButton')***REMOVED***</Typography>
-        </Button>
+    <React.Fragment>
+      <Dialog open=***REMOVED***confirmThrow***REMOVED*** onClose=***REMOVED***() => setConfirmThrow(false)***REMOVED***>
+        <DialogTitle>***REMOVED***t("confirmThrowTitle")***REMOVED***</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            ***REMOVED***t("confirmThrow")***REMOVED***
+          </DialogContentText>
+          <DialogActions>
+            <Button
+              onClick=***REMOVED***() => ***REMOVED***
+                const throwedHand = game.hands;
+                const numThrow = throwedHand[orderMyPosition].length
+                throwedHand[orderMyPosition] = [];
+                setSelected([]);
+                onSubmit(game.balls, [game.balls[0],game.balls[0]], "YY",throwedHand,game.round%4,numThrow,orderMyPosition,game.rooted);
+                setConfirmThrow(false);
+  ***REMOVED******REMOVED***
+              variant="contained"
+              color="primary"
+            >
+              ***REMOVED***t("yes")***REMOVED***
+            </Button>
+            <Button
+              onClick=***REMOVED***() => ***REMOVED***
+                setConfirmThrow(false);
+  ***REMOVED******REMOVED***
+              variant="contained"
+              color="primary"
+            >
+              ***REMOVED***t("no")***REMOVED***
+            </Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
+      <div className=***REMOVED***isMobile ? classes.headerDivMobile : classes.headerDiv***REMOVED***>
+        <Paper className=***REMOVED***isMobile ? classes.headerPaperMobile : classes.headerPaper***REMOVED*** style=***REMOVED***isMobile ? ***REMOVED******REMOVED*** : ***REMOVED***backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"***REMOVED******REMOVED***>
+          <Box  p=***REMOVED***2***REMOVED*** className=***REMOVED***isMobile ? "header_mobile" : classes.header***REMOVED***>
+            <div className=***REMOVED***isMobile ? "controlButtons_mobile": classes.controlButtons***REMOVED***>
+              <Button
+                className=***REMOVED***isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"***REMOVED***
+                variant="contained"
+                color="secondary"
+                size="small"
+                disabled=***REMOVED***turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0***REMOVED***
+                onClick=***REMOVED***submitSelection***REMOVED***
+              >
+                <Typography>***REMOVED***t('submitTurnButton')***REMOVED***</Typography>
+              </Button>
+              <Button
+                variant="contained"
+                className=***REMOVED***isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"***REMOVED***
+                startIcon=***REMOVED***<DeleteIcon />***REMOVED***
+                color="primary"
+                size="small"
+                disabled=***REMOVED***(selected.length === 0 ? true : false) || (turn !== orderMyPosition)***REMOVED***
+                onClick=***REMOVED***clearSelection***REMOVED***
+              >
+                <Typography>***REMOVED***t('clearSelectionButton')***REMOVED***</Typography>
+              </Button>
+              <Button
+                variant="contained"
+                className=***REMOVED***isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"***REMOVED***
+                color="primary"
+                size="small"
+                disabled=***REMOVED***(Object.keys(myhandObj).length === 0 ? true : false) || (turn !== orderMyPosition)***REMOVED***
+                onClick=***REMOVED***() => ***REMOVED***setConfirmThrow(true)***REMOVED******REMOVED***
+              >
+                <Typography>***REMOVED***t('cardThrowButton')***REMOVED***</Typography>
+              </Button>
+              <Button
+                variant="outlined"
+                className=***REMOVED***isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"***REMOVED***
+                color="default"
+                size="small"
+                disabled=***REMOVED***(turn === (orderMyPosition+1)%4)***REMOVED***
+                startIcon=***REMOVED***<DeveloperModeIcon />***REMOVED***
+                onClick=***REMOVED***undoMove***REMOVED***
+              >
+                <Typography>***REMOVED***t('undoButton')***REMOVED***</Typography>
+              </Button>
+            </div>
+          </Box>
+        </Paper>
       </div>
-    </Box>
+    </React.Fragment>
   );
 ***REMOVED***
 
