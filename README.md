@@ -1,27 +1,3 @@
 # dog-online
-The real-time firebase dog game application, built on react.
-
-## Roadmap v.1.4.0f (bugfix)
-
-- [x] Double move bug (verification needed!)
-- [x] Card 2: stealing last card of next player in order bug (cannot reproduce)
-- [x] Turn verification - finish from homefield bug
-- [x] Finish with seven overhop bug
-- [x] Fix early submitting with Enter key
-
-## Roadmap v.1.5.0 (former v.1.4.1, version lifted)
-
-- [ ] Disable turnMsg in Header, just disable button while selection is not valid
-- [ ] prevent submitting invalid selection with Enter key
-- [ ] Turn verification - check if throwing cards is valid
-- [ ] Fix animation replay
-- [ ] Enable undoing thrown cards
-- [ ] Make "no card selected" error prettier
-
-## Roadmap v.2.0.0
-
-- [ ] Google cloud functions for generating cards
-- [ ] Remember help settings per account
-- [ ] Ability to sign in and see old games
-- [ ] Game Analysis board after finish
-
+<img src="https://user-images.githubusercontent.com/43617677/227145737-8c76f82e-2f24-4dc9-a064-6c872f70f4c9.jpg"  width="60%" height="30%">
+The real-time firebase Dog game application, built on React.
