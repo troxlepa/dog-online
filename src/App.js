@@ -1,11 +1,11 @@
-import React, ***REMOVED*** useState, useEffect ***REMOVED*** from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "./firebase";
 import "./styles.css";
 
-import ***REMOVED*** BrowserRouter as Router, Switch, Route ***REMOVED*** from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import ***REMOVED*** generateName ***REMOVED*** from "./util";
+import { generateName } from "./util";
 import RoomPage from "./pages/RoomPage";
 import GamePage from "./pages/GamePage";
 import LobbyPage from "./pages/LobbyPage";
@@ -20,92 +20,92 @@ import ContactPage from "./pages/ContactPage";
 
 
 
-function App() ***REMOVED***
+function App() {
   const [uid, setUid] = useState(null);
   const [user, setUser] = useState(null);
 
 
 
-  useEffect(() => ***REMOVED***
-    if (!uid) ***REMOVED***
+  useEffect(() => {
+    if (!uid) {
       firebase
         .auth()
         .signInAnonymously()
-        .catch(error => ***REMOVED***
+        .catch(error => {
           alert("Unable to connect to the server. Please try again later.");
-***REMOVED***);
-***REMOVED***
-    return firebase.auth().onAuthStateChanged(user => ***REMOVED***
-      if (user) ***REMOVED***
+        });
+    }
+    return firebase.auth().onAuthStateChanged(user => {
+      if (user) {
         // User is signed in.
         setUid(user.uid);
-***REMOVED*** else ***REMOVED***
+      } else {
         // User is signed out.
         setUid(null);
-***REMOVED***
-***REMOVED***);
-***REMOVED***, [uid]);
+      }
+    });
+  }, [uid]);
 
-  useEffect(() => ***REMOVED***
-    if (!uid) ***REMOVED***
+  useEffect(() => {
+    if (!uid) {
       setUser(null);
       return;
-***REMOVED***
-    const userRef = firebase.database().ref(`/users/$***REMOVED***uid***REMOVED***`);
-    function update(snapshot) ***REMOVED***
-      if (snapshot.exists()) ***REMOVED***
-        setUser(***REMOVED*** ...snapshot.val(), id: uid ***REMOVED***);
-***REMOVED*** else ***REMOVED***
-        userRef.set(***REMOVED***
-          games: ***REMOVED******REMOVED***,
+    }
+    const userRef = firebase.database().ref(`/users/${uid}`);
+    function update(snapshot) {
+      if (snapshot.exists()) {
+        setUser({ ...snapshot.val(), id: uid });
+      } else {
+        userRef.set({
+          games: {},
           name: generateName()
-***REMOVED***);
-***REMOVED***
-***REMOVED***
+        });
+      }
+    }
     userRef.on("value", update);
-    return () => ***REMOVED***
+    return () => {
       userRef.off("value", update);
-***REMOVED***;
-***REMOVED***, [uid]);
+    };
+  }, [uid]);
 
   return (
     <>
       <CssBaseline />
-      ***REMOVED***!user ? (
+      {!user ? (
         <LoadingPage />
       ) : (
         <Router>
           <Switch>
-            <Route exact path="/" component=***REMOVED***IndexPage***REMOVED*** />
-            <Route exact path="/help" component=***REMOVED***HelpPage***REMOVED*** />
-            <Route exact path="/about" component=***REMOVED***AboutPage***REMOVED*** />
-            <Route exact path="/credits" component=***REMOVED***CreditsPage***REMOVED*** />
-            <Route exact path="/contact" component=***REMOVED***ContactPage***REMOVED*** />
+            <Route exact path="/" component={IndexPage} />
+            <Route exact path="/help" component={HelpPage} />
+            <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/credits" component={CreditsPage} />
+            <Route exact path="/contact" component={ContactPage} />
             <Route
               exact
               path="/lobby"
-              render=***REMOVED***() => <LobbyPage user=***REMOVED***user***REMOVED***></LobbyPage>***REMOVED***
+              render={() => <LobbyPage user={user}></LobbyPage>}
             />
             <Route
               exact
               path="/room/:id"
-              render=***REMOVED***(***REMOVED*** match ***REMOVED***) => (
-                <RoomPage user=***REMOVED***user***REMOVED*** gameId=***REMOVED***match.params.id***REMOVED*** />
-              )***REMOVED***
+              render={({ match }) => (
+                <RoomPage user={user} gameId={match.params.id} />
+              )}
             />
             <Route
               exact
               path="/game/:id"
-              render=***REMOVED***(***REMOVED*** match ***REMOVED***) => (
-                <GamePage user=***REMOVED***user***REMOVED*** gameId=***REMOVED***match.params.id***REMOVED*** />
-              )***REMOVED***
+              render={({ match }) => (
+                <GamePage user={user} gameId={match.params.id} />
+              )}
             />
-            <Route component=***REMOVED***NotFoundPage***REMOVED*** />
+            <Route component={NotFoundPage} />
           </Switch>
         </Router>
-      )***REMOVED***
+      )}
     </>
   );
-***REMOVED***
+}
 
 export default App;

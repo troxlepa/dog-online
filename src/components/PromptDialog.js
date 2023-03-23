@@ -1,4 +1,4 @@
-import React, ***REMOVED*** useState ***REMOVED*** from "react";
+import React, { useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -8,55 +8,55 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-function PromptDialog(props) ***REMOVED***
-  const ***REMOVED*** open, onClose, title, message, label, maxLength ***REMOVED*** = props;
+function PromptDialog(props) {
+  const { open, onClose, title, message, label, maxLength } = props;
   const [value, setValue] = useState("");
 
-  function handleClose() ***REMOVED***
+  function handleClose() {
     onClose(null);
     setValue("");
-***REMOVED***
+  }
 
-  function handleSubmit() ***REMOVED***
+  function handleSubmit() {
     onClose(value);
     setValue("");
-***REMOVED***
+  }
 
-  function handleKeyDown(event) ***REMOVED***
-    if (event.key === "Enter") ***REMOVED***
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
       handleSubmit();
-***REMOVED***
-***REMOVED***
+    }
+  }
 
   return (
-    <Dialog open=***REMOVED***open***REMOVED*** onClose=***REMOVED***handleClose***REMOVED***>
-      <DialogTitle>***REMOVED***title***REMOVED***</DialogTitle>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>***REMOVED***message***REMOVED***</DialogContentText>
+        <DialogContentText>{message}</DialogContentText>
         <TextField
           autoFocus
           margin="dense"
           id="name"
-          label=***REMOVED***label***REMOVED***
+          label={label}
           type="text"
           fullWidth
-          value=***REMOVED***value***REMOVED***
-          onChange=***REMOVED***e => setValue(e.target.value)***REMOVED***
+          value={value}
+          onChange={e => setValue(e.target.value)}
           variant="outlined"
-          onKeyDown=***REMOVED***handleKeyDown***REMOVED***
-          inputProps=***REMOVED******REMOVED*** maxLength ***REMOVED******REMOVED***
+          onKeyDown={handleKeyDown}
+          inputProps={{ maxLength }}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick=***REMOVED***handleClose***REMOVED*** color="primary">
+        <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick=***REMOVED***handleSubmit***REMOVED*** variant="contained" color="primary">
+        <Button onClick={handleSubmit} variant="contained" color="primary">
           Ok
         </Button>
       </DialogActions>
     </Dialog>
   );
-***REMOVED***
+}
 
 export default PromptDialog;

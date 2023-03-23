@@ -3,18 +3,18 @@
 <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 650 650" style="enable-background:new 0 0 650 650;" xml:space="preserve">
 <style type="text/css">
-	.st0***REMOVED***fill:#FF0000;***REMOVED***
-	.st1***REMOVED***fill:#EA1A00;***REMOVED***
-	.st2***REMOVED***fill:#FFFFFF;***REMOVED***
-	.st3***REMOVED***fill:#D40000;***REMOVED***
-	.st4***REMOVED***fill:#5F376E;***REMOVED***
-	.st5***REMOVED***fill:#333333;***REMOVED***
-	.st6***REMOVED***fill:#13B02A;***REMOVED***
-	.st7***REMOVED***fill:#7D009C;***REMOVED***
-	.st8***REMOVED***fill:#3DC4A0;***REMOVED***
-	.st9***REMOVED***fill:#405D91;***REMOVED***
-	.st10***REMOVED***fill:#EDBF2F;***REMOVED***
-	.st11***REMOVED***fill:#EAEAEA;***REMOVED***
+	.st0{fill:#FF0000;}
+	.st1{fill:#EA1A00;}
+	.st2{fill:#FFFFFF;}
+	.st3{fill:#D40000;}
+	.st4{fill:#5F376E;}
+	.st5{fill:#333333;}
+	.st6{fill:#13B02A;}
+	.st7{fill:#7D009C;}
+	.st8{fill:#3DC4A0;}
+	.st9{fill:#405D91;}
+	.st10{fill:#EDBF2F;}
+	.st11{fill:#EAEAEA;}
 </style>
 <path class="st6" d="M325,0L325,0C145.5,0,0,145.5,0,325v0c0,179.5,145.5,325,325,325h0c179.5,0,325-145.5,325-325v0
 	C650,145.5,504.5,0,325,0z"/>

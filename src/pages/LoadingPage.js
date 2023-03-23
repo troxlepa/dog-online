@@ -1,24 +1,24 @@
 import React from "react";
 
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import Loading from "../components/Loading";
 
-const useStyles = makeStyles(***REMOVED***
-  loadingContainer: ***REMOVED***
+const useStyles = makeStyles({
+  loadingContainer: {
     padding: 48,
     textAlign: "center"
-***REMOVED***
-***REMOVED***);
+  }
+});
 
-function LoadingPage() ***REMOVED***
+function LoadingPage() {
   const styles = useStyles();
   return (
-    <Container className=***REMOVED***styles.loadingContainer***REMOVED***>
+    <Container className={styles.loadingContainer}>
       <Loading />
     </Container>
   );
-***REMOVED***
+}
 
 export default LoadingPage;

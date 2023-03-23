@@ -1,8 +1,8 @@
 import React from "react";
 
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import ***REMOVED*** makeStyles ***REMOVED*** from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import CardContent from "@material-ui/core/CardContent";
@@ -10,91 +10,91 @@ import CardHeader from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 
-import ***REMOVED***calcTurnTimes, trim***REMOVED*** from "../util";
+import {calcTurnTimes, trim} from "../util";
 
 
 
-const useStyles = makeStyles(***REMOVED***
-  root: ***REMOVED***
+const useStyles = makeStyles({
+  root: {
     minWidth: 275,
-***REMOVED***,
-  bullet: ***REMOVED***
+  },
+  bullet: {
     display: 'inline-block',
     margin: '0 2px',
     transform: 'scale(0.8)',
-***REMOVED***,
-  subtitle: ***REMOVED***
+  },
+  subtitle: {
     fontSize: 14,
-***REMOVED***,
-  pos: ***REMOVED***
+  },
+  pos: {
     marginBottom: 12,
-***REMOVED***,
-***REMOVED***);
+  },
+});
 
-function Stats(***REMOVED***game***REMOVED***)***REMOVED***
+function Stats({game}){
   const classes = useStyles();
   const winnerTeam = [80,81,82,83,88,89,90,91].every(v => (game.balls).includes(v)) ? 0 : 1;
-  let users = game.order.map((userId,idx) => ***REMOVED***return game.meta.users[userId];***REMOVED***);
-  let ***REMOVED***moveCount, avgMoveTimes, jokerCount, akCount, sendCount***REMOVED*** = calcTurnTimes(game);
+  let users = game.order.map((userId,idx) => {return game.meta.users[userId];});
+  let {moveCount, avgMoveTimes, jokerCount, akCount, sendCount} = calcTurnTimes(game);
 
-  const ***REMOVED*** t ***REMOVED*** = useTranslation();
+  const { t } = useTranslation();
 
 
   return(
     <React.Fragment>
       <Typography variant="h4" gutterBottom>
-        ***REMOVED***t('stats')***REMOVED***
+        {t('stats')}
       </Typography>
-      <Grid container spacing=***REMOVED***2***REMOVED***>
-        ***REMOVED***users.map((user,idx) => (
-          <Grid key=***REMOVED***idx***REMOVED*** item xs=***REMOVED***3***REMOVED***>
-            <Card style=***REMOVED***idx % 2 === winnerTeam ? ***REMOVED***border:"5 px solid yellow"***REMOVED*** : ***REMOVED******REMOVED******REMOVED***>
-            <CardHeader className=***REMOVED***"user_cardheader"+idx***REMOVED*** style=***REMOVED******REMOVED***height:"5rem",padding:"5px"***REMOVED******REMOVED***>
-              <Typography variant="h6" style=***REMOVED******REMOVED***color:"white"***REMOVED******REMOVED*** gutterBottom>
-                ***REMOVED***trim(user.name,24)***REMOVED***
+      <Grid container spacing={2}>
+        {users.map((user,idx) => (
+          <Grid key={idx} item xs={3}>
+            <Card style={idx % 2 === winnerTeam ? {border:"5 px solid yellow"} : {}}>
+            <CardHeader className={"user_cardheader"+idx} style={{height:"5rem",padding:"5px"}}>
+              <Typography variant="h6" style={{color:"white"}} gutterBottom>
+                {trim(user.name,24)}
               </Typography>
             </CardHeader>
               <CardContent>
                 <Typography variant="h5" component="h2">
-                ***REMOVED***moveCount[idx]***REMOVED***
+                {moveCount[idx]}
                 </Typography>
-                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-                ***REMOVED***t('moves')***REMOVED***
+                <Typography className={classes.subtitle} component="h2">
+                {t('moves')}
                 </Typography>
-                <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
+                <Divider style={{margin:"10px"}}/>
                 <Typography variant="h5" component="h2">
-                ***REMOVED***avgMoveTimes[idx]***REMOVED***s
+                {avgMoveTimes[idx]}s
                 </Typography>
-                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-                ***REMOVED***t('avgMoves')***REMOVED***
+                <Typography className={classes.subtitle} component="h2">
+                {t('avgMoves')}
                 </Typography> 
-                <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
+                <Divider style={{margin:"10px"}}/>
                 <Typography variant="h5" component="h2">
-                ***REMOVED***jokerCount[idx]***REMOVED***
+                {jokerCount[idx]}
                 </Typography>
-                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-                ***REMOVED***t('jokerCount')***REMOVED***
+                <Typography className={classes.subtitle} component="h2">
+                {t('jokerCount')}
                 </Typography>
-                <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
+                <Divider style={{margin:"10px"}}/>
                 <Typography variant="h5" component="h2">
-                ***REMOVED***akCount[idx]***REMOVED***
+                {akCount[idx]}
                 </Typography>
-                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-                ***REMOVED***t('akCount')***REMOVED***
+                <Typography className={classes.subtitle} component="h2">
+                {t('akCount')}
                 </Typography> 
-                <Divider style=***REMOVED******REMOVED***margin:"10px"***REMOVED******REMOVED***/>
+                <Divider style={{margin:"10px"}}/>
                 <Typography variant="h5" component="h2">
-                ***REMOVED***sendCount[idx]***REMOVED***
+                {sendCount[idx]}
                 </Typography>
-                <Typography className=***REMOVED***classes.subtitle***REMOVED*** component="h2">
-                ***REMOVED***t('sendCount')***REMOVED***
+                <Typography className={classes.subtitle} component="h2">
+                {t('sendCount')}
                 </Typography> 
             </CardContent>
             </Card>
           </Grid>
-      ))***REMOVED***
+      ))}
     </Grid>
     </React.Fragment>
   );
-***REMOVED***
+}
 export default Stats;

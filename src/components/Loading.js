@@ -2,8 +2,8 @@ import React from "react";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-function Loading() ***REMOVED***
+function Loading() {
   return <CircularProgress />;
-***REMOVED***
+}
 
 export default Loading;

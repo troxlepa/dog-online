@@ -1,49 +1,49 @@
-***REMOVED***
-  "database": ***REMOVED***
+{
+  "database": {
     "rules": "database.rules.json"
-***REMOVED***,
-  "hosting": ***REMOVED***
+  },
+  "hosting": {
     "public": "build",
-    "headers": [ ***REMOVED***
+    "headers": [ {
       "source" : "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
-      "headers" : [ ***REMOVED***
+      "headers" : [ {
         "key" : "Access-Control-Allow-Origin",
         "value" : "*"
-***REMOVED*** ]
-***REMOVED*** ***REMOVED***
+      } ]
+    }, {
       "source": "/**/*.@(json)",
       "headers": [
-        ***REMOVED***
+        {
           "key": "Cache-Control",
           "value": "no-cache, no-store, must-revalidate"
-***REMOVED***
+        }
       ]
-***REMOVED*** ***REMOVED***
+    }, {
       "source" : "**/*.@(js|css)",
-      "headers" : [ ***REMOVED***
+      "headers" : [ {
         "key" : "Cache-Control",
         "value" : "max-age=604800"
-***REMOVED*** ]
-***REMOVED*** ***REMOVED***
+      } ]
+    }, {
       "source" : "**/*.@(jpg|jpeg|gif|png|svg)",
-      "headers" : [ ***REMOVED***
+      "headers" : [ {
         "key" : "Cache-Control",
         "value" : "max-age=604800"
-***REMOVED*** ]
-***REMOVED*** ***REMOVED***
+      } ]
+    }, {
       // Sets the cache header for 404 pages to cache for 5 minutes
       "source" : "404.html",
-      "headers" : [ ***REMOVED***
+      "headers" : [ {
         "key" : "Cache-Control",
         "value" : "max-age=300"
-***REMOVED*** ]
-***REMOVED*** ],
+      } ]
+    } ],
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
-      ***REMOVED***
+      {
         "source": "**",
         "destination": "/index.html"
-***REMOVED***
+      }
     ]
-***REMOVED***
-***REMOVED***
+  }
+}

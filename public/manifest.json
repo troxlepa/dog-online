@@ -1,4 +1,4 @@
-***REMOVED***
+{
   "name": "Dog At Home",
   "short_name": "DOG",
   "display": "standalone",
@@ -6,21 +6,21 @@
   "theme_color": "#3f51b5",
   "background_color": "#ffffff",
   "icons": [
-    ***REMOVED***
+    {
       "src": "/favicons/favicon-32.png?v=v1.2.1",
       "sizes": "32x32"
-***REMOVED***
-    ***REMOVED***
+    },
+    {
       "src": "/favicons/favicon-64.png?v=v1.2.1",
       "sizes": "64x64"
-***REMOVED***
-    ***REMOVED***
+    },
+    {
       "src": "/favicons/favicon-96.png?v=v1.2.1",
       "sizes": "96x96"
-***REMOVED***
-    ***REMOVED***
+    },
+    {
       "src": "/favicons/favicon-192.png?v=v1.2.1",
       "sizes": "192x192"
-***REMOVED***
+    }
   ]
-***REMOVED***
+}

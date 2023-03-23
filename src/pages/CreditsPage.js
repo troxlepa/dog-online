@@ -5,20 +5,20 @@ import Link from "@material-ui/core/Link";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
-import ***REMOVED*** Link as RouterLink ***REMOVED*** from "react-router-dom";
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
+import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
-function CreditsPage() ***REMOVED***
-  const ***REMOVED*** t ***REMOVED*** = useTranslation();
+function CreditsPage() {
+  const { t } = useTranslation();
   return (
     <Container>
-      <Box m=***REMOVED***3***REMOVED***>
+      <Box m={3}>
         <Typography variant="h4" align="center">
-          ***REMOVED***t("fpCredits")***REMOVED***
+          {t("fpCredits")}
         </Typography>
-        <Paper style=***REMOVED******REMOVED*** padding: 14, width: 640, margin: "12px auto" ***REMOVED******REMOVED***>
+        <Paper style={{ padding: 14, width: 640, margin: "12px auto" }}>
           <Typography variant="h6" gutterBottom>
-            ***REMOVED***(t("credits1"))***REMOVED***:
+            {(t("credits1"))}:
           </Typography>
           <Typography variant="body1" gutterBottom>
             <Link href="https://github.com/ekzhang/setwithfriends">Set with friends</Link>
@@ -37,13 +37,13 @@ function CreditsPage() ***REMOVED***
           </Typography>
         </Paper>
         <Typography variant="body1" align="center">
-          <Link component=***REMOVED***RouterLink***REMOVED*** to="/">
-            ***REMOVED***t("returnHome")***REMOVED***
+          <Link component={RouterLink} to="/">
+            {t("returnHome")}
           </Link>
         </Typography>
       </Box>
     </Container>
   );
-***REMOVED***
+}
 
 export default CreditsPage;

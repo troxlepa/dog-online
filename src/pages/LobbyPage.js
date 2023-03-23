@@ -1,8 +1,8 @@
-import React, ***REMOVED*** useState ***REMOVED*** from "react";
+import React, { useState } from "react";
 
 import generate from "project-name-generator";
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
-import ***REMOVED*** Redirect ***REMOVED*** from "react-router";
+import { makeStyles } from "@material-ui/core/styles";
+import { Redirect } from "react-router";
 import Card from "@material-ui/core/Card";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -18,41 +18,41 @@ import PromptDialog from "../components/PromptDialog";
 import firebase from "../firebase";
 import Tooltip from '@material-ui/core/Tooltip';
 
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles(theme => (***REMOVED***
-  container: ***REMOVED***
+const useStyles = makeStyles(theme => ({
+  container: {
     padding: 40,
     height: "100%",
     textAlign: "center"
-***REMOVED***,
-  menu: ***REMOVED***
+  },
+  menu: {
     padding: 12,
     display: "flex",
     flexDirection: "column",
-    "& button": ***REMOVED***
+    "& button": {
       margin: 12,
       marginTop: 6,
       marginBottom: 6
-***REMOVED***
-    "& button:first-child": ***REMOVED***
+    },
+    "& button:first-child": {
       marginTop: 12,
       marginBottom: 12
-***REMOVED***
-    "& button:last-child": ***REMOVED***
+    },
+    "& button:last-child": {
       marginBottom: 12
-***REMOVED***
-***REMOVED***,
-  warningBtn: ***REMOVED***
+    }
+  },
+  warningBtn: {
     color: theme.palette.warning.contrastText,
     background: theme.palette.warning.main,
-    "&:hover": ***REMOVED***
+    "&:hover": {
       background: theme.palette.warning.dark
-***REMOVED***
-***REMOVED***
-***REMOVED***));
+    }
+  }
+}));
 
-function LobbyPage(***REMOVED*** user ***REMOVED***) ***REMOVED***
+function LobbyPage({ user }) {
   const classes = useStyles();
   const [redirect, setRedirect] = useState(null);
   const [play, setPlay] = useState(false);
@@ -60,123 +60,123 @@ function LobbyPage(***REMOVED*** user ***REMOVED***) ***REMOVED***
   const [joinTwo, setJoinTwo] = useState(false);
   const [spectate, setSpectate] = useState(false);
   const [options, setOptions] = useState(false);
-  const ***REMOVED*** t ***REMOVED*** = useTranslation();
+  const { t } = useTranslation();
 
-  if (redirect) return <Redirect push to=***REMOVED***redirect***REMOVED*** />;
+  if (redirect) return <Redirect push to={redirect} />;
 
-  function playButton() ***REMOVED***
+  function playButton() {
     setPlay(true);
-***REMOVED***
+  }
 
-  function newRoom() ***REMOVED***
+  function newRoom() {
     setRedirect("/room/" + generate().dashed);
-***REMOVED***
+  }
 
-  function joinRoom() ***REMOVED***
+  function joinRoom() {
     setJoin(true);
-***REMOVED***
+  }
 
-  function joinRoomTwo() ***REMOVED***
+  function joinRoomTwo() {
     setJoinTwo(true);
-***REMOVED***
+  }
 
-  function handleJoin(gameId) ***REMOVED***
+  function handleJoin(gameId) {
     setJoin(false);
-    if (gameId) ***REMOVED***
-      setRedirect(`/room/$***REMOVED***gameId***REMOVED***`);
-***REMOVED***
-***REMOVED***
+    if (gameId) {
+      setRedirect(`/room/${gameId}`);
+    }
+  }
 
-  function handleJoinTwo(gameId) ***REMOVED***
+  function handleJoinTwo(gameId) {
     setJoinTwo(false);
     if (gameId === "") newRoom();
-    if (gameId) ***REMOVED***
-      setRedirect(`/room/$***REMOVED***gameId***REMOVED***`);
-***REMOVED***
-***REMOVED***
+    if (gameId) {
+      setRedirect(`/room/${gameId}`);
+    }
+  }
 
-  function spectateGame() ***REMOVED***
+  function spectateGame() {
     setSpectate(true);
-***REMOVED***
+  }
 
-  function handleSpectate(gameId) ***REMOVED***
+  function handleSpectate(gameId) {
     setSpectate(false);
-    if (gameId) ***REMOVED***
-      setRedirect(`/game/$***REMOVED***gameId***REMOVED***`);
-***REMOVED***
-***REMOVED***
+    if (gameId) {
+      setRedirect(`/game/${gameId}`);
+    }
+  }
 
-  function optionsButton() ***REMOVED***
+  function optionsButton() {
     setOptions(true);
-***REMOVED***
+  }
 
-  function handleReset() ***REMOVED***
+  function handleReset() {
     setOptions(false);
     firebase.auth().currentUser.delete();
-***REMOVED***
+  }
 
   return (
-    <Container className=***REMOVED***classes.container***REMOVED***>
-      <Dialog open=***REMOVED***play***REMOVED*** onClose=***REMOVED***() => setPlay(false)***REMOVED***>
-        <DialogTitle>***REMOVED***t("playDog")***REMOVED***</DialogTitle>
+    <Container className={classes.container}>
+      <Dialog open={play} onClose={() => setPlay(false)}>
+        <DialogTitle>{t("playDog")}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ***REMOVED***t("beginDialog")***REMOVED***
+            {t("beginDialog")}
           </DialogContentText>
           <DialogActions>
             <Button
-              onClick=***REMOVED***() => ***REMOVED***
+              onClick={() => {
                 setPlay(false);
                 newRoom();
-  ***REMOVED******REMOVED***
+              }}
               variant="contained"
               color="primary"
             >
-              ***REMOVED***t("newRoom")***REMOVED***
+              {t("newRoom")}
             </Button>
             <Button
-              onClick=***REMOVED***() => ***REMOVED***
+              onClick={() => {
                 setPlay(false);
                 joinRoom();
-  ***REMOVED******REMOVED***
+              }}
               variant="contained"
               color="primary"
             >
-              ***REMOVED***t("joinRoom")***REMOVED***
+              {t("joinRoom")}
             </Button>
           </DialogActions>
         </DialogContent>
       </Dialog>
       <PromptDialog
-        open=***REMOVED***join***REMOVED***
-        onClose=***REMOVED***handleJoin***REMOVED***
-        title=***REMOVED***t("joinRoom")***REMOVED***
-        message=***REMOVED***t("joinRoomText")***REMOVED***
-        label=***REMOVED***t("roomId")***REMOVED***
+        open={join}
+        onClose={handleJoin}
+        title={t("joinRoom")}
+        message={t("joinRoomText")}
+        label={t("roomId")}
       />
       <PromptDialog
-        open=***REMOVED***joinTwo***REMOVED***
-        onClose=***REMOVED***handleJoinTwo***REMOVED***
-        title=***REMOVED***t("newRoom")***REMOVED***
-        message=***REMOVED***t("newRoomText")***REMOVED***
-        label=***REMOVED***t("roomId")***REMOVED***
+        open={joinTwo}
+        onClose={handleJoinTwo}
+        title={t("newRoom")}
+        message={t("newRoomText")}
+        label={t("roomId")}
       />
       <PromptDialog
-        open=***REMOVED***spectate***REMOVED***
-        onClose=***REMOVED***handleSpectate***REMOVED***
-        title=***REMOVED***t("spectate")***REMOVED***
-        message=***REMOVED***t("specText")***REMOVED***
-        label=***REMOVED***t("roomId")***REMOVED***
+        open={spectate}
+        onClose={handleSpectate}
+        title={t("spectate")}
+        message={t("specText")}
+        label={t("roomId")}
       />
-      <Dialog open=***REMOVED***options***REMOVED*** onClose=***REMOVED***() => setOptions(false)***REMOVED***>
+      <Dialog open={options} onClose={() => setOptions(false)}>
         <DialogTitle>Options</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ***REMOVED***t("resetDataText")***REMOVED***
+            {t("resetDataText")}
           </DialogContentText>
           <DialogActions>
-            <Button className=***REMOVED***classes.warningBtn***REMOVED*** onClick=***REMOVED***handleReset***REMOVED***>
-              ***REMOVED***t("resetData")***REMOVED***
+            <Button className={classes.warningBtn} onClick={handleReset}>
+              {t("resetData")}
             </Button>
           </DialogActions>
         </DialogContent>
@@ -184,54 +184,54 @@ function LobbyPage(***REMOVED*** user ***REMOVED***) ***REMOVED***
       <Typography variant="h3" component="h2" gutterBottom>
         Dog At Home
       </Typography>
-      <Grid container spacing=***REMOVED***3***REMOVED***>
-        <Grid item xs=***REMOVED***1***REMOVED*** sm=***REMOVED***4***REMOVED***>
-          ***REMOVED***/* empty */***REMOVED***
+      <Grid container spacing={3}>
+        <Grid item xs={1} sm={4}>
+          {/* empty */}
         
         </Grid>
-        <Grid item xs=***REMOVED***10***REMOVED*** sm=***REMOVED***4***REMOVED***>
-          <Card elevation=***REMOVED***2***REMOVED*** className=***REMOVED***classes.menu***REMOVED***>
-            <Button onClick=***REMOVED***playButton***REMOVED*** variant="contained" color="primary">
-              ***REMOVED***t("lpPlay")***REMOVED***
+        <Grid item xs={10} sm={4}>
+          <Card elevation={2} className={classes.menu}>
+            <Button onClick={playButton} variant="contained" color="primary">
+              {t("lpPlay")}
             </Button>
-            <Button onClick=***REMOVED***joinRoomTwo***REMOVED*** variant="contained">
-              ***REMOVED***t("newRoom")***REMOVED***
+            <Button onClick={joinRoomTwo} variant="contained">
+              {t("newRoom")}
             </Button>
-            <Button onClick=***REMOVED***joinRoom***REMOVED*** variant="contained">
-              ***REMOVED***t("joinRoomId")***REMOVED***
+            <Button onClick={joinRoom} variant="contained">
+              {t("joinRoomId")}
             </Button>
             <Tooltip title="Coming in v2.0.0">
-              <div style=***REMOVED******REMOVED***marginRight:"24px"***REMOVED******REMOVED***>
-                <Button style=***REMOVED******REMOVED***width:"100%", maxWidth:"100%"***REMOVED******REMOVED*** onClick=***REMOVED***spectateGame***REMOVED*** variant="contained">
-                  ***REMOVED***t("spectate")***REMOVED***
+              <div style={{marginRight:"24px"}}>
+                <Button style={{width:"100%", maxWidth:"100%"}} onClick={spectateGame} variant="contained">
+                  {t("spectate")}
                 </Button>
               </div>
             </Tooltip>
-            <Button onClick=***REMOVED***optionsButton***REMOVED*** variant="contained">
-              ***REMOVED***t("options")***REMOVED***
+            <Button onClick={optionsButton} variant="contained">
+              {t("options")}
             </Button>
           </Card>
-        </Grid>***REMOVED***/*
-        <Grid item xs=***REMOVED***3***REMOVED***>
-          <Card className=***REMOVED***classes.menu***REMOVED***>
+        </Grid>{/*
+        <Grid item xs={3}>
+          <Card className={classes.menu}>
             <Typography variant="h6" gutterBottom>
               Statistics
             </Typography>
-            <Typography variant="body1">Games played: ***REMOVED***stats[0]***REMOVED***</Typography>
-            <Typography variant="body1">Games won: ***REMOVED***stats[1]***REMOVED***</Typography>
-            <Typography variant="body1">Total sets: ***REMOVED***stats[2]***REMOVED***</Typography>
+            <Typography variant="body1">Games played: {stats[0]}</Typography>
+            <Typography variant="body1">Games won: {stats[1]}</Typography>
+            <Typography variant="body1">Total sets: {stats[2]}</Typography>
             <Typography variant="body1">
-              Avg. sets per game:***REMOVED***" "***REMOVED***
-              ***REMOVED***stats[0] ? (stats[2] / stats[0]).toFixed(2) : "N/A"***REMOVED***
+              Avg. sets per game:{" "}
+              {stats[0] ? (stats[2] / stats[0]).toFixed(2) : "N/A"}
             </Typography>
           </Card>
-        </Grid>*/***REMOVED***
-        <Grid item xs=***REMOVED***1***REMOVED*** sm=***REMOVED***1***REMOVED***>
-          ***REMOVED***/* empty */***REMOVED***
+        </Grid>*/}
+        <Grid item xs={1} sm={1}>
+          {/* empty */}
         </Grid>
       </Grid>
     </Container>
   );
-***REMOVED***
+}
 
 export default LobbyPage;

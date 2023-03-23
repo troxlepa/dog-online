@@ -1,10 +1,10 @@
-import React, ***REMOVED*** useEffect, useState, useCallback***REMOVED*** from "react";
+import React, { useEffect, useState, useCallback} from "react";
 
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Board from "../assets/board.svg";
-import ***REMOVED*** SvgLoader, SvgProxy***REMOVED*** from 'react-svgmt';
+import { SvgLoader, SvgProxy} from 'react-svgmt';
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Modal from "@material-ui/core/Modal";
@@ -18,124 +18,124 @@ import JassCard from "../components/JassCard";
 import HandCards from "../components/HandCards";
 import Balls from "../components/Balls";
 
-import ***REMOVED***iHaveFinished***REMOVED*** from "../util";
+import {iHaveFinished} from "../util";
 
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
+import { isMobile } from "react-device-detect";
 
 
-let styled = ***REMOVED******REMOVED***;
-if(isMobile)***REMOVED***
-  styled = ***REMOVED***
-    gameContainer: ***REMOVED***
+let styled = {};
+if(isMobile){
+  styled = {
+    gameContainer: {
       position: "relative",
       width: "100%",
-***REMOVED***  
-    modal: ***REMOVED***
+    },  
+    modal: {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-***REMOVED***
-    modalBox: ***REMOVED***
+    },
+    modalBox: {
       outline: 0,
       padding: 28,
       margin:3,
       textAlign: "center",
-***REMOVED***
-    jokerBox:***REMOVED***
+    },
+    jokerBox:{
       margin:5,
       padding:10
-***REMOVED***
-    modalBoxExchange: ***REMOVED***
+    },
+    modalBoxExchange: {
       outline: 0,
       padding: 28,
       textAlign: "center",
       transition:"0.6s",
-***REMOVED***
-    boardWrapper: ***REMOVED***
+    },
+    boardWrapper: {
       display: "flex",
       justifyContent: "center"
-***REMOVED***
-    playerCards: ***REMOVED***
+    },
+    playerCards: {
       borderMyPositionTop: "1px solid lightgray",
-***REMOVED***
-    exCards: ***REMOVED***
+    },
+    exCards: {
       flexDirection: "row",
       borderTop: "1px solid lightgray",
       flexWrap:"nowrap",
       justifyContent:"left",
-***REMOVED***
-    jokerModalCard:***REMOVED***
+    },
+    jokerModalCard:{
       position:"relative",
       display:"inline-block",
       margin:6
-***REMOVED***
-***REMOVED***;
-***REMOVED*** else ***REMOVED***
-  styled = ***REMOVED***
-    gameContainer: ***REMOVED***
+    }
+  };
+} else {
+  styled = {
+    gameContainer: {
       position: "relative",
       width: "100%",
       height: "100%",
-***REMOVED***  
-    modal: ***REMOVED***
+    },  
+    modal: {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-***REMOVED***
-    modalBox: ***REMOVED***
+    },
+    modalBox: {
       outline: 0,
       padding: 28,
       textAlign: "center",
-***REMOVED***
-    jokerBox:***REMOVED***
+    },
+    jokerBox:{
       margin:20,
       padding:20
-***REMOVED***
-    modalBoxExchange: ***REMOVED***
+    },
+    modalBoxExchange: {
       outline: 0,
       padding: 28,
       textAlign: "center",
       transition:"0.6s",
-      "&:not(:hover)": ***REMOVED***
+      "&:not(:hover)": {
         opacity: ".15",
-***REMOVED***
-***REMOVED***
-    boardWrapper: ***REMOVED***
+      }
+    },
+    boardWrapper: {
       height: "100%",
       display: "flex",
       justifyContent: "center"
-***REMOVED***
-    playerCards: ***REMOVED***
+    },
+    playerCards: {
       borderMyPositionTop: "1px solid lightgray",
-***REMOVED***
-    exCards: ***REMOVED***
+    },
+    exCards: {
       flexDirection: "row",
       borderTop: "1px solid lightgray",
       flexWrap:"nowrap",
       justifyContent:"left",
-***REMOVED***
-    jokerModalCard:***REMOVED***
+    },
+    jokerModalCard:{
       position:"relative",
       display:"inline-block",
       margin:3
-***REMOVED***
-***REMOVED***;
-***REMOVED***
+    }
+  };
+}
 
 const useStyles = makeStyles(styled);
 
-function DogGame(***REMOVED*** game, spectating, onSubmit, user, doExchange, gameId, helpDisabled***REMOVED***) ***REMOVED***
+function DogGame({ game, spectating, onSubmit, user, doExchange, gameId, helpDisabled}) {
   const classes = useStyles();
-  const ***REMOVED*** t ***REMOVED*** = useTranslation();
+  const { t } = useTranslation();
   const [activeCard, setCardState] = useState('');
   const [jokerModal, setJokerModal] = useState('');
   const [twoModal, setTwoModal] = useState(0);
   const [selected, setSelected] = useState([]);
-  const [snack, setSnack] = useState(***REMOVED*** open: false ***REMOVED***);
+  const [snack, setSnack] = useState({ open: false });
   const [recv,setRecv] = useState(false);
 
   const userId = user.id;
@@ -146,59 +146,59 @@ function DogGame(***REMOVED*** game, spectating, onSubmit, user, doExchange, gam
 
   const teamMate = game.meta.users[game.order[(orderMyPosition+2)%4]];
 
-  var myhandObj = ***REMOVED******REMOVED***;
-  if(game.hands)***REMOVED***
-    myhandObj = game.hands[orderMyPosition] ? game.hands[orderMyPosition] : ***REMOVED******REMOVED***;
-***REMOVED***
+  var myhandObj = {};
+  if(game.hands){
+    myhandObj = game.hands[orderMyPosition] ? game.hands[orderMyPosition] : {};
+  }
   
-  useEffect(() => ***REMOVED***
+  useEffect(() => {
     setSelected([]);
-***REMOVED***, [activeCard]);
+  }, [activeCard]);
 
-  useEffect(() => ***REMOVED***
+  useEffect(() => {
     if(selected !== []) checkSelection();
-***REMOVED***, [game]);
+  }, [game]);
 
-  const checkSelection = () => ***REMOVED***
+  const checkSelection = () => {
     const gameBalls = game.balls;
     const myBalls = gameBalls.slice(orderMyPosition*4,(orderMyPosition*4)+4);
     const partnerPos = (orderMyPosition+2)%4;
     const partnerBalls = gameBalls.slice(partnerPos*4,(partnerPos*4)+4);
-    for(var i=0;i<selected.length;i+=2)***REMOVED***
-      if(!partnerBalls.includes(selected) && iHaveFinished(gameBalls))***REMOVED***
+    for(var i=0;i<selected.length;i+=2){
+      if(!partnerBalls.includes(selected) && iHaveFinished(gameBalls)){
         setCardState('');
-***REMOVED***
-      else if(!myBalls.includes(selected[i]))***REMOVED***
+      }
+      else if(!myBalls.includes(selected[i])){
         setCardState('');
-***REMOVED***
-***REMOVED***
-***REMOVED***;
+      }
+    }
+  };
 
   const handleCard = useCallback(
-    card => ***REMOVED***
+    card => {
       if (spectating) return;
       if(activeCard.substring(0,2) === card) return '';
       setCardState(card);
-***REMOVED***
+    }
   );
 
   const handleOpenRecv = useCallback(
-    () => ***REMOVED***
+    () => {
       setRecv(!recv);
-***REMOVED***
+    }
   );
 
 
-  function checkTurnValidity()***REMOVED***
+  function checkTurnValidity(){
     return selected.length % 2 === 0;
-***REMOVED***
+  }
 
   const handleStealSubmit = 
-    (hand_idx,card_idx) => ***REMOVED***
-      if(turn !== orderMyPosition)***REMOVED***
+    (hand_idx,card_idx) => {
+      if(turn !== orderMyPosition){
         handleSetSnack(t("notYourTurn")+game.meta.users[game.order[turn]].name);
         return;
-***REMOVED***
+      }
       let newHands = game.hands;
       let newRoot = game.rooted ? game.rooted : "";
       let stolenCard = newHands[hand_idx].splice(card_idx,1);  // remove stolen card
@@ -206,457 +206,457 @@ function DogGame(***REMOVED*** game, spectating, onSubmit, user, doExchange, gam
       newHands[orderMyPosition][stolenIndex] = stolenCard[0]; // replace two by stolen card
       onSubmit(game.balls,[],activeCard,newHands,(game.round%4),null,orderMyPosition,newRoot);
       setTwoModal(0);
-***REMOVED***;
+    };
 
-  function isAK(aC)***REMOVED*** return (aC==='A' || aC==='K');***REMOVED***
+  function isAK(aC){ return (aC==='A' || aC==='K');}
 
   const submitSelection = 
-    () => ***REMOVED***
+    () => {
       if(activeCard === '') return; //no card selected
-      if(turn !== orderMyPosition)***REMOVED***
+      if(turn !== orderMyPosition){
         handleSetSnack(t("notYourTurn")+game.meta.users[game.order[turn]].name);
         return;
-***REMOVED***
+      }
       let newBallz = [...game.balls];
       let newHands = game.hands;
       let newRoot = game.rooted ? game.rooted : "";
-      if(checkTurnValidity())***REMOVED***    
+      if(checkTurnValidity()){    
         const homeFields = [0,16,32,48];
         const key = orderMyPosition;
         const aC = activeCard.length === 3 ? activeCard.substring(2,3) : activeCard.substring(0,1);
 
-        if(aC === '7' && !calcIsSevenSum(selected))***REMOVED***
+        if(aC === '7' && !calcIsSevenSum(selected)){
           setCardState('');
           return;
-***REMOVED***
-        if(aC === '7')***REMOVED***
-          for(var i=0;i<selected.length;i+=2)***REMOVED***
+        }
+        if(aC === '7'){
+          for(var i=0;i<selected.length;i+=2){
             // seven moved rooted home field -> unroot
-            if(homeFields.includes(selected[i]))***REMOVED***
+            if(homeFields.includes(selected[i])){
               newRoot = replaceChar(newRoot,homeFields.indexOf(selected[i]),'0');
-***REMOVED***
+            }
             newBallz[game.balls.indexOf(selected[i])] = selected[i+1];
-***REMOVED***
-***REMOVED***else***REMOVED***
-          if(aC==='J')***REMOVED***
+          }
+        }else{
+          if(aC==='J'){
             const c1 = game.balls.indexOf(selected[0]);
             const c2 = game.balls.indexOf(selected[1]);
             [newBallz[c1],newBallz[c2]] = [game.balls[c2],game.balls[c1]];
-***REMOVED***else***REMOVED***
-            for(var j=0;j<selected.length;j+=2)***REMOVED***
-              if(isAK(aC) && selected[j] >= 64 && selected[j] < 80)***REMOVED***
+          }else{
+            for(var j=0;j<selected.length;j+=2){
+              if(isAK(aC) && selected[j] >= 64 && selected[j] < 80){
                 newRoot = replaceChar(game.rooted,getBallColor(selected[j]),"1");
                 console.log(newRoot);
-  ***REMOVED***
-              else if(homeFields.includes(selected[j]) && newRoot.charAt(homeFields.indexOf(selected[j])) === "1")***REMOVED***
+              }
+              else if(homeFields.includes(selected[j]) && newRoot.charAt(homeFields.indexOf(selected[j])) === "1"){
                 newRoot = replaceChar(game.rooted,getBallColor(selected[j]),"0");
-  ***REMOVED***
+              }
               newBallz[game.balls.indexOf(selected[j])] = selected[j+1];
-***REMOVED***
-***REMOVED***
-***REMOVED***
+            }
+          }
+        }
 
-        if(game.rules)***REMOVED***
+        if(game.rules){
           const ljEnabled = game.rules.charAt(4) === "1";
           const partnerPos = (orderMyPosition+2)%4;
-          if(ljEnabled && activeCard.charAt(0) === 'Z' && newBallz.slice(orderMyPosition*4,(orderMyPosition*4)+4).every(x => x >= 80) && newBallz.slice(partnerPos*4,(partnerPos*4)+4).every(x => x >= 80))***REMOVED***
+          if(ljEnabled && activeCard.charAt(0) === 'Z' && newBallz.slice(orderMyPosition*4,(orderMyPosition*4)+4).every(x => x >= 80) && newBallz.slice(partnerPos*4,(partnerPos*4)+4).every(x => x >= 80)){
             setCardState('');
             handleSetSnack(t("ljEnabled"));
             return;
-***REMOVED***
-***REMOVED***
-        if(newBallz.length !== new Set(newBallz).size)***REMOVED*** // check if two ball on same spot
+          }
+        }
+        if(newBallz.length !== new Set(newBallz).size){ // check if two ball on same spot
           setCardState('');
           handleSetSnack(t("invalidTurn"));
           return;
-***REMOVED***
+        }
         newHands[key].splice(newHands[key].indexOf(activeCard.substring(0,2)),1); // remove card from hand
-***REMOVED***else***REMOVED***
+      }else{
         setCardState('');
         handleSetSnack(t("invalidTurn"));
         return;
-***REMOVED***
+      }
 
       onSubmit(newBallz,selected,activeCard,newHands,(game.round%4),null,orderMyPosition,newRoot);
-***REMOVED***;
+    };
 
-  function calcIsSevenSum(selected)***REMOVED***
+  function calcIsSevenSum(selected){
     let sum = 0;
-    for(var i=1;i<selected.length;i+=2)***REMOVED***
+    for(var i=1;i<selected.length;i+=2){
       const dest = selected[i];
-      if(!(dest > 63 && dest < 80))***REMOVED***  //sendHome
+      if(!(dest > 63 && dest < 80)){  //sendHome
         const start = selected[i-1];
         // goFinish
-        if(dest >= 80)***REMOVED***
-          if(start >= 80)***REMOVED***
+        if(dest >= 80){
+          if(start >= 80){
             sum += dest-start;
-***REMOVED***
-          else if(start === 0)***REMOVED***
+          }
+          else if(start === 0){
             sum += dest-79; //noZeroToFinish
-***REMOVED***
-          else if(start > 57)***REMOVED***
+          }
+          else if(start > 57){
             sum += (64-start)+(dest-79);
-***REMOVED***
-          else if(dest >= 92)***REMOVED***
+          }
+          else if(dest >= 92){
             sum += (48-start)+(dest-91);
-***REMOVED***
-          else if(dest >= 88)***REMOVED***
+          }
+          else if(dest >= 88){
             sum += (32-start)+(dest-87);
-***REMOVED***
-          else if(dest >= 84)***REMOVED***
+          }
+          else if(dest >= 84){
             sum += (16-start)+(dest-83);
-***REMOVED***
-          else***REMOVED***
+          }
+          else{
             alert("are you trying to move backwards? bug alert");
-***REMOVED***
-***REMOVED***
-        else***REMOVED***
-          if(start > 56 && dest < 7)***REMOVED***
+          }
+        }
+        else{
+          if(start > 56 && dest < 7){
             sum += dest+64-start;
-***REMOVED***else***REMOVED***
+          }else{
             sum += dest-start;
-***REMOVED***
+          }
           if(sum <= 0) return false;
-***REMOVED***
-***REMOVED*** // sendHome
-***REMOVED***
+        }
+      } // sendHome
+    }
     if(sum <= 0) return false;
     return sum === 7;
-***REMOVED***
+  }
 
-  function getBallColor(ball)***REMOVED***
+  function getBallColor(ball){
 
     return Math.floor(game.balls.indexOf(ball)/4);
-***REMOVED***
+  }
 
-  function replaceChar(rooted,index,value)***REMOVED***
+  function replaceChar(rooted,index,value){
 
     return rooted.substring(0,index) + value + rooted.substring(index+1);
-***REMOVED***
+  }
 
   const exchangeCard = useCallback(
-    () => ***REMOVED***
+    () => {
       doExchange(activeCard,orderMyPosition.toString());
       setCardState('');
-***REMOVED***
+    }
   );
 
-  const onKeyDownHandler = (e) => ***REMOVED***
-    if (e.keyCode === 13) ***REMOVED***
-      if(turn !== orderMyPosition)***REMOVED***
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 13) {
+      if(turn !== orderMyPosition){
         handleSetSnack(t("notYourTurn")+game.meta.users[game.order[turn]].name);
         return;
-***REMOVED***
+      }
       if(selected.length > 1 && selected.length % 2 === 0 && activeCard !== '') submitSelection();
-***REMOVED***else if(e.keyCode === 27)***REMOVED***
-      if(!recv)***REMOVED***
+    }else if(e.keyCode === 27){
+      if(!recv){
         handleOpenRecv();
-***REMOVED***else***REMOVED***
+      }else{
         setCardState('');
-***REMOVED***
-***REMOVED***
-***REMOVED***;
+      }
+    }
+  };
 
-  function comparer( a, b ) ***REMOVED***
+  function comparer( a, b ) {
 
     return a.time < b.time ? -1 : 1;
-***REMOVED***
-  function handleClose(event, reason) ***REMOVED***
+  }
+  function handleClose(event, reason) {
     if (reason === "clickaway") return;
-    setSnack(***REMOVED*** ...snack, open: false ***REMOVED***);
-***REMOVED***
+    setSnack({ ...snack, open: false });
+  }
 
-  const handleSetTwoModal = (state,value) => ***REMOVED***
+  const handleSetTwoModal = (state,value) => {
     setTwoModal(state);
     setCardState(value);
-***REMOVED***;
-  const handleSetSnack = (msg) => ***REMOVED***
-    setSnack(***REMOVED***
+  };
+  const handleSetSnack = (msg) => {
+    setSnack({
       open: true,
       variant: "error",
       message: msg
-***REMOVED***);
-***REMOVED***;
+    });
+  };
 
   return (
     <React.Fragment>
-      ***REMOVED***isMobile ? (
-        <Dialog closetimeoutms=***REMOVED***2000***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***(!game.exchange || !game.exchange[orderMyPosition]) && !spectating && game.meta.status !== "done" && !helpDisabled.home***REMOVED***>
-          <Paper className=***REMOVED***classes.modalBoxExchange***REMOVED***>
+      {isMobile ? (
+        <Dialog closetimeoutms={2000} className={classes.modal} open={(!game.exchange || !game.exchange[orderMyPosition]) && !spectating && game.meta.status !== "done" && !helpDisabled.home}>
+          <Paper className={classes.modalBoxExchange}>
             <Typography variant="h4" gutterBottom>
-              ***REMOVED***t("selectCard")***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***spectating ? null : teamMate.name***REMOVED***
+              {t("selectCard")} {" "} {spectating ? null : teamMate.name}
             </Typography>
             <Typography variant="body1">
-              ***REMOVED***t("exchangeCard")***REMOVED***
+              {t("exchangeCard")}
             </Typography>
-            <Box className=***REMOVED***classes.exCards  + " selfCards_mobile"***REMOVED***>
-              ***REMOVED***Object.keys(myhandObj).map((card, idx) => (
+            <Box className={classes.exCards  + " selfCards_mobile"}>
+              {Object.keys(myhandObj).map((card, idx) => (
                 <JassCard
-                  key=***REMOVED***idx***REMOVED***
-                  value=***REMOVED***myhandObj[card]***REMOVED***
-                  disabled=***REMOVED***false***REMOVED***
-                  active=***REMOVED***activeCard===myhandObj[card]***REMOVED***
-                  selected=***REMOVED***activeCard===myhandObj[card]***REMOVED***
-                  onClick=***REMOVED***() => ***REMOVED***handleCard(myhandObj[card]);***REMOVED******REMOVED***
-                  isLastPlayed=***REMOVED***false***REMOVED***
+                  key={idx}
+                  value={myhandObj[card]}
+                  disabled={false}
+                  active={activeCard===myhandObj[card]}
+                  selected={activeCard===myhandObj[card]}
+                  onClick={() => {handleCard(myhandObj[card]);}}
+                  isLastPlayed={false}
                 />
-              ))***REMOVED***
+              ))}
             </Box>
             <Button
-              className=***REMOVED***classes.play***REMOVED***
+              className={classes.play}
               variant="contained"
               color="primary"
-              disabled=***REMOVED***activeCard === ""***REMOVED***
-              onClick=***REMOVED***() => ***REMOVED***handleOpenRecv();exchangeCard();***REMOVED******REMOVED***
+              disabled={activeCard === ""}
+              onClick={() => {handleOpenRecv();exchangeCard();}}
             >
-              ***REMOVED***t("giveCard")***REMOVED***
+              {t("giveCard")}
             </Button>
           </Paper>
         </Dialog>
       ):(
-        <Modal closetimeoutms=***REMOVED***2000***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***(!game.exchange || !game.exchange[orderMyPosition]) && !spectating && game.meta.status !== "done" && !helpDisabled.home***REMOVED***>
-          <Paper className=***REMOVED***classes.modalBoxExchange***REMOVED***>
+        <Modal closetimeoutms={2000} className={classes.modal} open={(!game.exchange || !game.exchange[orderMyPosition]) && !spectating && game.meta.status !== "done" && !helpDisabled.home}>
+          <Paper className={classes.modalBoxExchange}>
             <Typography variant="h4" gutterBottom>
-              ***REMOVED***t("selectCard")***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***spectating ? null : teamMate.name***REMOVED***
+              {t("selectCard")} {" "} {spectating ? null : teamMate.name}
             </Typography>
             <Typography variant="body1">
-              ***REMOVED***t("exchangeCard")***REMOVED***
+              {t("exchangeCard")}
             </Typography>
-            <Box className=***REMOVED***classes.exCards  + " selfCards"***REMOVED***>
-              ***REMOVED***Object.keys(myhandObj).map((card, idx) => (
+            <Box className={classes.exCards  + " selfCards"}>
+              {Object.keys(myhandObj).map((card, idx) => (
                 <JassCard
-                  key=***REMOVED***idx***REMOVED***
-                  value=***REMOVED***myhandObj[card]***REMOVED***
-                  disabled=***REMOVED***false***REMOVED***
-                  active=***REMOVED***activeCard===myhandObj[card]***REMOVED***
-                  selected=***REMOVED***activeCard===myhandObj[card]***REMOVED***
-                  onClick=***REMOVED***() => ***REMOVED***handleCard(myhandObj[card]);***REMOVED******REMOVED***
-                  isLastPlayed=***REMOVED***false***REMOVED***
+                  key={idx}
+                  value={myhandObj[card]}
+                  disabled={false}
+                  active={activeCard===myhandObj[card]}
+                  selected={activeCard===myhandObj[card]}
+                  onClick={() => {handleCard(myhandObj[card]);}}
+                  isLastPlayed={false}
                 />
-              ))***REMOVED***
+              ))}
             </Box>
             <Button
-              className=***REMOVED***classes.play***REMOVED***
+              className={classes.play}
               variant="contained"
               color="primary"
-              disabled=***REMOVED***activeCard === ""***REMOVED***
-              onClick=***REMOVED***() => ***REMOVED***handleOpenRecv();exchangeCard();***REMOVED******REMOVED***
+              disabled={activeCard === ""}
+              onClick={() => {handleOpenRecv();exchangeCard();}}
             >
-              ***REMOVED***t("giveCard")***REMOVED***
+              {t("giveCard")}
             </Button>
           </Paper>
         </Modal>
-      )***REMOVED***
+      )}
 
-      ***REMOVED***/********************* BEGIN EXCHANGE RECV MODAL *************************/***REMOVED***
-      <Modal onKeyDown=***REMOVED***onKeyDownHandler***REMOVED*** onBackdropClick=***REMOVED***handleOpenRecv***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!!game.exchange && Object.keys(game.exchange).length === 4 && !recv && !helpDisabled.home***REMOVED***>
-        <Paper className=***REMOVED***classes.modalBox***REMOVED***>
+      {/********************* BEGIN EXCHANGE RECV MODAL *************************/}
+      <Modal onKeyDown={onKeyDownHandler} onBackdropClick={handleOpenRecv} className={classes.modal} open={!!game.exchange && Object.keys(game.exchange).length === 4 && !recv && !helpDisabled.home}>
+        <Paper className={classes.modalBox}>
           <Typography variant="h4" gutterBottom>
-            ***REMOVED***t("receivedCard")***REMOVED***:
+            {t("receivedCard")}:
           </Typography>
           <JassCard
-            value=***REMOVED***game.exchange ? game.exchange[(orderMyPosition+2)%4] : "YY"***REMOVED***
-            active=***REMOVED***false***REMOVED***
-            selected=***REMOVED***false***REMOVED***
-            disabled=***REMOVED***false***REMOVED***
+            value={game.exchange ? game.exchange[(orderMyPosition+2)%4] : "YY"}
+            active={false}
+            selected={false}
+            disabled={false}
           /> 
           <br/>
           <Button
-            className=***REMOVED***classes.play***REMOVED***
+            className={classes.play}
             variant="contained"
             color="primary"
-            disabled=***REMOVED***false***REMOVED***
-            onClick=***REMOVED***handleOpenRecv***REMOVED***
+            disabled={false}
+            onClick={handleOpenRecv}
           >
-            ***REMOVED***t("confirmButton")***REMOVED***
+            {t("confirmButton")}
           </Button>
         </Paper>
       </Modal>
-      ***REMOVED***/********************* END EXCHANGE RECV MODAL *************************/***REMOVED***
+      {/********************* END EXCHANGE RECV MODAL *************************/}
 
-      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!!game.exchange && game.exchange[orderMyPosition] && Object.keys(game.exchange).length !== 4  && !spectating && !helpDisabled.home***REMOVED***>
-        <Paper className=***REMOVED***classes.modalBox***REMOVED***>
+      <Modal className={classes.modal} open={!!game.exchange && game.exchange[orderMyPosition] && Object.keys(game.exchange).length !== 4  && !spectating && !helpDisabled.home}>
+        <Paper className={classes.modalBox}>
           <Typography variant="h4" gutterBottom>
-            ***REMOVED***t("waitingPlayers")***REMOVED***...
+            {t("waitingPlayers")}...
           </Typography>
         </Paper>
       </Modal>
 
-      ***REMOVED***/********************* BEGIN 2 MODAL *************************/***REMOVED***
+      {/********************* BEGIN 2 MODAL *************************/}
 
-      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***twoModal===2 && ttEnabled***REMOVED*** onBackdropClick=***REMOVED***() => ***REMOVED***setTwoModal(0);***REMOVED******REMOVED***>
-        <Paper className=***REMOVED***classes.jokerBox***REMOVED***>
+      <Modal className={classes.modal} open={twoModal===2 && ttEnabled} onBackdropClick={() => {setTwoModal(0);}}>
+        <Paper className={classes.jokerBox}>
           <Typography variant="h4" gutterBottom>
-            ***REMOVED***t("twoFuncPlayer")***REMOVED***
+            {t("twoFuncPlayer")}
           </Typography>
           <div>
-            <div className=***REMOVED***classes.jokerModalCard***REMOVED***>
-              ***REMOVED*** /* all other players, display cards to steal */ ***REMOVED***
-              ***REMOVED***[0,1,2,3].map((val,idx) => (idx!==orderMyPosition && game.hands[""+idx] && (
-                <React.Fragment key=***REMOVED***idx***REMOVED***>
-                  <div style=***REMOVED******REMOVED***backgroundColor:game.meta.users[game.order[idx]].color***REMOVED******REMOVED*** key=***REMOVED***idx***REMOVED***>
-                    ***REMOVED***Object.values(game.hands[""+idx]).map((card,card_idx) => (
+            <div className={classes.jokerModalCard}>
+              { /* all other players, display cards to steal */ }
+              {[0,1,2,3].map((val,idx) => (idx!==orderMyPosition && game.hands[""+idx] && (
+                <React.Fragment key={idx}>
+                  <div style={{backgroundColor:game.meta.users[game.order[idx]].color}} key={idx}>
+                    {Object.values(game.hands[""+idx]).map((card,card_idx) => (
                       <JassCard
-                        key=***REMOVED***card_idx***REMOVED***
-                        value=***REMOVED***"YY"***REMOVED*** //card.substring(0,2) to show cards
-                        active=***REMOVED***false***REMOVED***
-                        selected=***REMOVED***false***REMOVED***
-                        disabled=***REMOVED***false***REMOVED***
-                        onClick=***REMOVED***() => ***REMOVED***handleStealSubmit(idx,card_idx);***REMOVED******REMOVED***
+                        key={card_idx}
+                        value={"YY"} //card.substring(0,2) to show cards
+                        active={false}
+                        selected={false}
+                        disabled={false}
+                        onClick={() => {handleStealSubmit(idx,card_idx);}}
                       />
-                    ))***REMOVED***
+                    ))}
                   </div>
-                  <Typography style=***REMOVED******REMOVED***color:game.meta.users[game.order[idx]].color***REMOVED******REMOVED***>***REMOVED***game.meta.users[game.order[idx]].name***REMOVED******REMOVED***(orderMyPosition+2)%4===idx ? " ("+t('teammate')+")":""***REMOVED*** </Typography>
+                  <Typography style={{color:game.meta.users[game.order[idx]].color}}>{game.meta.users[game.order[idx]].name}{(orderMyPosition+2)%4===idx ? " ("+t('teammate')+")":""} </Typography>
                 </React.Fragment>
-              )))***REMOVED***
+              )))}
             </div>
           </div>
         </Paper>
       </Modal>
 
-      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***twoModal===1 && ttEnabled***REMOVED*** onBackdropClick=***REMOVED***() => ***REMOVED***setTwoModal(0);***REMOVED******REMOVED***>
-        <Paper className=***REMOVED***classes.jokerBox***REMOVED***>
+      <Modal className={classes.modal} open={twoModal===1 && ttEnabled} onBackdropClick={() => {setTwoModal(0);}}>
+        <Paper className={classes.jokerBox}>
           <Typography variant="h4" gutterBottom>
-            ***REMOVED***t("twoFunc")***REMOVED***
+            {t("twoFunc")}
           </Typography>
           <div>
-            <div className=***REMOVED***classes.jokerModalCard***REMOVED***>
+            <div className={classes.jokerModalCard}>
               <JassCard
-                value=***REMOVED***"2"+activeCard.charAt(1)***REMOVED***
-                active=***REMOVED***false***REMOVED***
-                selected=***REMOVED***false***REMOVED***
-                disabled=***REMOVED***false***REMOVED***
-                onClick=***REMOVED***() => ***REMOVED***handleCard(activeCard);setTwoModal(0);***REMOVED******REMOVED***
+                value={"2"+activeCard.charAt(1)}
+                active={false}
+                selected={false}
+                disabled={false}
+                onClick={() => {handleCard(activeCard);setTwoModal(0);}}
               /> 
               <Typography>
-                ***REMOVED***t("moveTwo")***REMOVED***
+                {t("moveTwo")}
               </Typography>
             </div>
-            <div className=***REMOVED***classes.jokerModalCard***REMOVED***>
+            <div className={classes.jokerModalCard}>
               <JassCard
-                value=***REMOVED***'YY'***REMOVED***
-                active=***REMOVED***false***REMOVED***
-                selected=***REMOVED***false***REMOVED***
-                disabled=***REMOVED***false***REMOVED***
-                onClick=***REMOVED***() => ***REMOVED***handleCard(activeCard);setTwoModal(2);***REMOVED******REMOVED***
+                value={'YY'}
+                active={false}
+                selected={false}
+                disabled={false}
+                onClick={() => {handleCard(activeCard);setTwoModal(2);}}
               />
               <Typography>
-                ***REMOVED***t("stealCard")***REMOVED***
+                {t("stealCard")}
               </Typography> 
             </div>
           </div>
         </Paper>
       </Modal>
 
-      ***REMOVED***/********************* BEGIN JOKER MODAL *************************/***REMOVED***
+      {/********************* BEGIN JOKER MODAL *************************/}
 
-      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!!jokerModal***REMOVED*** onBackdropClick=***REMOVED***() => ***REMOVED***setJokerModal('');***REMOVED******REMOVED***>
-        <Paper className=***REMOVED***classes.jokerBox***REMOVED***>
+      <Modal className={classes.modal} open={!!jokerModal} onBackdropClick={() => {setJokerModal('');}}>
+        <Paper className={classes.jokerBox}>
           <Typography variant="h4" gutterBottom>
-            ***REMOVED***t("jokerFunc")***REMOVED*** ***REMOVED***"  "***REMOVED***
-            <Tooltip placement=***REMOVED***"top"***REMOVED*** title=***REMOVED***t("tooltipJoker")***REMOVED***>
-              <HelpOutlineIcon style=***REMOVED******REMOVED***color:"#888"***REMOVED******REMOVED***/>
+            {t("jokerFunc")} {"  "}
+            <Tooltip placement={"top"} title={t("tooltipJoker")}>
+              <HelpOutlineIcon style={{color:"#888"}}/>
             </Tooltip>
           </Typography>
           <div>
-            ***REMOVED***playingCards.map((card,key) =>(
-              <div key=***REMOVED***key***REMOVED*** className=***REMOVED***classes.jokerModalCard***REMOVED***>
+            {playingCards.map((card,key) =>(
+              <div key={key} className={classes.jokerModalCard}>
                 <JassCard
-                  value=***REMOVED***card+'H'***REMOVED***
-                  active=***REMOVED***false***REMOVED***
-                  selected=***REMOVED***false***REMOVED***
-                  disabled=***REMOVED***false***REMOVED***
-                  onClick=***REMOVED***card.charAt(0) === "2" ? (() => ***REMOVED***handleSetTwoModal(1,jokerModal+'2');setJokerModal('');***REMOVED***) : (() => ***REMOVED***handleCard(jokerModal+card);setJokerModal('');***REMOVED***)***REMOVED***
+                  value={card+'H'}
+                  active={false}
+                  selected={false}
+                  disabled={false}
+                  onClick={card.charAt(0) === "2" ? (() => {handleSetTwoModal(1,jokerModal+'2');setJokerModal('');}) : (() => {handleCard(jokerModal+card);setJokerModal('');})}
                 /> 
               </div>
-            ))***REMOVED***
+            ))}
           </div>
         </Paper>
       </Modal>
 
-      <div style=***REMOVED******REMOVED***display:"none",position:"fixed","top":0,"right":0,height:60,width:120,backgroundColor:"#ddd",border:"1px solid red"***REMOVED******REMOVED***>
+      <div style={{display:"none",position:"fixed","top":0,"right":0,height:60,width:120,backgroundColor:"#ddd",border:"1px solid red"}}>
         - Debug -
-        Active Card: ***REMOVED***" "***REMOVED******REMOVED***activeCard***REMOVED***<br/>
-        Selection: ***REMOVED***" "***REMOVED******REMOVED***selected.map((value) => ***REMOVED***return value+",";***REMOVED***)***REMOVED***
+        Active Card: {" "}{activeCard}<br/>
+        Selection: {" "}{selected.map((value) => {return value+",";})}
       </div>
       <Snackbar
-        anchorOrigin=***REMOVED******REMOVED***
+        anchorOrigin={{
           vertical: "bottom",
           horizontal: "center"
-***REMOVED******REMOVED***
-        open=***REMOVED***snack.open***REMOVED***
-        autoHideDuration=***REMOVED***2000***REMOVED***
-        onClose=***REMOVED***handleClose***REMOVED***
+        }}
+        open={snack.open}
+        autoHideDuration={2000}
+        onClose={handleClose}
       >
         <SnackContent
-          variant=***REMOVED***snack.variant || "info"***REMOVED***
-          message=***REMOVED***snack.message || ""***REMOVED***
-          onClose=***REMOVED***handleClose***REMOVED***
+          variant={snack.variant || "info"}
+          message={snack.message || ""}
+          onClose={handleClose}
         />
       </Snackbar>
       <Header 
-        game=***REMOVED***game***REMOVED***
-        orderMyPosition=***REMOVED***orderMyPosition***REMOVED***
-        selected=***REMOVED***selected***REMOVED***
-        submitSelection=***REMOVED***submitSelection***REMOVED***
-        onSubmit=***REMOVED***onSubmit***REMOVED***
-        setSelected=***REMOVED***setSelected***REMOVED***
-        gameId=***REMOVED***gameId***REMOVED***
-        setActiveCard=***REMOVED***setCardState***REMOVED***
-        activeCard=***REMOVED***activeCard***REMOVED***
+        game={game}
+        orderMyPosition={orderMyPosition}
+        selected={selected}
+        submitSelection={submitSelection}
+        onSubmit={onSubmit}
+        setSelected={setSelected}
+        gameId={gameId}
+        setActiveCard={setCardState}
+        activeCard={activeCard}
       />
-      <Box  tabIndex="0" onKeyDown=***REMOVED***onKeyDownHandler***REMOVED*** p=***REMOVED***2***REMOVED*** display="flex" alignItems="center" justifyContent="center" className=***REMOVED***classes.gameControl  + (isMobile?" gameControl_mobile" :" gameControl")***REMOVED***>
-        <div className=***REMOVED***classes.gameContainer***REMOVED***>
-          <div className=***REMOVED***classes.boardWrapper***REMOVED***>
-            <SvgLoader style=***REMOVED******REMOVED***height: "100%", transform:'rotate(' + 90*(orderMyPosition-1) + 'deg)'***REMOVED******REMOVED*** path=***REMOVED***Board***REMOVED***>
+      <Box  tabIndex="0" onKeyDown={onKeyDownHandler} p={2} display="flex" alignItems="center" justifyContent="center" className={classes.gameControl  + (isMobile?" gameControl_mobile" :" gameControl")}>
+        <div className={classes.gameContainer}>
+          <div className={classes.boardWrapper}>
+            <SvgLoader style={{height: "100%", transform:'rotate(' + 90*(orderMyPosition-1) + 'deg)'}} path={Board}>
               <Balls
-                gameBalls=***REMOVED***game.balls***REMOVED***
-                selected=***REMOVED***selected***REMOVED***
-                setSelected=***REMOVED***setSelected***REMOVED***
-                turn=***REMOVED***turn***REMOVED***
-                lastFour=***REMOVED***game.lastFour***REMOVED***
-                orderMyPosition=***REMOVED***orderMyPosition***REMOVED***
-                activeCard=***REMOVED***activeCard***REMOVED***
-                spectating=***REMOVED***spectating***REMOVED***
-                gameRooted=***REMOVED***game.rooted***REMOVED***
-                gameRules=***REMOVED***game.rules***REMOVED***
-                setSnack=***REMOVED***handleSetSnack***REMOVED***
+                gameBalls={game.balls}
+                selected={selected}
+                setSelected={setSelected}
+                turn={turn}
+                lastFour={game.lastFour}
+                orderMyPosition={orderMyPosition}
+                activeCard={activeCard}
+                spectating={spectating}
+                gameRooted={game.rooted}
+                gameRules={game.rules}
+                setSnack={handleSetSnack}
               />
 
-              ***REMOVED***[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((val,idx) => (
-                <SvgProxy key=***REMOVED***idx***REMOVED*** selector=***REMOVED***"#lastcard"+Math.floor(val/4)+"x"+(val%4)***REMOVED*** xlink_href=***REMOVED***""***REMOVED***/>
-              ))***REMOVED***
+              {[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((val,idx) => (
+                <SvgProxy key={idx} selector={"#lastcard"+Math.floor(val/4)+"x"+(val%4)} xlink_href={""}/>
+              ))}
 
-              ***REMOVED***game.history ? Object.values(game.history).sort(comparer).slice(Math.max(Object.keys(game.history).length - 4, 0)).map((hist,idx) => (
-                <SvgProxy key=***REMOVED***idx***REMOVED*** selector=***REMOVED***"#lastcard"+(hist.roundPlayed+3)%4+"x"+(3-parseInt(idx))***REMOVED*** xlink_href=***REMOVED***require("../assets/cards/"+ hist.card.substring(0,2) +".svg")***REMOVED***/>
-              )) : (console.log("no history"))***REMOVED***
+              {game.history ? Object.values(game.history).sort(comparer).slice(Math.max(Object.keys(game.history).length - 4, 0)).map((hist,idx) => (
+                <SvgProxy key={idx} selector={"#lastcard"+(hist.roundPlayed+3)%4+"x"+(3-parseInt(idx))} xlink_href={require("../assets/cards/"+ hist.card.substring(0,2) +".svg")}/>
+              )) : (console.log("no history"))}
             </SvgLoader>
-            ***REMOVED***isMobile ? null : (<div style=***REMOVED******REMOVED***position:'absolute','top':'50%','opacity':(turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0) ? '0' : '1','transition':'.4s linear'***REMOVED******REMOVED***>
-              <div style=***REMOVED******REMOVED***'transform':'translateY(-50%)'***REMOVED******REMOVED***>
+            {isMobile ? null : (<div style={{position:'absolute','top':'50%','opacity':(turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0) ? '0' : '1','transition':'.4s linear'}}>
+              <div style={{'transform':'translateY(-50%)'}}>
                 <Button
                   className="controlButtonSingle_mobile"
                   variant="contained"
                   color="secondary"
                   size="large"
-                  disabled=***REMOVED***turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0***REMOVED***
-                  onClick=***REMOVED***submitSelection***REMOVED***
+                  disabled={turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0}
+                  onClick={submitSelection}
                 >
-                  <Typography>***REMOVED***t('submitTurnButton')***REMOVED***</Typography>
+                  <Typography>{t('submitTurnButton')}</Typography>
                 </Button>
               </div>
-            </div>)***REMOVED***
+            </div>)}
           </div>
         </div>
       </Box>
       <HandCards 
-        myhandObj=***REMOVED***myhandObj***REMOVED***
-        activeCard=***REMOVED***activeCard***REMOVED***
-        setJokerModal=***REMOVED***setJokerModal***REMOVED***
-        handleCard=***REMOVED***handleCard***REMOVED***
-        handleSetTwoModal=***REMOVED***handleSetTwoModal***REMOVED***
+        myhandObj={myhandObj}
+        activeCard={activeCard}
+        setJokerModal={setJokerModal}
+        handleCard={handleCard}
+        handleSetTwoModal={handleSetTwoModal}
       />
     </React.Fragment>
   );
-***REMOVED***
+}
 
 export default DogGame;

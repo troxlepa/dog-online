@@ -1,9 +1,9 @@
-import React, ***REMOVED***useCallback, useState***REMOVED*** from "react";
+import React, {useCallback, useState} from "react";
 
-import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
+import { isMobile } from "react-device-detect";
+import { useTranslation } from 'react-i18next';
 
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
@@ -18,8 +18,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 
 import firebase from "../firebase";
 
-const useStyles = makeStyles(***REMOVED***
-  header: ***REMOVED***
+const useStyles = makeStyles({
+  header: {
     display: "flex",
     flexFlow: "row wrap",
     justifyContent: "space-around",
@@ -27,8 +27,8 @@ const useStyles = makeStyles(***REMOVED***
     alignItems: "center",
     flex: "0 0 auto",
     height: "3.5rem",
-***REMOVED***,
-  headerPaper: ***REMOVED***
+  },
+  headerPaper: {
     display: "flex",
     flexFlow: "row wrap",
     justifyContent: "space-around",
@@ -36,8 +36,8 @@ const useStyles = makeStyles(***REMOVED***
     alignItems: "center",
     flex: "1 1 auto",
     height: "3.5rem",
-***REMOVED***,
-  headerPaperMobile: ***REMOVED***
+  },
+  headerPaperMobile: {
     display: "flex",
   flexFlow: "row wrap",
   justifyContent: "space-around",
@@ -46,8 +46,8 @@ const useStyles = makeStyles(***REMOVED***
   flex: "1 1 auto",
   height: "14rem",
   transition:"2s linear"
-***REMOVED***,
-  lowHeaderPaperMobile: ***REMOVED***
+  },
+  lowHeaderPaperMobile: {
     display: "flex",
     flexFlow: "row wrap",
     justifyContent: "space-around",
@@ -55,8 +55,8 @@ const useStyles = makeStyles(***REMOVED***
     alignItems: "center",
     flex: "1 1 auto",
     height: "3.5rem",
-***REMOVED***,
-  headerDiv: ***REMOVED***
+  },
+  headerDiv: {
     display: "flex",
     flexFlow: "row wrap",
     justifyContent: "space-around",
@@ -65,8 +65,8 @@ const useStyles = makeStyles(***REMOVED***
     flex: "0 0 auto",
     height: "4rem",
     padding: 10
-***REMOVED***,
-  headerDivMobile: ***REMOVED***
+  },
+  headerDivMobile: {
     display: "flex",
   flexFlow: "row wrap",
   justifyContent: "space-around",
@@ -75,8 +75,8 @@ const useStyles = makeStyles(***REMOVED***
   flex: "0 0 auto",
   height: "15rem",
   padding: 10
-***REMOVED***,
-  lowHeaderDivMobile: ***REMOVED***
+  },
+  lowHeaderDivMobile: {
     display: "flex",
   flexFlow: "row wrap",
   justifyContent: "space-around",
@@ -85,236 +85,236 @@ const useStyles = makeStyles(***REMOVED***
   flex: "0 0 auto",
   height: "4rem",
   padding: 10
-***REMOVED***,
-  controlButtons: ***REMOVED***
+  },
+  controlButtons: {
     display: "flex",
     position: "fixed",
-    "& > *": ***REMOVED***
+    "& > *": {
       margin: "3px"
-***REMOVED***
-***REMOVED***, 
-  turnBanner: ***REMOVED***
+    }
+  }, 
+  turnBanner: {
     position: "fixed",
     zIndex: 2,
-***REMOVED***,
-  turnTypo: ***REMOVED***
+  },
+  turnTypo: {
     color: "rgba(255,255,255,.9)",
     textTransform: "uppercase"
-***REMOVED***
-***REMOVED***);
+  }
+});
 
 
-function Header(***REMOVED***game, orderMyPosition, selected, submitSelection, onSubmit, setSelected, gameId, setActiveCard, activeCard***REMOVED***)***REMOVED***
+function Header({game, orderMyPosition, selected, submitSelection, onSubmit, setSelected, gameId, setActiveCard, activeCard}){
   
   const [confirmThrow,setConfirmThrow] = useState(false);
   const classes = useStyles();
-  const ***REMOVED*** t ***REMOVED*** = useTranslation();
+  const { t } = useTranslation();
   const turn = game.round % 4;
 
   const myPos = orderMyPosition.toString();
-  var myhandObj = ***REMOVED******REMOVED***;
-  if(game.hands)***REMOVED***
-    myhandObj = Object.keys(game.hands).includes(myPos) ? game.hands[myPos] : ***REMOVED******REMOVED***;
-***REMOVED***
+  var myhandObj = {};
+  if(game.hands){
+    myhandObj = Object.keys(game.hands).includes(myPos) ? game.hands[myPos] : {};
+  }
 
-  function computePosition(oldballs,oldhands,lastTurn)***REMOVED***
+  function computePosition(oldballs,oldhands,lastTurn){
     const card = lastTurn.card;
     const selection = lastTurn.selection;
     const round = game.order.indexOf(lastTurn.user);
-    if(round === -1)***REMOVED***
+    if(round === -1){
       return;
-***REMOVED***
+    }
 
     var hands = oldhands;
     console.log(hands);
-    if(hands[round])***REMOVED***
-      for(var i=0;i<6;i++)***REMOVED***
-        if(!hands[round][i])***REMOVED***
+    if(hands[round]){
+      for(var i=0;i<6;i++){
+        if(!hands[round][i]){
           hands[round][i] = card;
           break;
-***REMOVED***
-***REMOVED***
-***REMOVED*** else ***REMOVED***
+        }
+      }
+    } else {
       // empty hand, was last card
       hands[round] = [];
       hands[round].push(card);
-***REMOVED***
+    }
 
-    var starts = selection.filter(function(element, index) ***REMOVED***
+    var starts = selection.filter(function(element, index) {
       return (index % 2 === 0);
-***REMOVED***);
-    var dests = selection.filter(function(element, index) ***REMOVED***
+    });
+    var dests = selection.filter(function(element, index) {
       return (index % 2 === 1);
-***REMOVED***);
+    });
     var balls = [...oldballs];
     var dId = dests.map(x => balls.indexOf(x));
-    if(card.substring(0,1) === 'J' || (card.length === 3 && card.substring(2,3) === 'J'))***REMOVED***
+    if(card.substring(0,1) === 'J' || (card.length === 3 && card.substring(2,3) === 'J')){
       var sId = starts.map(x => balls.indexOf(x));
       [ balls[sId], balls[dId] ] = [ balls[dId], balls[sId] ];
-***REMOVED***else***REMOVED***
-      for(var j=dests.length-1;j>=0;j--)***REMOVED***
+    }else{
+      for(var j=dests.length-1;j>=0;j--){
         balls[dId[j]] = starts[j];
-***REMOVED***
-***REMOVED***
+      }
+    }
     const lastFourIndex = game.lastFour.findIndex(x => x.time === lastTurn.time);
     const lastFour = [...game.lastFour];
     lastFour.splice(lastFourIndex,1);
 
-    return(***REMOVED***balls,hands,round,lastFour***REMOVED***);
-***REMOVED***
+    return({balls,hands,round,lastFour});
+  }
 
   const undoMove = useCallback(
-    () => ***REMOVED***
+    () => {
       // first move of the game
-      if(!game.lastFour || Object.keys(game.lastFour).length === 0)***REMOVED***
+      if(!game.lastFour || Object.keys(game.lastFour).length === 0){
         alert(t("undoAlert"));
         return;
-***REMOVED***
+      }
       const lastTurn = [...game.lastFour].reduce((a, b) => (a.time > b.time) ? a : b);
 
       // cannot undo thrown cards
-      if(lastTurn.card === "YY")***REMOVED***
+      if(lastTurn.card === "YY"){
         alert(t("undoAlertThrow"));
         return;
-***REMOVED***
+      }
 
       // cannot undo stolen card
-      if(((lastTurn.card.length === 3 && lastTurn.card.charAt(2) === '2') || lastTurn.card.charAt(0) === '2') && lastTurn.selection === undefined)***REMOVED***
+      if(((lastTurn.card.length === 3 && lastTurn.card.charAt(2) === '2') || lastTurn.card.charAt(0) === '2') && lastTurn.selection === undefined){
         alert(t("undoAlertThief"));
         return;
-***REMOVED***
+      }
 
       // undo history
       const hands = game.hands;
       const balls = game.balls;
       var updates;
-      firebase.database().ref(`games/$***REMOVED***gameId***REMOVED***`).child(`history`).orderByChild('time').limitToLast(1).once('child_added', function(snapshot)***REMOVED***
+      firebase.database().ref(`games/${gameId}`).child(`history`).orderByChild('time').limitToLast(1).once('child_added', function(snapshot){
         snapshot.ref.remove();  
-***REMOVED***);
+      });
       updates = computePosition(balls,hands,lastTurn);
       firebase
         .database()
-        .ref(`games/$***REMOVED***gameId***REMOVED***`)
+        .ref(`games/${gameId}`)
         .update(updates);       
-***REMOVED***
+    }
   );
 
-  if(turn !== orderMyPosition)***REMOVED***
+  if(turn !== orderMyPosition){
     return(
-        <div className=***REMOVED***isMobile ? classes.lowHeaderDivMobile : classes.headerDiv***REMOVED***>
-        <Paper className=***REMOVED***isMobile ? classes.lowHeaderPaperMobile : classes.headerPaper***REMOVED*** style=***REMOVED******REMOVED***backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"***REMOVED******REMOVED***>
-          <Typography  variant=***REMOVED***isMobile ? "body1" : "h6"***REMOVED*** component=***REMOVED***isMobile ? "h6" : "h6"***REMOVED*** className=***REMOVED***classes.turnTypo + " loading"***REMOVED***>***REMOVED***game.meta.users[game.order[turn]].name***REMOVED*** ***REMOVED***t("headerPlaying")***REMOVED***</Typography>
+        <div className={isMobile ? classes.lowHeaderDivMobile : classes.headerDiv}>
+        <Paper className={isMobile ? classes.lowHeaderPaperMobile : classes.headerPaper} style={{backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"}}>
+          <Typography  variant={isMobile ? "body1" : "h6"} component={isMobile ? "h6" : "h6"} className={classes.turnTypo + " loading"}>{game.meta.users[game.order[turn]].name} {t("headerPlaying")}</Typography>
         </Paper>
       </div>
     );
-***REMOVED***
+  }
 		
-  const turnMsg = () => ***REMOVED***
-    if(activeCard)***REMOVED***
-      if(selected.length > 0)***REMOVED***
-        if(selected.length % 2 === 0)***REMOVED***
+  const turnMsg = () => {
+    if(activeCard){
+      if(selected.length > 0){
+        if(selected.length % 2 === 0){
           return t('submitTurnButton');
-***REMOVED*** 
+        } 
         return t('selectDest');
-***REMOVED***
+      }
       return t('selectBall');
-***REMOVED***
+    }
     return t("chooseCard");
-***REMOVED***;
+  };
 
-  const throwHand = () => ***REMOVED***
+  const throwHand = () => {
     const throwedHand = game.hands;
     const numThrow = throwedHand[orderMyPosition].length;
     throwedHand[orderMyPosition] = [];
     setSelected([]);
     onSubmit(game.balls, [game.balls[0],game.balls[0]], "YY",throwedHand,game.round%4,numThrow,orderMyPosition,game.rooted);
-***REMOVED***;
+  };
 
-  const clearSelection = () => ***REMOVED***
+  const clearSelection = () => {
     setSelected([]); // guess we can remove that (DogGame.js contains hook effect on activeCard)
     setActiveCard('');
-***REMOVED***;
+  };
 
   return(
     <React.Fragment>
-      <Dialog open=***REMOVED***confirmThrow***REMOVED*** onClose=***REMOVED***() => setConfirmThrow(false)***REMOVED***>
-        <DialogTitle>***REMOVED***t("confirmThrowTitle")***REMOVED***</DialogTitle>
+      <Dialog open={confirmThrow} onClose={() => setConfirmThrow(false)}>
+        <DialogTitle>{t("confirmThrowTitle")}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            ***REMOVED***t("confirmThrow")***REMOVED***
+            {t("confirmThrow")}
           </DialogContentText>
           <DialogActions>
             <Button
-              onClick=***REMOVED***() => ***REMOVED***
+              onClick={() => {
                 const throwedHand = game.hands;
                 const numThrow = throwedHand[orderMyPosition].length
                 throwedHand[orderMyPosition] = [];
                 setSelected([]);
                 onSubmit(game.balls, [game.balls[0],game.balls[0]], "YY",throwedHand,game.round%4,numThrow,orderMyPosition,game.rooted);
                 setConfirmThrow(false);
-  ***REMOVED******REMOVED***
+              }}
               variant="contained"
               color="primary"
             >
-              ***REMOVED***t("yes")***REMOVED***
+              {t("yes")}
             </Button>
             <Button
-              onClick=***REMOVED***() => ***REMOVED***
+              onClick={() => {
                 setConfirmThrow(false);
-  ***REMOVED******REMOVED***
+              }}
               variant="contained"
               color="primary"
             >
-              ***REMOVED***t("no")***REMOVED***
+              {t("no")}
             </Button>
           </DialogActions>
         </DialogContent>
       </Dialog>
-      <div className=***REMOVED***isMobile ? classes.headerDivMobile : classes.headerDiv***REMOVED***>
-        <Paper className=***REMOVED***isMobile ? classes.headerPaperMobile : classes.headerPaper***REMOVED*** style=***REMOVED***isMobile ? ***REMOVED******REMOVED*** : ***REMOVED***backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"***REMOVED******REMOVED***>
-          <Box  p=***REMOVED***2***REMOVED*** className=***REMOVED***isMobile ? "header_mobile" : classes.header***REMOVED***>
-            <div className=***REMOVED***isMobile ? "controlButtons_mobile": classes.controlButtons***REMOVED***>
+      <div className={isMobile ? classes.headerDivMobile : classes.headerDiv}>
+        <Paper className={isMobile ? classes.headerPaperMobile : classes.headerPaper} style={isMobile ? {} : {backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"}}>
+          <Box  p={2} className={isMobile ? "header_mobile" : classes.header}>
+            <div className={isMobile ? "controlButtons_mobile": classes.controlButtons}>
               <Button
-                className=***REMOVED***isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"***REMOVED***
+                className={isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"}
                 variant="contained"
                 color="secondary"
                 size="small"
-                disabled=***REMOVED***turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0***REMOVED***
-                onClick=***REMOVED***submitSelection***REMOVED***
+                disabled={turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0}
+                onClick={submitSelection}
               >
-                <Typography>***REMOVED***t('submitTurnButton')***REMOVED***</Typography>
+                <Typography>{t('submitTurnButton')}</Typography>
               </Button>
               <Button
                 variant="contained"
-                className=***REMOVED***isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"***REMOVED***
-                startIcon=***REMOVED***<DeleteIcon />***REMOVED***
+                className={isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"}
+                startIcon={<DeleteIcon />}
                 color="primary"
                 size="small"
-                disabled=***REMOVED***(selected.length === 0 ? true : false) || (turn !== orderMyPosition)***REMOVED***
-                onClick=***REMOVED***clearSelection***REMOVED***
+                disabled={(selected.length === 0 ? true : false) || (turn !== orderMyPosition)}
+                onClick={clearSelection}
               >
-                <Typography>***REMOVED***t('clearSelectionButton')***REMOVED***</Typography>
+                <Typography>{t('clearSelectionButton')}</Typography>
               </Button>
               <Button
                 variant="contained"
-                className=***REMOVED***isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"***REMOVED***
+                className={isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"}
                 color="primary"
                 size="small"
-                disabled=***REMOVED***(Object.keys(myhandObj).length === 0 ? true : false) || (turn !== orderMyPosition)***REMOVED***
-                onClick=***REMOVED***() => ***REMOVED***setConfirmThrow(true)***REMOVED******REMOVED***
+                disabled={(Object.keys(myhandObj).length === 0 ? true : false) || (turn !== orderMyPosition)}
+                onClick={() => {setConfirmThrow(true)}}
               >
-                <Typography>***REMOVED***t('cardThrowButton')***REMOVED***</Typography>
+                <Typography>{t('cardThrowButton')}</Typography>
               </Button>
               <Button
                 variant="outlined"
-                className=***REMOVED***isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"***REMOVED***
+                className={isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"}
                 color="default"
                 size="small"
-                disabled=***REMOVED***(turn === (orderMyPosition+1)%4)***REMOVED***
-                startIcon=***REMOVED***<DeveloperModeIcon />***REMOVED***
-                onClick=***REMOVED***undoMove***REMOVED***
+                disabled={(turn === (orderMyPosition+1)%4)}
+                startIcon={<DeveloperModeIcon />}
+                onClick={undoMove}
               >
-                <Typography>***REMOVED***t('undoButton')***REMOVED***</Typography>
+                <Typography>{t('undoButton')}</Typography>
               </Button>
             </div>
           </Box>
@@ -322,6 +322,6 @@ function Header(***REMOVED***game, orderMyPosition, selected, submitSelection, o
       </div>
     </React.Fragment>
   );
-***REMOVED***
+}
 
 export default Header;

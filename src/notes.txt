@@ -19,26 +19,26 @@ Ball.getPlayerPositions(player)
 Game.getBlockingBalls() -> [False, False, True, False]
 Game.updateBlockingBalls()
 Game.removeBlockingBalls()
--> Player.isValidCard(Card, Ball)***REMOVED***
+-> Player.isValidCard(Card, Ball){
 	switch Card:
 
-***REMOVED***
- -> Player.isValidMove(Ball)***REMOVED***
+}
+ -> Player.isValidMove(Ball){
 
- ***REMOVED***
+ }
 -> Player.move(Card, Ball)
 Player.hasNoValidMove()
 
 History.push(player, card)
 
 
-var gameState = ***REMOVED***
+var gameState = {
 	balls_positions = [1,45,2,22,6,23,11,3,2,...],
 	hands = [['A','0','3','2'],['7','Q','J','8'],...[]],
 	history = ['J','4','A','3','7'],
 	round = 7,
 	next_player = 3,
-***REMOVED***
+}
 
 after every round -> history = []
 client_side deck
@@ -53,19 +53,19 @@ db updates on:
 
 GameState:
 >> current
-	> playerHands***REMOVED***
+	> playerHands{
 		uid: [String]
-	***REMOVED***
+	}
 	> balls : [Int]
 >> meta
 	> round: int
 	> nextHand: int
 >>> round
 	>> history
-		> $entry***REMOVED***
+		> $entry{
 			user: String
 			card: String
 			balls: [Int]
 			selected: [Int]
 			timestamp: Date
-		***REMOVED***
+		}

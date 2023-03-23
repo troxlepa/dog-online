@@ -1,9 +1,9 @@
-import React, ***REMOVED*** useState, useEffect, useCallback ***REMOVED*** from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
-import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
+import { isMobile } from "react-device-detect";
+import { useTranslation } from 'react-i18next';
 
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -12,13 +12,13 @@ import Dialog from "@material-ui/core/Dialog";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
-import ***REMOVED*** Redirect ***REMOVED*** from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Stepper from '@material-ui/core/Stepper';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
-import ***REMOVED*** computeHistory, makeHands ***REMOVED*** from "../util";
+import { computeHistory, makeHands } from "../util";
 import firebase from "../firebase";
 import DogGame from "../components/DogGame";
 import Sidebar from "../components/Sidebar";
@@ -40,114 +40,114 @@ import NotFoundPage from "./NotFoundPage";
 import LoadingPage from "./LoadingPage";
 
 
-const useStyles = makeStyles(theme => (***REMOVED***
-  container: ***REMOVED***
+const useStyles = makeStyles(theme => ({
+  container: {
     height: "100%"
-***REMOVED***,
-  sidePanel: ***REMOVED***
+  },
+  sidePanel: {
     height: "100%",
     display: "flex",
     flexDirection: "column",
     background: theme.palette.background.paper,
     borderLeft: "1px solid lightgray"
-***REMOVED***,
-  gamePanel: ***REMOVED***
+  },
+  gamePanel: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
     maxHeight: "100vh"
 
-***REMOVED***,
-  modal: ***REMOVED***
+  },
+  modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
-***REMOVED***,
-  modalBox: ***REMOVED***
+  },
+  modalBox: {
     outline: 0,
     padding: 28,
     textAlign: "center",
-***REMOVED***,
-  modalBoxMobile: ***REMOVED***
+  },
+  modalBoxMobile: {
     outline: 0,
     padding: 5,
     margin: 5,
     maxWidth:"95%",
     textAlign: "center",
-***REMOVED***,
-  modalPadding: ***REMOVED***
+  },
+  modalPadding: {
     outline: 0,
     padding: 48,
     textAlign: "center",
-***REMOVED***,
-  statsModal: ***REMOVED***
+  },
+  statsModal: {
     outline: 0,
     padding: 28,
     margin: 28,
     textAlign: "center",
-***REMOVED***,
-  play: ***REMOVED***
+  },
+  play: {
     marginTop: 14,
     marginRight: 4,
-***REMOVED***,
-  buttonSpac: ***REMOVED***
+  },
+  buttonSpac: {
     marginRight: theme.spacing(1),
-***REMOVED***,
-  helpImage: ***REMOVED***
+  },
+  helpImage: {
     border: "1px solid #aaa",
     maxWidth: "100%"
-***REMOVED***,
-  helpText: ***REMOVED***
+  },
+  helpText: {
     marginBottom: theme.spacing(1),
-***REMOVED***
+  }
 
-***REMOVED***));
+}));
 
-function GamePage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
+function GamePage({ user, gameId }) {
   const classes = useStyles();
   const [game, setGame] = useState(null);
   const [redirect, setRedirect] = useState(null);
-  const ***REMOVED*** t ***REMOVED*** = useTranslation();
+  const { t } = useTranslation();
   const homeFields = [64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79];
   const [audioDisabled, setAudioState] = useState();
-  const [helpDisabled, setHelpState] = useState(***REMOVED***seven:true,home:true***REMOVED***);
+  const [helpDisabled, setHelpState] = useState({seven:true,home:true});
   const [activeStep, setActiveStep] = useState(0);
   const [statsModalOpen, setStatsModal] = useState(false);
   const steps = getSteps();
 
-  const handleNext = () => ***REMOVED***
-    if(activeStep === 4)***REMOVED***
-      setHelpState(***REMOVED***home:false***REMOVED***);
+  const handleNext = () => {
+    if(activeStep === 4){
+      setHelpState({home:false});
       setActiveStep(() => 0);
-***REMOVED*** else ***REMOVED***
+    } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-***REMOVED***
-***REMOVED***;
+    }
+  };
 
-  const handleBack = () => ***REMOVED***
+  const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-***REMOVED***;
+  };
 
-  function getSteps() ***REMOVED***
+  function getSteps() {
     return [t("stepCard"),t("stepBall"),t("stepDest"),t("stepMDest"),t("stepSubmit")];
-***REMOVED***
+  }
 
-  function getStepContent(stepIndex) ***REMOVED***
-    switch (stepIndex) ***REMOVED***
+  function getStepContent(stepIndex) {
+    switch (stepIndex) {
     case 0:
-      return <React.Fragment><img className=***REMOVED***classes.helpImage***REMOVED*** alt="" src=***REMOVED***Help1***REMOVED*** /><Typography component=***REMOVED***'span'***REMOVED*** className=***REMOVED***classes.helpText***REMOVED***>***REMOVED***(t("step0"))***REMOVED***</Typography></React.Fragment>;
+      return <React.Fragment><img className={classes.helpImage} alt="" src={Help1} /><Typography component={'span'} className={classes.helpText}>{(t("step0"))}</Typography></React.Fragment>;
     case 1:
-      return <React.Fragment><img className=***REMOVED***classes.helpImage***REMOVED*** alt="" src=***REMOVED***Help2***REMOVED*** /><Typography component=***REMOVED***'span'***REMOVED*** className=***REMOVED***classes.helpText***REMOVED***>***REMOVED***(t("step1"))***REMOVED***</Typography></React.Fragment>;
+      return <React.Fragment><img className={classes.helpImage} alt="" src={Help2} /><Typography component={'span'} className={classes.helpText}>{(t("step1"))}</Typography></React.Fragment>;
     case 2:
-      return <React.Fragment><img className=***REMOVED***classes.helpImage***REMOVED*** alt="" src=***REMOVED***Help3***REMOVED*** /><Typography component=***REMOVED***'span'***REMOVED*** className=***REMOVED***classes.helpText***REMOVED***>***REMOVED***(t("step2"))***REMOVED***</Typography></React.Fragment>;
+      return <React.Fragment><img className={classes.helpImage} alt="" src={Help3} /><Typography component={'span'} className={classes.helpText}>{(t("step2"))}</Typography></React.Fragment>;
     case 3:
-      return <React.Fragment><img className=***REMOVED***classes.helpImage***REMOVED*** alt="" src=***REMOVED***Help4***REMOVED*** /><Typography component=***REMOVED***'span'***REMOVED*** className=***REMOVED***classes.helpText***REMOVED***>***REMOVED***(t("step3"))***REMOVED***</Typography></React.Fragment>;
+      return <React.Fragment><img className={classes.helpImage} alt="" src={Help4} /><Typography component={'span'} className={classes.helpText}>{(t("step3"))}</Typography></React.Fragment>;
     case 4:
-      return <React.Fragment><img className=***REMOVED***classes.helpImage***REMOVED*** alt="" src=***REMOVED***Help6***REMOVED*** /><Typography component=***REMOVED***'span'***REMOVED*** className=***REMOVED***classes.helpText***REMOVED***>***REMOVED***(t("step5"))***REMOVED***</Typography></React.Fragment>;
+      return <React.Fragment><img className={classes.helpImage} alt="" src={Help6} /><Typography component={'span'} className={classes.helpText}>{(t("step5"))}</Typography></React.Fragment>;
     default:
       return <React.Fragment>Bug alert: undefined step!</React.Fragment>;
-***REMOVED***
-***REMOVED***
+    }
+  }
 
 
   let audio = new Audio(MoveAudio);
@@ -155,108 +155,108 @@ function GamePage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
   let throwAudio = new Audio(ThrowCardsAudio);
   let thiefAudio = new Audio(ThiefAudio);
 
-  useEffect(() => ***REMOVED***
-    function update(snapshot) ***REMOVED***
-      if(!audioDisabled)***REMOVED***
-        if(snapshot.exists() && !audioDisabled)***REMOVED***
+  useEffect(() => {
+    function update(snapshot) {
+      if(!audioDisabled){
+        if(snapshot.exists() && !audioDisabled){
           let flag = true;
           const sn = snapshot.val();
-          if ((sn.exchange && (Object.keys(sn.exchange).length === 4)) && sn.lastFour)***REMOVED***
-            const entry = Object.values(sn.lastFour).sort((a,b) => ***REMOVED***return a.time < b.time ? -1 : 1;***REMOVED***)[Object.values(sn.lastFour).length-1];
-            if(((entry.card.length === 3 && entry.card.charAt(2) === '2') || entry.card.charAt(0) === '2') && entry.selection === undefined)***REMOVED***
+          if ((sn.exchange && (Object.keys(sn.exchange).length === 4)) && sn.lastFour){
+            const entry = Object.values(sn.lastFour).sort((a,b) => {return a.time < b.time ? -1 : 1;})[Object.values(sn.lastFour).length-1];
+            if(((entry.card.length === 3 && entry.card.charAt(2) === '2') || entry.card.charAt(0) === '2') && entry.selection === undefined){
               thiefAudio.play();
-***REMOVED*** 
-            else if(entry.card === "YY")***REMOVED***
+            } 
+            else if(entry.card === "YY"){
               throwAudio.play();
-***REMOVED*** else ***REMOVED***
+            } else {
               const selection = entry.selection;
-              for(var i=1;i<Object.keys(selection).length;i+=2)***REMOVED***
-                if(homeFields.includes(selection[i]))***REMOVED***
+              for(var i=1;i<Object.keys(selection).length;i+=2){
+                if(homeFields.includes(selection[i])){
                   flag = false;
                   sendHomeAudio.play();
                   break;
-    ***REMOVED***
-  ***REMOVED***
-              if(flag)***REMOVED***
+                }
+              }
+              if(flag){
                 audio.play();
-  ***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+              }
+            }
+          }
+        }
+      }
 
 
-      if (!snapshot.exists())***REMOVED***
+      if (!snapshot.exists()){
         setGame(undefined);
-***REMOVED*** else ***REMOVED***
+      } else {
         setGame(snapshot.val());
-***REMOVED*** 
-***REMOVED***
-    const gameRef = firebase.database().ref(`games/$***REMOVED***gameId***REMOVED***`);
+      } 
+    }
+    const gameRef = firebase.database().ref(`games/${gameId}`);
     gameRef.on("value", update);
-    return () => ***REMOVED***
+    return () => {
       gameRef.off("value", update); //
-***REMOVED***;
-***REMOVED***, [gameId, audioDisabled]);
+    };
+  }, [gameId, audioDisabled]);
 
-  const toggleAudio = () => ***REMOVED***
+  const toggleAudio = () => {
     setAudioState(!audioDisabled);
-***REMOVED***;
-  const toggleHelp = () => ***REMOVED***
-    if(!helpDisabled.home)***REMOVED***
-      setHelpState(***REMOVED***seven:true,home:true***REMOVED***);
-***REMOVED*** else ***REMOVED***
-      setHelpState(***REMOVED***seven:false,home:false***REMOVED***);
-***REMOVED***
-***REMOVED***;
+  };
+  const toggleHelp = () => {
+    if(!helpDisabled.home){
+      setHelpState({seven:true,home:true});
+    } else {
+      setHelpState({seven:false,home:false});
+    }
+  };
 
-  const disableHelpHome = () => ***REMOVED***
-    setHelpState(***REMOVED***home:false***REMOVED***);
-***REMOVED***;
+  const disableHelpHome = () => {
+    setHelpState({home:false});
+  };
 
-  const toggleStatsModal = () => ***REMOVED***
-    if(isMobile)***REMOVED***
+  const toggleStatsModal = () => {
+    if(isMobile){
       alert('Stats not available on mobile');
-***REMOVED*** else ***REMOVED***
+    } else {
       setStatsModal(!statsModalOpen);
-***REMOVED***
-***REMOVED***;
+    }
+  };
 
   const makeTurn = useCallback(
-    (balls,selected,activeCard,hands,rnd,thrown,orderMyPosition,root) => ***REMOVED***
+    (balls,selected,activeCard,hands,rnd,thrown,orderMyPosition,root) => {
 
       var numCards = game.numCards;
       var nextPlayer = game.nextPlayer;
       let newRoot = root;
       var round = rnd;
-      var updates = ***REMOVED******REMOVED***;
-      const gameRef = firebase.database().ref(`games/$***REMOVED***gameId***REMOVED***`);
+      var updates = {};
+      const gameRef = firebase.database().ref(`games/${gameId}`);
 
       /*
        * if game.hands empty, initialize new round with [numCards,whoNext]
        * if next player has empty hand, increase round by two,three,four
        */
 
-      if(thrown)***REMOVED***
-        if(hands[(round+1)%4])***REMOVED***
+      if(thrown){
+        if(hands[(round+1)%4]){
           // next player has hand
           round++;
           updates["round"] = round%4;
-***REMOVED*** else if(hands[(round+2)%4])***REMOVED***
+        } else if(hands[(round+2)%4]){
           round+=2;
           updates["round"] = round%4;
-***REMOVED*** else if(hands[(round+3)%4])***REMOVED***
+        } else if(hands[(round+3)%4]){
           round+=3;
           updates["round"] = round%4;
-***REMOVED*** else ***REMOVED***
+        } else {
           hands = makeHands(numCards);
           numCards = numCards === 2 ? 6 : numCards-1;
           console.log(nextPlayer);
           updates["round"] = game.nextPlayer;
           updates["numCards"] = numCards;
           updates["nextPlayer"] =(game.nextPlayer+1) % 4;
-          gameRef.child("exchange").set(***REMOVED******REMOVED***);
-***REMOVED***
+          gameRef.child("exchange").set({});
+        }
         
 
         updates["balls"] = balls;
@@ -264,30 +264,30 @@ function GamePage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
         updates["rooted"] = newRoot;
         
         updates["lastFour"] = game.lastFour ? game.lastFour : [];
-        updates.lastFour[orderMyPosition] = ***REMOVED***user:user.id,card:"YY",selection:[game.balls[0],game.balls[0]],time:firebase.database.ServerValue.TIMESTAMP***REMOVED***;
+        updates.lastFour[orderMyPosition] = {user:user.id,card:"YY",selection:[game.balls[0],game.balls[0]],time:firebase.database.ServerValue.TIMESTAMP};
         gameRef.update(updates);
-        gameRef.child("history").push(***REMOVED***
+        gameRef.child("history").push({
           user: user.id,
           card: "YY", // card played
           selection: [thrown,0],
           roundPlayed: rnd,
           time: firebase.database.ServerValue.TIMESTAMP
-***REMOVED***);
-***REMOVED***else***REMOVED***
+        });
+      }else{
 
-        if(hands[(round+1)%4] && hands[(round+1)%4].length > 0)***REMOVED***
+        if(hands[(round+1)%4] && hands[(round+1)%4].length > 0){
           // next player has hand
           round++;
           updates["round"] = (round%4);
-***REMOVED*** else if(hands[(round+2)%4] && hands[(round+2)%4].length > 0)***REMOVED***
+        } else if(hands[(round+2)%4] && hands[(round+2)%4].length > 0){
           round+=2;
           updates["round"] = (round%4);
-***REMOVED*** else if(hands[(round+3)%4] && hands[(round+3)%4].length > 0)***REMOVED***
+        } else if(hands[(round+3)%4] && hands[(round+3)%4].length > 0){
           round+=3;
           updates["round"] = (round%4);
-***REMOVED*** else ***REMOVED***
+        } else {
           //round += 4
-          if(Object.keys(hands[round%4]).length === 0)***REMOVED***
+          if(Object.keys(hands[round%4]).length === 0){
 
 
             hands = makeHands(numCards);
@@ -295,267 +295,267 @@ function GamePage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
             updates["round"] = game.nextPlayer;
             updates["numCards"] = numCards;
             updates["nextPlayer"] = (game.nextPlayer+1) % 4;
-            gameRef.child("exchange").set(***REMOVED******REMOVED***);
-***REMOVED***
+            gameRef.child("exchange").set({});
+          }
           // same player has more cards
-***REMOVED***
+        }
         
         updates.lastFour = game.lastFour ? game.lastFour : [];
-        updates.lastFour[orderMyPosition] = ***REMOVED***card:activeCard,selection:selected,time:firebase.database.ServerValue.TIMESTAMP, user:user.id***REMOVED***;
+        updates.lastFour[orderMyPosition] = {card:activeCard,selection:selected,time:firebase.database.ServerValue.TIMESTAMP, user:user.id};
         
         updates["balls"] = balls;
         updates["hands"] = hands;
         updates["rooted"] = newRoot;
         gameRef.update(updates);
 
-        gameRef.child("history").push(***REMOVED***
+        gameRef.child("history").push({
           user: user.id,
           card: activeCard, // card played
           selection: selected,
           roundPlayed: rnd,
           time: firebase.database.ServerValue.TIMESTAMP
-***REMOVED***);
+        });
         //Team 1: blue-green won
         if([80,81,82,83,88,89,90,91].every(v => (balls).includes(v))) gameRef.child("meta/status").set("done");
         //Team 2: red-yellow won
         if([84,85,86,87,92,93,94,95].every(v => (balls).includes(v))) gameRef.child("meta/status").set("done"); 
-***REMOVED***
-***REMOVED***
+      }
+    },
     [game, gameId, user.id]
   );
 
   const makeExchange = useCallback(
-    (activeCard, userOrder) => ***REMOVED***
+    (activeCard, userOrder) => {
       var allExchanged = false;
-      if(game.exchange)***REMOVED***
+      if(game.exchange){
         if(Object.keys(game.exchange).length === 3) allExchanged = true;
-***REMOVED***
-      if(allExchanged)***REMOVED***
+      }
+      if(allExchanged){
         var oldHands = game.hands;
         var oldExchange = game.exchange;
         oldExchange[userOrder] = activeCard;
 
         var indexOfExchange = [];
-        for(var i=0;i<4;i++)***REMOVED*** // for all players get element of hand to replace
+        for(var i=0;i<4;i++){ // for all players get element of hand to replace
           indexOfExchange.push(game.hands[i].indexOf(oldExchange[i]));
-          if(game.hands[i].indexOf(oldExchange[i])===-1)***REMOVED***
+          if(game.hands[i].indexOf(oldExchange[i])===-1){
             alert('bug alert: invalid card supplied');
-***REMOVED***
-***REMOVED***
-        for(var k=0;k<4;k++)***REMOVED*** 
+          }
+        }
+        for(var k=0;k<4;k++){ 
           oldHands[k][indexOfExchange[k]] = oldExchange[(k+2)%4]; 
-***REMOVED***
-        const gameRef = firebase.database().ref(`games/$***REMOVED***gameId***REMOVED***/`);
-        gameRef.update(***REMOVED***hands:oldHands***REMOVED***);
-***REMOVED***
+        }
+        const gameRef = firebase.database().ref(`games/${gameId}/`);
+        gameRef.update({hands:oldHands});
+      }
       // add to exchange
-      if(!game.exchange)***REMOVED***
-        const gameExchangeRef = firebase.database().ref(`games/$***REMOVED***gameId***REMOVED***/exchange`);
-        gameExchangeRef.update(***REMOVED***[userOrder]:activeCard***REMOVED***);
-***REMOVED***else***REMOVED***
+      if(!game.exchange){
+        const gameExchangeRef = firebase.database().ref(`games/${gameId}/exchange`);
+        gameExchangeRef.update({[userOrder]:activeCard});
+      }else{
         const newExchange = game.exchange;
         newExchange[userOrder] = activeCard;
-        const gameExchangeRef = firebase.database().ref(`games/$***REMOVED***gameId***REMOVED***/exchange`);
+        const gameExchangeRef = firebase.database().ref(`games/${gameId}/exchange`);
         gameExchangeRef.set(newExchange);
-***REMOVED***
-***REMOVED***
+      }
+    }
   );
 
-  if (redirect) return <Redirect push to=***REMOVED***redirect***REMOVED*** />;
+  if (redirect) return <Redirect push to={redirect} />;
 
-  if (game === undefined) ***REMOVED***
+  if (game === undefined) {
     return <NotFoundPage />;
-***REMOVED***
+  }
 
-  if (!game) ***REMOVED***
+  if (!game) {
     return <LoadingPage />;
-***REMOVED***
+  }
 
-  if (game.meta.status === "waiting") ***REMOVED***
+  if (game.meta.status === "waiting") {
     return (
       <Container>
-        <Box p=***REMOVED***4***REMOVED***>
+        <Box p={4}>
           <Typography variant="h4" align="center">
-            ***REMOVED***t('waitStart')***REMOVED***
+            {t('waitStart')}
           </Typography>
         </Box>
       </Container>
     );
-***REMOVED***
+  }
 
-  const onKeyDownHandler = (e) => ***REMOVED***
-    if (e.keyCode === 27) ***REMOVED***
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 27) {
       disableHelpHome();
-***REMOVED***
-***REMOVED***;
+    }
+  };
 
   const spectating = !game.meta.users || !game.meta.users[user.id];
 
   const gameState = computeHistory(game);
 
-  function handlePlayAgain() ***REMOVED***
+  function handlePlayAgain() {
     const idx = gameId.lastIndexOf("-");
     let id = gameId,
       num = 0;
-    if (gameId.slice(idx + 1).match(/[0-9]+/)) ***REMOVED***
+    if (gameId.slice(idx + 1).match(/[0-9]+/)) {
       id = gameId.slice(0, idx);
       num = parseInt(gameId.slice(idx + 1));
-***REMOVED***
-    setRedirect(`/room/$***REMOVED***id***REMOVED***-$***REMOVED***num + 1***REMOVED***`);
-***REMOVED***
+    }
+    setRedirect(`/room/${id}-${num + 1}`);
+  }
 
   return (
-    <Grid container spacing=***REMOVED***0***REMOVED*** className=***REMOVED***classes.container***REMOVED***>        
-      ***REMOVED***isMobile ? (
-        <Modal onBackdropClick=***REMOVED***disableHelpHome***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!spectating && helpDisabled.home && game.meta.status === "ingame"***REMOVED***>
-          <Paper className=***REMOVED***classes.modalBoxMobile***REMOVED***>
-            <Typography variant="h5" style=***REMOVED******REMOVED***padding:"10px"***REMOVED******REMOVED***>
-              ***REMOVED***t("howMove")***REMOVED***
+    <Grid container spacing={0} className={classes.container}>        
+      {isMobile ? (
+        <Modal onBackdropClick={disableHelpHome} className={classes.modal} open={!spectating && helpDisabled.home && game.meta.status === "ingame"}>
+          <Paper className={classes.modalBoxMobile}>
+            <Typography variant="h5" style={{padding:"10px"}}>
+              {t("howMove")}
             </Typography>
-            ***REMOVED***getStepContent(activeStep)***REMOVED***
+            {getStepContent(activeStep)}
             <MobileStepper 
-              steps=***REMOVED***steps.length***REMOVED*** 
+              steps={steps.length} 
               position="static" 
               variant="text" 
-              activeStep=***REMOVED***activeStep***REMOVED*** 
-              nextButton=***REMOVED***
-                <Button variant="contained" color="primary" onClick=***REMOVED***handleNext***REMOVED*** className=***REMOVED***classes.buttonSpac***REMOVED***>
-                  ***REMOVED***activeStep === steps.length - 1 ? t("btnFinish") : t("btnNext")***REMOVED***
+              activeStep={activeStep} 
+              nextButton={
+                <Button variant="contained" color="primary" onClick={handleNext} className={classes.buttonSpac}>
+                  {activeStep === steps.length - 1 ? t("btnFinish") : t("btnNext")}
                 </Button>
-  ***REMOVED*** 
-              backButton=***REMOVED***         
+              } 
+              backButton={         
                 <Button
-                  disabled=***REMOVED***activeStep === 0***REMOVED***
-                  onClick=***REMOVED***handleBack***REMOVED***
-                  className=***REMOVED***classes.buttonSpac***REMOVED***
-                >Back</Button>***REMOVED***
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  className={classes.buttonSpac}
+                >Back</Button>}
             >
             </MobileStepper>
           </Paper> 
         </Modal>
       ) : (
-        <Dialog onKeyDown=***REMOVED***onKeyDownHandler***REMOVED*** onBackdropClick=***REMOVED***disableHelpHome***REMOVED*** className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***!spectating && helpDisabled.home && game.meta.status === "ingame"***REMOVED***>
-          <Box className=***REMOVED***classes.modalBox***REMOVED***>
+        <Dialog onKeyDown={onKeyDownHandler} onBackdropClick={disableHelpHome} className={classes.modal} open={!spectating && helpDisabled.home && game.meta.status === "ingame"}>
+          <Box className={classes.modalBox}>
             <Typography variant="h5">
-              ***REMOVED***t("howMove")***REMOVED***
+              {t("howMove")}
             </Typography>
-            <Stepper activeStep=***REMOVED***activeStep***REMOVED*** alternativeLabel>
-              ***REMOVED***steps.map((label) => (
-                <Step key=***REMOVED***label***REMOVED***>
-                  <StepLabel>***REMOVED***label***REMOVED***</StepLabel>
+            <Stepper activeStep={activeStep} alternativeLabel>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
                 </Step>
-              ))***REMOVED***
+              ))}
             </Stepper>
-            <Typography className=***REMOVED***classes.instructions***REMOVED***>***REMOVED***getStepContent(activeStep)***REMOVED***</Typography>
+            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
             <div>
               <Button
-                disabled=***REMOVED***activeStep === 0***REMOVED***
-                onClick=***REMOVED***handleBack***REMOVED***
-                className=***REMOVED***classes.buttonSpac***REMOVED***
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.buttonSpac}
               >
-                ***REMOVED***t("btnBack")***REMOVED***
+                {t("btnBack")}
               </Button>
-              <Button variant="contained" color="primary" onClick=***REMOVED***handleNext***REMOVED*** className=***REMOVED***classes.buttonSpac***REMOVED***>
-                ***REMOVED***activeStep === steps.length - 1 ? t("btnFinish") : t("btnNext")***REMOVED***
+              <Button variant="contained" color="primary" onClick={handleNext} className={classes.buttonSpac}>
+                {activeStep === steps.length - 1 ? t("btnFinish") : t("btnNext")}
               </Button>
               <Button
                 variant="contained"
                 color="default"
-                onClick=***REMOVED***disableHelpHome***REMOVED***
+                onClick={disableHelpHome}
               >
-                ***REMOVED***t("btnClose")***REMOVED***
+                {t("btnClose")}
               </Button>
             </div>
           </Box>
         </Dialog>
-      )***REMOVED***
+      )}
 
-      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***game.meta.status === "done" && statsModalOpen***REMOVED***>
-        <Paper className=***REMOVED***classes.statsModal***REMOVED***>
-          <Stats game=***REMOVED***game***REMOVED***/>
+      <Modal className={classes.modal} open={game.meta.status === "done" && statsModalOpen}>
+        <Paper className={classes.statsModal}>
+          <Stats game={game}/>
           <Button
-            className=***REMOVED***classes.play***REMOVED***
+            className={classes.play}
             variant="contained"
             color="primary"
-            onClick=***REMOVED***toggleStatsModal***REMOVED***
+            onClick={toggleStatsModal}
           >
-            ***REMOVED***t("btnCloseStats")***REMOVED***
+            {t("btnCloseStats")}
           </Button>
         </Paper>
       </Modal>
-      <Modal className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***game.meta.status === "done" && !statsModalOpen***REMOVED***>
-        <Paper className=***REMOVED***classes.modalPadding***REMOVED***>
+      <Modal className={classes.modal} open={game.meta.status === "done" && !statsModalOpen}>
+        <Paper className={classes.modalPadding}>
           <GameEnd
-            spectating=***REMOVED***spectating***REMOVED***
-            userId=***REMOVED***user.id***REMOVED***
-            gameOrder=***REMOVED***game.order***REMOVED***
-            metaUsers=***REMOVED***game.meta.users***REMOVED***
-            winnerTeam=***REMOVED***[80,81,82,83,88,89,90,91].every(v => (game.balls).includes(v)) ? 0 : 1***REMOVED***
-            audioDisabled=***REMOVED***audioDisabled***REMOVED***
+            spectating={spectating}
+            userId={user.id}
+            gameOrder={game.order}
+            metaUsers={game.meta.users}
+            winnerTeam={[80,81,82,83,88,89,90,91].every(v => (game.balls).includes(v)) ? 0 : 1}
+            audioDisabled={audioDisabled}
           />
           <Button
-            className=***REMOVED***classes.play***REMOVED***
+            className={classes.play}
             variant="contained"
             color="primary"
-            onClick=***REMOVED***handlePlayAgain***REMOVED***
+            onClick={handlePlayAgain}
           >
-            ***REMOVED***t("btnPlayAgain")***REMOVED***
+            {t("btnPlayAgain")}
           </Button>
           <Button
-            className=***REMOVED***classes.play***REMOVED***
+            className={classes.play}
             variant="contained"
             color="primary"
-            onClick=***REMOVED***toggleStatsModal***REMOVED***
+            onClick={toggleStatsModal}
           >
-            ***REMOVED***t("btnViewStats")***REMOVED***
+            {t("btnViewStats")}
           </Button>
         </Paper>
       </Modal>
 
-      ***REMOVED***/* Game Area */***REMOVED***
-      ***REMOVED***isMobile ? (
-        <Grid direction=***REMOVED***"column"***REMOVED*** container item xs=***REMOVED***12***REMOVED*** className=***REMOVED***classes.gamePanel + " gamePanel"***REMOVED***>
-          ***REMOVED***/* Header,Board,Hand */***REMOVED***
+      {/* Game Area */}
+      {isMobile ? (
+        <Grid direction={"column"} container item xs={12} className={classes.gamePanel + " gamePanel"}>
+          {/* Header,Board,Hand */}
           <DogGame
-            game=***REMOVED***game***REMOVED***
-            spectating=***REMOVED***spectating***REMOVED***
-            onSubmit=***REMOVED***makeTurn***REMOVED***
-            user=***REMOVED***user ? user : undefined***REMOVED***
-            doExchange=***REMOVED***makeExchange***REMOVED***
-            gameId=***REMOVED***gameId***REMOVED***
-            helpDisabled=***REMOVED***helpDisabled***REMOVED***
+            game={game}
+            spectating={spectating}
+            onSubmit={makeTurn}
+            user={user ? user : undefined}
+            doExchange={makeExchange}
+            gameId={gameId}
+            helpDisabled={helpDisabled}
           />
         </Grid>
       ) : (
         <React.Fragment>
-          <Grid direction=***REMOVED***"column"***REMOVED*** container item xs=***REMOVED***12***REMOVED*** sm=***REMOVED***8***REMOVED*** md=***REMOVED***8***REMOVED*** lg=***REMOVED***9***REMOVED*** xl=***REMOVED***10***REMOVED*** className=***REMOVED***classes.gamePanel + " gamePanel"***REMOVED***>
-            ***REMOVED***/* Header,Board,Hand */***REMOVED***
+          <Grid direction={"column"} container item xs={12} sm={8} md={8} lg={9} xl={10} className={classes.gamePanel + " gamePanel"}>
+            {/* Header,Board,Hand */}
             <DogGame
-              game=***REMOVED***game***REMOVED***
-              gameState=***REMOVED***gameState***REMOVED***
-              spectating=***REMOVED***spectating***REMOVED***
-              onSubmit=***REMOVED***makeTurn***REMOVED***
-              user=***REMOVED***user ? user : undefined***REMOVED***
-              doExchange=***REMOVED***makeExchange***REMOVED***
-              gameId=***REMOVED***gameId***REMOVED***
-              helpDisabled=***REMOVED***helpDisabled***REMOVED***
+              game={game}
+              gameState={gameState}
+              spectating={spectating}
+              onSubmit={makeTurn}
+              user={user ? user : undefined}
+              doExchange={makeExchange}
+              gameId={gameId}
+              helpDisabled={helpDisabled}
             />
           </Grid>
-          <Grid item xs=***REMOVED***false***REMOVED*** sm=***REMOVED***4***REMOVED*** md=***REMOVED***4***REMOVED*** lg=***REMOVED***3***REMOVED*** xl=***REMOVED***2***REMOVED*** className=***REMOVED***classes.sidePanel***REMOVED***>
-            ***REMOVED***/* Sidebar */***REMOVED***
+          <Grid item xs={false} sm={4} md={4} lg={3} xl={2} className={classes.sidePanel}>
+            {/* Sidebar */}
             <Sidebar 
-              game=***REMOVED***game***REMOVED***
-              gameState=***REMOVED***gameState***REMOVED***
-              toggleAudio=***REMOVED***toggleAudio***REMOVED***
-              audioDisabled=***REMOVED***audioDisabled***REMOVED***
-              toggleHelp=***REMOVED***toggleHelp***REMOVED***
-              helpDisabled=***REMOVED***helpDisabled***REMOVED***
+              game={game}
+              gameState={gameState}
+              toggleAudio={toggleAudio}
+              audioDisabled={audioDisabled}
+              toggleHelp={toggleHelp}
+              helpDisabled={helpDisabled}
             />
           </Grid>
         </React.Fragment>
-      )***REMOVED***
+      )}
     </Grid>
   );
-***REMOVED***
+}
 
 export default GamePage;

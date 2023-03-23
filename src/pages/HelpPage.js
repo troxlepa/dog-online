@@ -5,44 +5,44 @@ import Link from "@material-ui/core/Link";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
-import ***REMOVED*** Link as RouterLink ***REMOVED*** from "react-router-dom";
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
+import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
-function HelpPage() ***REMOVED***
-  const ***REMOVED*** t ***REMOVED*** = useTranslation();
+function HelpPage() {
+  const { t } = useTranslation();
   return (
     <Container>
-      <Box m=***REMOVED***3***REMOVED***>
+      <Box m={3}>
         <Typography variant="h4" align="center">
-          ***REMOVED***t("fpHelp")***REMOVED***
+          {t("fpHelp")}
         </Typography>
-        <Paper style=***REMOVED******REMOVED*** padding: 14, width: 640, margin: "12px auto" ***REMOVED******REMOVED***>
+        <Paper style={{ padding: 14, width: 640, margin: "12px auto" }}>
           <Typography variant="body1" gutterBottom>
-            ***REMOVED***t("help1")***REMOVED***
+            {t("help1")}
           </Typography>
           .<br/>
           <Typography variant="body1" gutterBottom>
-            <b>***REMOVED***t("FAQ")***REMOVED***</b>
+            <b>{t("FAQ")}</b>
           </Typography>
           <Typography variant="body1" gutterBottom>
-            <b>***REMOVED***t('faq1')***REMOVED***</b>
+            <b>{t('faq1')}</b>
             <br/>
-            ***REMOVED***t('faq1a')***REMOVED***
+            {t('faq1a')}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            <b>***REMOVED***t('faq2')***REMOVED***</b>
+            <b>{t('faq2')}</b>
             <br/>
-            ***REMOVED***t('faq2a')***REMOVED***
+            {t('faq2a')}
           </Typography>
         </Paper>
         <Typography variant="body1" align="center">
-          <Link component=***REMOVED***RouterLink***REMOVED*** to="/">
-            ***REMOVED***t("returnHome")***REMOVED***
+          <Link component={RouterLink} to="/">
+            {t("returnHome")}
           </Link>
         </Typography>
       </Box>
     </Container>
   );
-***REMOVED***
+}
 
 export default HelpPage;

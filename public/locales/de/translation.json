@@ -1,4 +1,4 @@
-***REMOVED***
+{
   "starting": "Los gehts!",
   "waiting": "Warten auf Spieler",
   "doneMessage": "Gewonnen haben",
@@ -181,4 +181,4 @@
   "confirmThrow":"Laut den Spielregeln musst du einen Zug machen, solange du kannst. Möchtest du alle deine Handkarten abwerfen?",
   "yes":"Ja",
   "no":"Nein"
-***REMOVED***
+}

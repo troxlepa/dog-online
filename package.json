@@ -1,4 +1,4 @@
-***REMOVED***
+{
   "name": "DogOnline",
   "version": "1.3.0",
   "repository": "https://github.com/troxlepa/DogOnline",
@@ -11,7 +11,7 @@
     "Brettspiel"
   ],
   "main": "src/index.js",
-  "dependencies": ***REMOVED***
+  "dependencies": {
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.5.1",
     "firebase": "^7.12.0",
@@ -29,21 +29,21 @@
     "react-scripts": "^3.3.0",
     "react-spring": "^8.0.27",
     "react-svgmt": "^1.1.11"
-***REMOVED***,
-  "devDependencies": ***REMOVED***
+  },
+  "devDependencies": {
     "react-svg-loader": "^3.0.3"
-***REMOVED***,
-  "scripts": ***REMOVED***
+  },
+  "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy"
-***REMOVED***,
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
   ]
-***REMOVED***
+}

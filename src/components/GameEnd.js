@@ -8,76 +8,76 @@ import ListItemText from "@material-ui/core/ListItemText";
 import WinnerAudio from "../assets/sounds/win.mp3";
 import LoserAudio from "../assets/sounds/losing.mp3";
 import Typography from "@material-ui/core/Typography";
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-function GameEnd(***REMOVED***spectating,userId,gameOrder,metaUsers,winnerTeam, audioDisabled***REMOVED***)***REMOVED***
+function GameEnd({spectating,userId,gameOrder,metaUsers,winnerTeam, audioDisabled}){
   const winAudio = new Audio(WinnerAudio);
   const loseAudio = new Audio(LoserAudio);
   const isWinner=(userId === gameOrder[winnerTeam]) || (userId === gameOrder[winnerTeam+2]);
-  const ***REMOVED*** t ***REMOVED*** = useTranslation();
+  const { t } = useTranslation();
 
-  function getWinners()***REMOVED***
+  function getWinners(){
     const winner1=metaUsers[gameOrder[winnerTeam]];
     const winner2=metaUsers[gameOrder[winnerTeam+2]];
     return(
       <React.Fragment>
         <ListItem button>
-          <ColorSquare color=***REMOVED***winner1.color***REMOVED*** />
+          <ColorSquare color={winner1.color} />
           <ListItemText>
-            ***REMOVED***winner1.name***REMOVED***
+            {winner1.name}
           </ListItemText>
         </ListItem>
         <ListItem button>
-          <ColorSquare color=***REMOVED***winner2.color***REMOVED*** />
+          <ColorSquare color={winner2.color} />
           <ListItemText>
-            ***REMOVED***winner2.name***REMOVED***
+            {winner2.name}
           </ListItemText>
         </ListItem>
       </React.Fragment>
     );
-***REMOVED***
+  }
 
-  if(spectating)***REMOVED***
+  if(spectating){
     return(
       <div>
         <Typography variant="h4" gutterBottom>
-          ***REMOVED***t('gameEnded')***REMOVED***
+          {t('gameEnded')}
         </Typography>
         <Typography variant="body1">
-          ***REMOVED***t("doneMessage")***REMOVED***:
+          {t("doneMessage")}:
         </Typography>
-        ***REMOVED***getWinners()***REMOVED***
+        {getWinners()}
       </div>    
     );
-***REMOVED***
-  if(!isWinner)***REMOVED***
+  }
+  if(!isWinner){
     if(!audioDisabled) loseAudio.play();
     return(
       <div>
-        <img alt="losing team ball falling" src=***REMOVED***LoserImage***REMOVED***/>
+        <img alt="losing team ball falling" src={LoserImage}/>
         <Typography variant="h4" gutterBottom>
-          ***REMOVED***t('loseMsg')***REMOVED***
+          {t('loseMsg')}
         </Typography>
         <Typography variant="body1">
-          ***REMOVED***t('gameEnded')***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***t("doneMessage")***REMOVED***:
+          {t('gameEnded')} {" "} {t("doneMessage")}:
         </Typography>
-        ***REMOVED***getWinners()***REMOVED***
+        {getWinners()}
       </div>
     );
-***REMOVED***
+  }
   if(!audioDisabled) winAudio.play();
   return (
     <div>
-      <img alt="winning team trophy" src=***REMOVED***Trophy***REMOVED***/>
+      <img alt="winning team trophy" src={Trophy}/>
       <Typography variant="h4" gutterBottom>
-        ***REMOVED***t('winMsg')***REMOVED***
+        {t('winMsg')}
       </Typography>
       <Typography variant="body1">
-        ***REMOVED***t('gameEnded')***REMOVED*** ***REMOVED***" "***REMOVED*** ***REMOVED***t("doneMessage")***REMOVED***:
+        {t('gameEnded')} {" "} {t("doneMessage")}:
       </Typography>
-      ***REMOVED***getWinners()***REMOVED***
+      {getWinners()}
     </div>
   );
-***REMOVED***
+}
 
 export default GameEnd;

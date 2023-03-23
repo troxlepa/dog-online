@@ -1,4 +1,4 @@
-***REMOVED***
+{
   "starting": "Starting...",
   "waiting": "Waiting for players...",
   "doneMessage": "Winners are",
@@ -181,7 +181,7 @@
   "confirmThrow":"According to the rules, you have to move as long as you are able to. Do you want to throw away all of your hand cards?",
   "yes":"Yes",
   "no":"No"
-***REMOVED***
+}
 
 
 

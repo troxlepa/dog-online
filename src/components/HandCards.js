@@ -1,26 +1,26 @@
 import React from "react";
 
-import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
+import { isMobile } from "react-device-detect";
 
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 
 import JassCard from "../components/JassCard";
 
-const useStyles = makeStyles(***REMOVED***
-  selfCards: ***REMOVED***
+const useStyles = makeStyles({
+  selfCards: {
     flexDirection: "row",
     borderTop: "1px solid lightgray",
     flexWrap:"nowrap",
     justifyContent:"left",
-***REMOVED***,
-***REMOVED***);
+  },
+});
 
-const HandCards = (***REMOVED***myhandObj, activeCard, setJokerModal, handleCard, handleSetTwoModal***REMOVED***) => ***REMOVED***
+const HandCards = ({myhandObj, activeCard, setJokerModal, handleCard, handleSetTwoModal}) => {
   const classes = useStyles();
   const handCards = Object.keys(myhandObj);
-  function handleClick(card_type,card)***REMOVED***
-    switch(card_type)***REMOVED***
+  function handleClick(card_type,card){
+    switch(card_type){
     case 'Z':
       setJokerModal(card.substring(0,2));
       return;
@@ -29,23 +29,23 @@ const HandCards = (***REMOVED***myhandObj, activeCard, setJokerModal, handleCard
       return;
     default:
       handleCard(card);
-***REMOVED***
-***REMOVED***
+    }
+  }
   return (
-    <Box className=***REMOVED***isMobile? " selfCards_mobile" : classes.selfCards + " selfCards"***REMOVED***>
-      ***REMOVED***handCards.map((card, idx) => ***REMOVED***
+    <Box className={isMobile? " selfCards_mobile" : classes.selfCards + " selfCards"}>
+      {handCards.map((card, idx) => {
         return(
           <JassCard
-            key=***REMOVED***idx***REMOVED***
-            value=***REMOVED***myhandObj[card]***REMOVED***
-            disabled=***REMOVED***false***REMOVED***
-            active=***REMOVED***activeCard.substring(0,2)===myhandObj[card].substring(0,2)***REMOVED***
-            selected=***REMOVED***activeCard.substring(0,2)===myhandObj[card].substring(0,2)***REMOVED***
-            onClick=***REMOVED***() => ***REMOVED***handleClick(myhandObj[card].charAt(0),myhandObj[card].substring(0,2));***REMOVED******REMOVED***
+            key={idx}
+            value={myhandObj[card]}
+            disabled={false}
+            active={activeCard.substring(0,2)===myhandObj[card].substring(0,2)}
+            selected={activeCard.substring(0,2)===myhandObj[card].substring(0,2)}
+            onClick={() => {handleClick(myhandObj[card].charAt(0),myhandObj[card].substring(0,2));}}
           />
         );
-***REMOVED***)***REMOVED***
+      })}
     </Box>
   );
-***REMOVED***;
+};
 export default HandCards;

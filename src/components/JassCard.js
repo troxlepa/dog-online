@@ -1,14 +1,14 @@
-import React, ***REMOVED*** memo ***REMOVED*** from "react";
+import React, { memo } from "react";
 
-import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
+import { isMobile } from "react-device-detect";
 
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 
-let styled = ***REMOVED******REMOVED***;
-if(isMobile)***REMOVED***
-  styled = ***REMOVED***
-    card: ***REMOVED***
+let styled = {};
+if(isMobile){
+  styled = {
+    card: {
       width: 48,
       height: 70,
       background: "#fff",
@@ -20,11 +20,11 @@ if(isMobile)***REMOVED***
       margin: 6,
       cursor: "pointer",
       transition: "background-color 0.2s, box-shadow 0.2s",
-      "&:hover": ***REMOVED***
+      "&:hover": {
         boxShadow: "0px 0px 5px 3px #bbb"
-***REMOVED***
-***REMOVED***
-    card_disabled: ***REMOVED***
+      }
+    },
+    card_disabled: {
       width: 48,
       height: 70,
       background: "#fff",
@@ -33,32 +33,32 @@ if(isMobile)***REMOVED***
       alignItems: "center",
       justifyContent: "center",
       flexShrink: 0
-***REMOVED***
-    selected: ***REMOVED***
+    },
+    selected: {
       boxShadow: "0px 0px 0px 4px #f00 ! important",
-***REMOVED***
-    active: ***REMOVED***
+    },
+    active: {
       cursor: "pointer",
       boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
-***REMOVED***
-    smallCard: ***REMOVED***
+    },
+    smallCard: {
       width: 54,
       height: 74,
       margin: 3,
-      "&:hover": ***REMOVED***
+      "&:hover": {
         boxShadow: "0px 0px 2px 1px #bbb"
-***REMOVED***
-***REMOVED***
-    symbol: ***REMOVED***
+      }
+    },
+    symbol: {
       margin: 3
-***REMOVED***
-    smallSymbol: ***REMOVED***
+    },
+    smallSymbol: {
       margin: 1
-***REMOVED***
-***REMOVED***;
-***REMOVED***else***REMOVED***
-  styled = ***REMOVED***
-    card: ***REMOVED***
+    }
+  };
+}else{
+  styled = {
+    card: {
       width: 98,
       height: 136,
       background: "#fff",
@@ -70,11 +70,11 @@ if(isMobile)***REMOVED***
       margin: 6,
       cursor: "pointer",
       transition: "background-color 0.2s, box-shadow 0.2s",
-      "&:hover": ***REMOVED***
+      "&:hover": {
         boxShadow: "0px 0px 5px 3px #bbb"
-***REMOVED***
-***REMOVED***
-    card_disabled: ***REMOVED***
+      }
+    },
+    card_disabled: {
       width: 75,
       height: 102,
       background: "#fff",
@@ -83,35 +83,35 @@ if(isMobile)***REMOVED***
       alignItems: "center",
       justifyContent: "center",
       flexShrink: 0
-***REMOVED***
-    selected: ***REMOVED***
+    },
+    selected: {
       boxShadow: "0px 0px 0px 4px #f00 ! important",
-***REMOVED***
-    active: ***REMOVED***
+    },
+    active: {
       cursor: "pointer",
       boxShadow: "0px 0px 12px 0px rgba(84,31,125,1)"
-***REMOVED***
-    smallCard: ***REMOVED***
+    },
+    smallCard: {
       width: 54,
       height: 74,
       margin: 3,
 
-      "&:hover": ***REMOVED***
+      "&:hover": {
         boxShadow: "0px 0px 2px 1px #bbb"
-***REMOVED***
-***REMOVED***
-    symbol: ***REMOVED***
+      }
+    },
+    symbol: {
       margin: 3
-***REMOVED***
-    smallSymbol: ***REMOVED***
+    },
+    smallSymbol: {
       margin: 1
-***REMOVED***
-***REMOVED***;
-***REMOVED***
+    }
+  };
+}
 const useStyles = makeStyles(styled);
 
 
-function JassCard(props) ***REMOVED***
+function JassCard(props) {
   const classes = useStyles();
 
   const value = props.value.substring(0,2);
@@ -127,10 +127,10 @@ function JassCard(props) ***REMOVED***
   const cardSource = require("../assets/cards/"+value+".svg");
 
   return (
-    <div onClick=***REMOVED***click***REMOVED*** className=***REMOVED***smallCard === "" ? className : undefined***REMOVED***>
-      <img alt="" className=***REMOVED***smallCard***REMOVED*** src=***REMOVED***cardSource***REMOVED***/>
+    <div onClick={click} className={smallCard === "" ? className : undefined}>
+      <img alt="" className={smallCard} src={cardSource}/>
     </div>
   );
-***REMOVED***
+}
 
 export default memo(JassCard);

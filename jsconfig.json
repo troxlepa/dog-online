@@ -1,7 +1,7 @@
-***REMOVED***
-  "compilerOptions": ***REMOVED***
+{
+  "compilerOptions": {
     "module": "commonjs",
     "target": "es2018"
-***REMOVED***,
+  },
   "exclude": ["node_modules"]
-***REMOVED***
+}

@@ -1,46 +1,46 @@
 // Modified from code by Heather Booker
 // https://medium.com/@heatherbooker/how-to-auto-scroll-to-the-bottom-of-a-div-415e967e7a24
 
-export default function autoscroll(element) ***REMOVED***
-  function animateScroll(duration) ***REMOVED***
+export default function autoscroll(element) {
+  function animateScroll(duration) {
     var start = element.scrollTop;
     var end = element.scrollHeight;
     var change = end - start;
     var increment = 20;
 
-    function easeInOut(currentTime, start, change, duration) ***REMOVED***
+    function easeInOut(currentTime, start, change, duration) {
       // by Robert Penner
       currentTime /= duration / 2;
-      if (currentTime < 1) ***REMOVED***
+      if (currentTime < 1) {
         return (change / 2) * currentTime * currentTime + start;
-***REMOVED***
+      }
       currentTime -= 1;
       return (-change / 2) * (currentTime * (currentTime - 2) - 1) + start;
-***REMOVED***
+    }
 
-    function animate(elapsedTime) ***REMOVED***
+    function animate(elapsedTime) {
       elapsedTime += increment;
       var position = easeInOut(elapsedTime, start, change, duration);
       element.scrollTop = position;
-      if (elapsedTime < duration) ***REMOVED***
-        setTimeout(function() ***REMOVED***
+      if (elapsedTime < duration) {
+        setTimeout(function() {
           animate(elapsedTime);
-***REMOVED*** increment);
-***REMOVED***
-***REMOVED***
+        }, increment);
+      }
+    }
 
     animate(0);
-***REMOVED***
+  }
 
-  function scrollToBottom() ***REMOVED***
+  function scrollToBottom() {
     var duration = 300;
     animateScroll(duration);
-***REMOVED***
+  }
 
   var observer = new MutationObserver(scrollToBottom);
-  var config = ***REMOVED*** childList: true ***REMOVED***;
+  var config = { childList: true };
   observer.observe(element, config);
-  return () => ***REMOVED***
+  return () => {
     observer.disconnect();
-***REMOVED***;
-***REMOVED***
+  };
+}

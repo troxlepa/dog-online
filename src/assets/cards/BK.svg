@@ -5,10 +5,10 @@
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 223.2 311.8"
 	 style="enable-background:new 0 0 223.2 311.8;" xml:space="preserve">
 <style type="text/css">
-	.st0***REMOVED***fill:none;***REMOVED***
-	.st1***REMOVED***fill:#FFFFFF;stroke:#000000;***REMOVED***
-	.st2***REMOVED***fill:none;stroke:#D40000;stroke-width:4.9524;stroke-linecap:round;***REMOVED***
-	.st3***REMOVED***fill:url(#rect13072_1_);stroke:#D40000;stroke-linecap:round;***REMOVED***
+	.st0{fill:none;}
+	.st1{fill:#FFFFFF;stroke:#000000;}
+	.st2{fill:none;stroke:#D40000;stroke-width:4.9524;stroke-linecap:round;}
+	.st3{fill:url(#rect13072_1_);stroke:#D40000;stroke-linecap:round;}
 </style>
 <pattern  y="311.8" width="223.2" height="311.8" patternUnits="userSpaceOnUse" id="Unnamed_Pattern_14" viewBox="0 -311.8 223.2 311.8" style="overflow:visible;">
 	<g>

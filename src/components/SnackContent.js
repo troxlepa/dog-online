@@ -4,73 +4,73 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ErrorIcon from "@material-ui/icons/Error";
 import InfoIcon from "@material-ui/icons/Info";
 import CloseIcon from "@material-ui/icons/Close";
-import ***REMOVED*** amber, green ***REMOVED*** from "@material-ui/core/colors";
+import { amber, green } from "@material-ui/core/colors";
 import IconButton from "@material-ui/core/IconButton";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import WarningIcon from "@material-ui/icons/Warning";
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
-const variantIcon = ***REMOVED***
+const variantIcon = {
   success: CheckCircleIcon,
   warning: WarningIcon,
   error: ErrorIcon,
   info: InfoIcon
-***REMOVED***;
+};
 
-const useStyles = makeStyles(theme => (***REMOVED***
-  success: ***REMOVED***
+const useStyles = makeStyles(theme => ({
+  success: {
     backgroundColor: green[600]
-***REMOVED***,
-  error: ***REMOVED***
+  },
+  error: {
     backgroundColor: theme.palette.error.dark
-***REMOVED***,
-  info: ***REMOVED***
+  },
+  info: {
     backgroundColor: theme.palette.primary.main
-***REMOVED***,
-  warning: ***REMOVED***
+  },
+  warning: {
     backgroundColor: amber[700]
-***REMOVED***,
-  icon: ***REMOVED***
+  },
+  icon: {
     fontSize: 20
-***REMOVED***,
-  iconVariant: ***REMOVED***
+  },
+  iconVariant: {
     opacity: 0.9,
     marginRight: theme.spacing(1)
-***REMOVED***,
-  message: ***REMOVED***
+  },
+  message: {
     display: "flex",
     alignItems: "center"
-***REMOVED***
-***REMOVED***));
+  }
+}));
 
-function SnackContent(props) ***REMOVED***
+function SnackContent(props) {
   const classes = useStyles();
-  const ***REMOVED*** className, message, onClose, variant, ...other ***REMOVED*** = props;
+  const { className, message, onClose, variant, ...other } = props;
   const Icon = variantIcon[variant];
 
   return (
     <SnackbarContent
-      className=***REMOVED***clsx(classes[variant], className)***REMOVED***
+      className={clsx(classes[variant], className)}
       aria-describedby="client-snackbar"
-      message=***REMOVED***
-        <span id="client-snackbar" className=***REMOVED***classes.message***REMOVED***>
-          <Icon className=***REMOVED***clsx(classes.icon, classes.iconVariant)***REMOVED*** />
-          ***REMOVED***message***REMOVED***
+      message={
+        <span id="client-snackbar" className={classes.message}>
+          <Icon className={clsx(classes.icon, classes.iconVariant)} />
+          {message}
         </span>
-***REMOVED***
-      action=***REMOVED***[
+      }
+      action={[
         <IconButton
           key="close"
           aria-label="close"
           color="inherit"
-          onClick=***REMOVED***onClose***REMOVED***
+          onClick={onClose}
         >
-          <CloseIcon className=***REMOVED***classes.icon***REMOVED*** />
+          <CloseIcon className={classes.icon} />
         </IconButton>
-      ]***REMOVED***
-      ***REMOVED***...other***REMOVED***
+      ]}
+      {...other}
     />
   );
-***REMOVED***
+}
 
 export default SnackContent;

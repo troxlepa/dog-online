@@ -1,11 +1,11 @@
-import React, ***REMOVED*** useState, useEffect ***REMOVED*** from "react";
+import React, { useState, useEffect } from "react";
 
-import ***REMOVED*** Link as RouterLink, Redirect ***REMOVED*** from "react-router-dom";
-import ***REMOVED*** animated, useTransition ***REMOVED*** from "react-spring";
-import ***REMOVED*** useTranslation ***REMOVED*** from 'react-i18next';
-import ***REMOVED*** isMobile ***REMOVED*** from "react-device-detect";
+import { Link as RouterLink, Redirect } from "react-router-dom";
+import { animated, useTransition } from "react-spring";
+import { useTranslation } from 'react-i18next';
+import { isMobile } from "react-device-detect";
 
-import ***REMOVED*** makeStyles ***REMOVED*** from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -30,7 +30,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 
 import firebase from "../firebase";
-import ***REMOVED*** initialBallLocations, makeHands ***REMOVED*** from "../util";
+import { initialBallLocations, makeHands } from "../util";
 import Loading from "../components/Loading";
 import PromptDialog from "../components/PromptDialog";
 
@@ -42,140 +42,140 @@ import RuleJJ from "../assets/rule_icons/rules-05.svg";
 import RuleLJ from "../assets/rule_icons/rules-06.svg";
 
 
-const useStyles = makeStyles(***REMOVED***
-  container: ***REMOVED***
+const useStyles = makeStyles({
+  container: {
     padding: 48,
     textAlign: "center"
-***REMOVED***,
-  playerList: ***REMOVED***
+  },
+  playerList: {
     margin: "auto",
     marginBottom: 16,
     display: "flex",
     flexDirection: "column"
-***REMOVED***,
-  chip: ***REMOVED***
+  },
+  chip: {
     margin: "2px auto",
-***REMOVED***,
-  gameArea: ***REMOVED***
+  },
+  gameArea: {
     padding: 16,
     display: "inline-block",
     margin: "16px auto"
-***REMOVED***,
-  rulesArea: ***REMOVED***
+  },
+  rulesArea: {
     padding: 16,
     margin: "10px auto",
     marginBottom:20,
     display: "block"
-***REMOVED***,
-  rulesList: ***REMOVED***
+  },
+  rulesList: {
     margin: "auto",
     marginBottom: 16,
     display: "flex",
     textAlign:"left"
-***REMOVED***,
-  imageIcon: ***REMOVED***
+  },
+  imageIcon: {
     height: '100%'
-***REMOVED***,
-  imageIconParent: ***REMOVED***
+  },
+  imageIconParent: {
     marginRight : "10px",
     lineHeight : "1em",
-***REMOVED***,
-  modalBox: ***REMOVED***
+  },
+  modalBox: {
     outline: 0,
     padding: 28,
     textAlign: "center",
-***REMOVED***,
-***REMOVED***);
+  },
+});
 
-function RoomPage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
+function RoomPage({ user, gameId }) {
   const classes = useStyles();
   const [game, setGame] = useState(null);
   const [redirect, setRedirect] = useState(false);
   const [changeName, setChangeName] = useState(false);
   const [openMobileDialog,setMobileDialog] = useState(true);
 
-  const ***REMOVED*** t ***REMOVED*** = useTranslation();
+  const { t } = useTranslation();
 
   let players = [];
-  if (game && game.meta.users) ***REMOVED***
-    players = Object.entries(game.meta.users).sort((a, b) => ***REMOVED***
+  if (game && game.meta.users) {
+    players = Object.entries(game.meta.users).sort((a, b) => {
       if (a[0] === game.meta.admin) return -1;
       if (b[0] === game.meta.admin) return 1;
       return a[0] < b[0] ? -1 : 1;
-***REMOVED***);
-***REMOVED***
+    });
+  }
 
-  const transitions = useTransition(players, player => player[0], ***REMOVED***
-    from: ***REMOVED*** opacity: 0 ***REMOVED***,
-    enter: ***REMOVED*** opacity: 1 ***REMOVED***,
-    leave: ***REMOVED*** opacity: 0 ***REMOVED***,
-    config: ***REMOVED*** friction: 40 ***REMOVED***
-***REMOVED***);
+  const transitions = useTransition(players, player => player[0], {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { friction: 40 }
+  });
 
-  /*useEffect(() => ***REMOVED***
+  /*useEffect(() => {
     game !== null && game.rules !== null ? setRules(game.rules) : console.log("no game");
-***REMOVED***,[game]);*/
+  },[game]);*/
 
-  useEffect(() => ***REMOVED***
-    function update(snapshot) ***REMOVED***
-      if (snapshot.exists()) ***REMOVED***
+  useEffect(() => {
+    function update(snapshot) {
+      if (snapshot.exists()) {
         setGame(snapshot.val());
-***REMOVED*** else ***REMOVED***
+      } else {
         // Initialize a new game as admin
-        gameRef.set(***REMOVED***
-          history: ***REMOVED******REMOVED***,
+        gameRef.set({
+          history: {},
           balls: initialBallLocations(),
           hands: makeHands(6),
           round: 0,
           rules: "00011",
           nextPlayer: 1,
           numCards: 5,
-          order: ***REMOVED***"0":user.id***REMOVED***,
-          exchange: ***REMOVED******REMOVED***,
+          order: {"0":user.id},
+          exchange: {},
           rooted: "0000",
-          meta: ***REMOVED***
+          meta: {
             admin: user.id,
             created: firebase.database.ServerValue.TIMESTAMP,
             status: "waiting",
-            users: ***REMOVED***[user.id]:***REMOVED***name:user.name, color:"hsl(221, 55%, 53%)"***REMOVED******REMOVED***
-***REMOVED***
-***REMOVED***);
-***REMOVED***
-***REMOVED***
+            users: {[user.id]:{name:user.name, color:"hsl(221, 55%, 53%)"}}
+          }
+        });
+      }
+    }
 
-    const gameRef = firebase.database().ref(`games/$***REMOVED***gameId***REMOVED***`);
+    const gameRef = firebase.database().ref(`games/${gameId}`);
     gameRef.on("value", update);
-    return () => ***REMOVED***
+    return () => {
       gameRef.off("value", update);
-***REMOVED***;
-***REMOVED***, [user.id, gameId]);
+    };
+  }, [user.id, gameId]);
 
   // Add self to game
-  useEffect(() => ***REMOVED***
+  useEffect(() => {
     if (
       game &&
       user &&
       game.meta.admin !== user.id &&
       game.meta.status === "waiting" &&
       (!game.meta.users || !(user.id in game.meta.users))
-    ) ***REMOVED***
+    ) {
       const order = players.length;
-      const currOrder = game.order ? game.order : ***REMOVED******REMOVED***;
+      const currOrder = game.order ? game.order : {};
       currOrder[order] = user.id;
       const fieldColors = ["hsl(221, 55%, 53%)","hsl(49, 90%, 45%)","hsl(124, 53%, 38%)",  "hsl(12, 100%, 40%)"];
       firebase
         .database()
-        .ref(`games/$***REMOVED***gameId***REMOVED***/meta/users/$***REMOVED***user.id***REMOVED***`)
-        .set(***REMOVED*** name: user.name, color: fieldColors[order]***REMOVED***);
+        .ref(`games/${gameId}/meta/users/${user.id}`)
+        .set({ name: user.name, color: fieldColors[order]});
       firebase
         .database()
-        .ref(`users/$***REMOVED***user.id***REMOVED***/games`)
+        .ref(`users/${user.id}/games`)
         .push(gameId);
-***REMOVED***
-***REMOVED***, [game, gameId, user, players.length]);
+    }
+  }, [game, gameId, user, players.length]);
 
   // Admin add user to order
-  useEffect(() => ***REMOVED***
+  useEffect(() => {
     if (
       game &&
       game.meta.admin === user.id &&
@@ -184,364 +184,364 @@ function RoomPage(***REMOVED*** user, gameId ***REMOVED***) ***REMOVED***
       game.order &&
       Object.values(game.order).length < 4 &&
       Object.values(game.meta.users).length !== Object.values(game.order).length
-    ) ***REMOVED***
+    ) {
       const orderLength = Object.values(game.order).length;
       const usersLength = Object.keys(game.meta.users).length;
       const currOrder = game.order;
       const fieldColors = ["hsl(221, 55%, 53%)","hsl(49, 90%, 45%)","hsl(124, 53%, 38%)",  "hsl(12, 100%, 40%)"];
       const usersNotInOrder = [];
-      for(let j=0;j<usersLength;++j)***REMOVED***
-        if(!Object.values(game.order).includes(Object.keys(game.meta.users)[j]))***REMOVED***
+      for(let j=0;j<usersLength;++j){
+        if(!Object.values(game.order).includes(Object.keys(game.meta.users)[j])){
           usersNotInOrder.push(Object.keys(game.meta.users)[j]);
-***REMOVED***
-***REMOVED***
-      for(let i=0;i<usersNotInOrder.length;i++)***REMOVED***
+        }
+      }
+      for(let i=0;i<usersNotInOrder.length;i++){
         currOrder[orderLength+i] = usersNotInOrder[i];
-***REMOVED***
+      }
       let updates = game.meta.users;
-      for(let k=0;k<usersLength;++k)***REMOVED***
+      for(let k=0;k<usersLength;++k){
         updates[currOrder[k]]["color"] = fieldColors[k];
-***REMOVED***
+      }
       console.log(updates);
       firebase
         .database()
-        .ref(`games/$***REMOVED***gameId***REMOVED***/meta/users/`)
+        .ref(`games/${gameId}/meta/users/`)
         .update(updates);
       /*firebase
         .database()
-        .ref(`games/$***REMOVED***gameId***REMOVED***/meta/users/$***REMOVED***user.id***REMOVED***`)
-        .update(***REMOVED***color: fieldColors[order]***REMOVED***);*/
+        .ref(`games/${gameId}/meta/users/${user.id}`)
+        .update({color: fieldColors[order]});*/
       firebase
         .database()
-        .ref(`games/$***REMOVED***gameId***REMOVED***/order`)
+        .ref(`games/${gameId}/order`)
         .set(currOrder);
-***REMOVED***
-***REMOVED***, [game, gameId]);
+    }
+  }, [game, gameId]);
 
   // Redirect if game has started
-  useEffect(() => ***REMOVED***
+  useEffect(() => {
     if (
       game &&
       game.meta.status !== "waiting" &&
       game.meta.users &&
       user.id in game.meta.users
-    ) ***REMOVED***
-      const id = setTimeout(() => ***REMOVED***
+    ) {
+      const id = setTimeout(() => {
         setRedirect(true);
-***REMOVED***, 1500);
+      }, 1500);
       return () => clearTimeout(id);
-***REMOVED***
-***REMOVED***, [game, user]);
+    }
+  }, [game, user]);
 
-  const handleSetRules = event => ***REMOVED***
+  const handleSetRules = event => {
     const newRules = encodeRules(event);
     firebase
       .database()
-      .ref(`games/$***REMOVED***gameId***REMOVED***/rules/`)
+      .ref(`games/${gameId}/rules/`)
       .set(newRules);
-***REMOVED***;
+  };
 
-  const encodeRules = event => ***REMOVED***
+  const encodeRules = event => {
     let out = "";
-    for(let i=0;i<game.rules.length;++i)***REMOVED***
-      if(i === parseInt(event.target.name))***REMOVED***
+    for(let i=0;i<game.rules.length;++i){
+      if(i === parseInt(event.target.name)){
         out += (event.target.checked ? "1" : "0");
-***REMOVED*** else ***REMOVED***
+      } else {
         out += game.rules.charAt(i);
-***REMOVED***
-***REMOVED***
+      }
+    }
     console.log(out);
     return out;
-***REMOVED***;
+  };
 
-  function handleChangeName(name) ***REMOVED***
+  function handleChangeName(name) {
     setChangeName(false);
-    if (name) ***REMOVED***
-      const updates = ***REMOVED******REMOVED***;
-      updates[`users/$***REMOVED***user.id***REMOVED***/name`] = name;
-      updates[`games/$***REMOVED***gameId***REMOVED***/meta/users/$***REMOVED***user.id***REMOVED***/name`] = name;
+    if (name) {
+      const updates = {};
+      updates[`users/${user.id}/name`] = name;
+      updates[`games/${gameId}/meta/users/${user.id}/name`] = name;
       firebase
         .database()
         .ref()
         .update(updates);
-***REMOVED***
-***REMOVED***
+    }
+  }
 
-  function startGame() ***REMOVED***
+  function startGame() {
     firebase
       .database()
-      .ref(`games/$***REMOVED***gameId***REMOVED***/meta`)
-      .update(***REMOVED***
+      .ref(`games/${gameId}/meta`)
+      .update({
         status: "ingame",
         started: firebase.database.ServerValue.TIMESTAMP
-***REMOVED***);
-***REMOVED***
+      });
+  }
 
-  function rotateTeams() ***REMOVED***
+  function rotateTeams() {
     const fieldColors = ["hsl(221, 55%, 53%)","hsl(49, 90%, 45%)","hsl(124, 53%, 38%)",  "hsl(12, 100%, 40%)"];
     let newUids = shuffle(game.order);
-    let updates = ***REMOVED******REMOVED***;
-    for(var i=0;i<4;i++)***REMOVED***
+    let updates = {};
+    for(var i=0;i<4;i++){
       // update color
-      const newField = ***REMOVED***color: fieldColors[i], name: game.meta.users[newUids[i]].name***REMOVED***;
+      const newField = {color: fieldColors[i], name: game.meta.users[newUids[i]].name};
       updates[newUids[i]] = newField;
-***REMOVED***
+    }
     // update db
     firebase
       .database()
-      .ref(`games/$***REMOVED***gameId***REMOVED***/meta/users`)
+      .ref(`games/${gameId}/meta/users`)
       .update(updates);
     firebase
       .database()
-      .ref(`games/$***REMOVED***gameId***REMOVED***/order`)
+      .ref(`games/${gameId}/order`)
       .update(newUids);
-***REMOVED***
+  }
 
-  function shuffle(sourceArray) ***REMOVED***
-    for (var i = 0; i < sourceArray.length - 1; i++) ***REMOVED***
+  function shuffle(sourceArray) {
+    for (var i = 0; i < sourceArray.length - 1; i++) {
       var j = i + Math.floor(Math.random() * (sourceArray.length - i));
 
       var temp = sourceArray[j];
       sourceArray[j] = sourceArray[i];
       sourceArray[i] = temp;
-***REMOVED***
+    }
     return sourceArray;
-***REMOVED***
+  }
 
-  function generateLog()***REMOVED***
+  function generateLog(){
     const logEntries = [t('log1'),t('log2'),t('log3'),t('log4')];
     return( 
       logEntries.map((val,idx) =>(
-        <ListItem key=***REMOVED***idx***REMOVED***>
+        <ListItem key={idx}>
           <ListItemIcon>
             <AddIcon />
           </ListItemIcon>
           <ListItemText
-            primary=***REMOVED***val***REMOVED***
+            primary={val}
           />
         </ListItem>)
       )
     );
-***REMOVED***
+  }
 
-  if (redirect) return <Redirect to=***REMOVED***`/game/$***REMOVED***gameId***REMOVED***`***REMOVED*** />;
+  if (redirect) return <Redirect to={`/game/${gameId}`} />;
 
   let starting = false;
-  if (game && game.meta.status !== "waiting") ***REMOVED***
-    if (game.meta.users && user.id in game.meta.users) ***REMOVED***
+  if (game && game.meta.status !== "waiting") {
+    if (game.meta.users && user.id in game.meta.users) {
       starting = true;
-***REMOVED*** else ***REMOVED***
+    } else {
       return (
-        <Container className=***REMOVED***classes.container***REMOVED***>
+        <Container className={classes.container}>
           <Typography variant="h4" align="center" gutterBottom>
-            The game has already***REMOVED***" "***REMOVED***
-            ***REMOVED***game.meta.status === "ingame" ? "started" : "ended"***REMOVED***.
+            The game has already{" "}
+            {game.meta.status === "ingame" ? "started" : "ended"}.
           </Typography>
           <Button
             variant="contained"
             color="primary"
-            onClick=***REMOVED***() => setRedirect(true)***REMOVED***
+            onClick={() => setRedirect(true)}
           >
             Spectate
           </Button>
         </Container>
       );
-***REMOVED***
-***REMOVED***
+    }
+  }
 
   return (
-    <Container className=***REMOVED***classes.container***REMOVED***>
-      <Dialog className=***REMOVED***classes.modal***REMOVED*** open=***REMOVED***isMobile && openMobileDialog***REMOVED***>
-        <Paper className=***REMOVED***classes.modalBox***REMOVED***>
+    <Container className={classes.container}>
+      <Dialog className={classes.modal} open={isMobile && openMobileDialog}>
+        <Paper className={classes.modalBox}>
           <Typography variant="h5" gutterBottom>
-            ***REMOVED***t("mobileWarning")***REMOVED***
+            {t("mobileWarning")}
           </Typography>
           <Button
             variant="contained"
             color="primary"
-            disabled=***REMOVED***false***REMOVED***
-            onClick=***REMOVED***() => ***REMOVED***setMobileDialog(false);***REMOVED******REMOVED***
+            disabled={false}
+            onClick={() => {setMobileDialog(false);}}
           >
-            ***REMOVED***t("btnClose")***REMOVED***
+            {t("btnClose")}
           </Button>
         </Paper>
       </Dialog>
       <PromptDialog
-        open=***REMOVED***changeName***REMOVED***
-        onClose=***REMOVED***handleChangeName***REMOVED***
-        title=***REMOVED***t("changeName")***REMOVED***
-        message=***REMOVED***t("changeNameMsg")***REMOVED***
+        open={changeName}
+        onClose={handleChangeName}
+        title={t("changeName")}
+        message={t("changeNameMsg")}
         label="Name"
-        maxLength=***REMOVED***40***REMOVED***
+        maxLength={40}
       />
       <Typography variant="h4" align="center" gutterBottom>
-        ***REMOVED***starting ? t("starting") : t("waitingPlayers")***REMOVED***
+        {starting ? t("starting") : t("waitingPlayers")}
       </Typography>
       <Typography variant="body1" align="center">
-        ***REMOVED***t("invLink")***REMOVED***:***REMOVED***" "***REMOVED***
-        <Link component=***REMOVED***RouterLink***REMOVED*** to=***REMOVED***`/room/$***REMOVED***gameId***REMOVED***`***REMOVED***>
-          ***REMOVED***window.location.href***REMOVED***
+        {t("invLink")}:{" "}
+        <Link component={RouterLink} to={`/room/${gameId}`}>
+          {window.location.href}
         </Link>
       </Typography>
-      ***REMOVED***game ? (
+      {game ? (
         <React.Fragment>
-          <Paper className=***REMOVED***classes.gameArea***REMOVED***>
-            <div className=***REMOVED***classes.playerList***REMOVED***>
-              <img alt="" style=***REMOVED******REMOVED***marginBottom:10***REMOVED******REMOVED***src=***REMOVED***svgTeams***REMOVED***/>
-              ***REMOVED***transitions.map((***REMOVED*** item: [id, info], props, key ***REMOVED***) => (
-                <animated.div key=***REMOVED***key***REMOVED*** style=***REMOVED***props***REMOVED***>
+          <Paper className={classes.gameArea}>
+            <div className={classes.playerList}>
+              <img alt="" style={{marginBottom:10}}src={svgTeams}/>
+              {transitions.map(({ item: [id, info], props, key }) => (
+                <animated.div key={key} style={props}>
                   <Chip
-                    icon=***REMOVED***id === game.meta.admin ? <StarsIcon style=***REMOVED******REMOVED*** color:"#333" ***REMOVED******REMOVED***  /> : <FaceIcon style=***REMOVED******REMOVED*** color:"#333" ***REMOVED******REMOVED*** />***REMOVED***
-                    label=***REMOVED***info.name + (id === user.id ? " ("+t("you")+")" : "")***REMOVED***
-                    className=***REMOVED***classes.chip***REMOVED***
-                    onDelete=***REMOVED***id === user.id ? () => setChangeName(true) : null***REMOVED***
-                    deleteIcon=***REMOVED***<EditIcon style=***REMOVED******REMOVED*** color:"#111" ***REMOVED******REMOVED*** />***REMOVED***
-                    style=***REMOVED******REMOVED***backgroundColor: info.color, margin: 3***REMOVED******REMOVED***
+                    icon={id === game.meta.admin ? <StarsIcon style={{ color:"#333" }}  /> : <FaceIcon style={{ color:"#333" }} />}
+                    label={info.name + (id === user.id ? " ("+t("you")+")" : "")}
+                    className={classes.chip}
+                    onDelete={id === user.id ? () => setChangeName(true) : null}
+                    deleteIcon={<EditIcon style={{ color:"#111" }} />}
+                    style={{backgroundColor: info.color, margin: 3}}
                   />
                 </animated.div>
-              ))***REMOVED***
+              ))}
             </div>
-            <div className=***REMOVED***classes.center***REMOVED***>
+            <div className={classes.center}>
 
-              ***REMOVED***players.length === 4 ? (
+              {players.length === 4 ? (
                 user.id === game.meta.admin ? (
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick=***REMOVED***startGame***REMOVED***
-                    disabled=***REMOVED***starting***REMOVED***
+                    onClick={startGame}
+                    disabled={starting}
                   >
                     Start
                   </Button>
                 ) : (
                   <Button disabled>
-                    ***REMOVED***starting ? t("stating") : t("waitStarting")***REMOVED***
+                    {starting ? t("stating") : t("waitStarting")}
                   </Button>
                 )
               ) :
                 (
                   <Button disabled>
-                    ***REMOVED***t("waiting")***REMOVED*** ***REMOVED***4-players.length***REMOVED*** ***REMOVED***4-players.length === 1 ? t("player") : t("players")***REMOVED*** ***REMOVED***t("rpJoin")***REMOVED***
+                    {t("waiting")} {4-players.length} {4-players.length === 1 ? t("player") : t("players")} {t("rpJoin")}
                   </Button>
-                )***REMOVED***
-              ***REMOVED***players.length === 4 ? (
+                )}
+              {players.length === 4 ? (
                 <Button
                   variant="contained"
                   color="primary"
-                  style=***REMOVED******REMOVED***margin:3***REMOVED******REMOVED***
-                  onClick=***REMOVED***rotateTeams***REMOVED***
-                  disabled=***REMOVED***user.id !== game.meta.admin***REMOVED***
+                  style={{margin:3}}
+                  onClick={rotateTeams}
+                  disabled={user.id !== game.meta.admin}
                 >
-                  ***REMOVED***t("rotTeams")***REMOVED***
+                  {t("rotTeams")}
                 </Button>
               ) :
-                (null)***REMOVED***
+                (null)}
 
             </div>
           </Paper>
-          ***REMOVED*** game && game.rules ? (<Paper className=***REMOVED***classes.rulesArea***REMOVED***>
+          { game && game.rules ? (<Paper className={classes.rulesArea}>
             <Typography variant="h5" align="left" gutterBottom>
-              ***REMOVED***t('rules')***REMOVED***
+              {t('rules')}
             </Typography>
-            <div className=***REMOVED***classes.rulesList***REMOVED***>
+            <div className={classes.rulesList}>
               <FormGroup column="true">
                 <FormControlLabel
-                  control=***REMOVED***
+                  control={
                     <React.Fragment>
                       <Checkbox
-                        checked=***REMOVED***game.rules.charAt(4) === "1"***REMOVED***
-                        onChange=***REMOVED***handleSetRules***REMOVED***
+                        checked={game.rules.charAt(4) === "1"}
+                        onChange={handleSetRules}
                         name="4"
                         color="primary"
-                        disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
+                        disabled={user.id === game.meta.admin ? false : true}
                       />
-                      <Icon title=***REMOVED***t('lastJoker')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleLJ***REMOVED*** /></Icon>
+                      <Icon title={t('lastJoker')} className={classes.imageIconParent}><img className={classes.imageIcon} alt="" src={RuleLJ} /></Icon>
                     </React.Fragment>
-      ***REMOVED***
-                  label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_lj_b')***REMOVED***</b>***REMOVED***t('r_lj')***REMOVED***</React.Fragment>***REMOVED***
+                  }
+                  label={<React.Fragment><b>{t('r_lj_b')}</b>{t('r_lj')}</React.Fragment>}
                 />
                 <FormControlLabel
-                  control=***REMOVED***
+                  control={
                     <React.Fragment>
                       <Checkbox
-                        checked=***REMOVED***game.rules.charAt(3) === "1"***REMOVED***
-                        onChange=***REMOVED***handleSetRules***REMOVED***
+                        checked={game.rules.charAt(3) === "1"}
+                        onChange={handleSetRules}
                         name="3"
                         color="primary"
-                        disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
+                        disabled={user.id === game.meta.admin ? false : true}
                       />
-                      <Icon title=***REMOVED***t("turnVerification")***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleTV***REMOVED*** /></Icon>
+                      <Icon title={t("turnVerification")} className={classes.imageIconParent}><img className={classes.imageIcon} alt="" src={RuleTV} /></Icon>
                     </React.Fragment>
-      ***REMOVED***
-                  label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_tv_b')***REMOVED***</b>***REMOVED***t('r_tv')***REMOVED***</React.Fragment>***REMOVED***
+                  }
+                  label={<React.Fragment><b>{t('r_tv_b')}</b>{t('r_tv')}</React.Fragment>}
                 />
                 <FormControlLabel
-                  control=***REMOVED***
+                  control={
                     <React.Fragment>
                       <Checkbox
-                        checked=***REMOVED***game.rules.charAt(0) === "1"***REMOVED***
-                        onChange=***REMOVED***handleSetRules***REMOVED***
+                        checked={game.rules.charAt(0) === "1"}
+                        onChange={handleSetRules}
                         name="0"
                         color="primary"
-                        disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
+                        disabled={user.id === game.meta.admin ? false : true}
                       />
-                      <Icon title=***REMOVED***t('canadian7')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleCA***REMOVED*** /></Icon>
+                      <Icon title={t('canadian7')} className={classes.imageIconParent}><img className={classes.imageIcon} alt="" src={RuleCA} /></Icon>
                     </React.Fragment>
-      ***REMOVED***
-                  label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_ca_b')***REMOVED***</b>***REMOVED***t('r_ca')***REMOVED***</React.Fragment>***REMOVED***
+                  }
+                  label={<React.Fragment><b>{t('r_ca_b')}</b>{t('r_ca')}</React.Fragment>}
                 />
                 <FormControlLabel
-                  control=***REMOVED***
+                  control={
                     <React.Fragment>
                       <Checkbox
-                        checked=***REMOVED***game.rules.charAt(2) === "1"***REMOVED***
-                        onChange=***REMOVED***handleSetRules***REMOVED***
+                        checked={game.rules.charAt(2) === "1"}
+                        onChange={handleSetRules}
                         name="2"
                         color="primary"
-                        disabled=***REMOVED***user.id === game.meta.admin ? false : true***REMOVED***
+                        disabled={user.id === game.meta.admin ? false : true}
                       />
-                      <Icon title=***REMOVED***t('twoThief')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleTT***REMOVED*** /></Icon>
+                      <Icon title={t('twoThief')} className={classes.imageIconParent}><img className={classes.imageIcon} alt="" src={RuleTT} /></Icon>
                     </React.Fragment>
-      ***REMOVED***
-                  label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_tt_b')***REMOVED***</b>***REMOVED***t('r_tt')***REMOVED***</React.Fragment>***REMOVED***
+                  }
+                  label={<React.Fragment><b>{t('r_tt_b')}</b>{t('r_tt')}</React.Fragment>}
                 />
-                <Tooltip placement="left" title=***REMOVED***user.id === game.meta.admin ? "Coming in v2.0.0" : "Only usable by admin & Coming in v2.0.0" ***REMOVED***>
+                <Tooltip placement="left" title={user.id === game.meta.admin ? "Coming in v2.0.0" : "Only usable by admin & Coming in v2.0.0" }>
                   <FormControlLabel
-                    control=***REMOVED***
+                    control={
                       <React.Fragment>
                         <Checkbox
-                          checked=***REMOVED***game.rules.charAt(1) === "1"***REMOVED***
-                          onChange=***REMOVED***handleSetRules***REMOVED***
+                          checked={game.rules.charAt(1) === "1"}
+                          onChange={handleSetRules}
                           name="1"
                           color="primary"
-                          disabled=***REMOVED***true***REMOVED***
+                          disabled={true}
                         />
-                        <Icon title=***REMOVED***t('jackJack')***REMOVED*** className=***REMOVED***classes.imageIconParent***REMOVED***><img className=***REMOVED***classes.imageIcon***REMOVED*** alt="" src=***REMOVED***RuleJJ***REMOVED*** /></Icon>
+                        <Icon title={t('jackJack')} className={classes.imageIconParent}><img className={classes.imageIcon} alt="" src={RuleJJ} /></Icon>
                       </React.Fragment>
-        ***REMOVED***
-                    label=***REMOVED***<React.Fragment><b>***REMOVED***t('r_jj_b')***REMOVED***</b>***REMOVED***t('r_jj')***REMOVED***</React.Fragment>***REMOVED***
+                    }
+                    label={<React.Fragment><b>{t('r_jj_b')}</b>{t('r_jj')}</React.Fragment>}
                   />
                 </Tooltip>
 
 
               </FormGroup>
             </div>
-          </Paper>):(console.log("init rules..."))***REMOVED***
+          </Paper>):(console.log("init rules..."))}
         </React.Fragment>
       ) : (
         <Loading />
-      )***REMOVED***
+      )}
 
-      <Paper className=***REMOVED***classes.rulesArea***REMOVED***>
+      <Paper className={classes.rulesArea}>
         <Typography variant="h5" align="left" gutterBottom>
-          ***REMOVED***t('version')***REMOVED***
+          {t('version')}
         </Typography>
         <List dense>
-          ***REMOVED***generateLog()***REMOVED***
+          {generateLog()}
         </List>
       </Paper>
     </Container>
   );
-***REMOVED***
+}
 
 export default RoomPage;
