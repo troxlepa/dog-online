@@ -1,59 +1,32 @@
 import React, { useState } from "react";
 
-import generate from "project-name-generator";
-import { makeStyles } from "@material-ui/core/styles";
+//import generate from "project-name-generator";
+import Box from "@mui/material/Box";
 import { Redirect } from "react-router";
-import Card from "@material-ui/core/Card";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions";
+import Card from "@mui/material/Card";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
 
 import PromptDialog from "../components/PromptDialog";
 import firebase from "../firebase";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 
 import { useTranslation } from 'react-i18next';
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    padding: 40,
-    height: "100%",
-    textAlign: "center"
-  },
-  menu: {
-    padding: 12,
-    display: "flex",
-    flexDirection: "column",
-    "& button": {
-      margin: 12,
-      marginTop: 6,
-      marginBottom: 6
-    },
-    "& button:first-child": {
-      marginTop: 12,
-      marginBottom: 12
-    },
-    "& button:last-child": {
-      marginBottom: 12
-    }
-  },
-  warningBtn: {
-    color: theme.palette.warning.contrastText,
-    background: theme.palette.warning.main,
-    "&:hover": {
-      background: theme.palette.warning.dark
-    }
-  }
-}));
+const warningSx = (theme) => ({
+  color: theme.palette.warning.contrastText,
+  backgroundColor: theme.palette.warning.main,
+  '&:hover': { backgroundColor: theme.palette.warning.dark }
+});
 
 function LobbyPage({ user }) {
-  const classes = useStyles();
   const [redirect, setRedirect] = useState(null);
   const [play, setPlay] = useState(false);
   const [join, setJoin] = useState(false);
@@ -69,7 +42,7 @@ function LobbyPage({ user }) {
   }
 
   function newRoom() {
-    setRedirect("/room/" + generate().dashed);
+    setRedirect("/room/" + generate().dashed); // TODO: random name of room
   }
 
   function joinRoom() {
@@ -116,7 +89,7 @@ function LobbyPage({ user }) {
   }
 
   return (
-    <Container className={classes.container}>
+    <Container sx={{ p: 5, height: '100%', textAlign: 'center' }}>
       <Dialog open={play} onClose={() => setPlay(false)}>
         <DialogTitle>{t("playDog")}</DialogTitle>
         <DialogContent>
@@ -175,7 +148,7 @@ function LobbyPage({ user }) {
             {t("resetDataText")}
           </DialogContentText>
           <DialogActions>
-            <Button className={classes.warningBtn} onClick={handleReset}>
+            <Button sx={warningSx} onClick={handleReset}>
               {t("resetData")}
             </Button>
           </DialogActions>
@@ -190,7 +163,8 @@ function LobbyPage({ user }) {
         
         </Grid>
         <Grid item xs={10} sm={4}>
-          <Card elevation={2} className={classes.menu}>
+          <Card elevation={2} sx={{ p: 1.5, display: 'flex', flexDirection: 'column',
+            '& button': { m: 1.5, mt: 0.75, mb: 0.75 }, '& button:first-child': { mt: 1.5, mb: 1.5 }, '& button:last-child': { mb: 1.5 } }}>
             <Button onClick={playButton} variant="contained" color="primary">
               {t("lpPlay")}
             </Button>

@@ -16,9 +16,6 @@
               ".validate": "(newData.val().matches(/^((([2-9TJQKAZ])[SHDC])|(Z[SHDC][2-9TJQKA]))$/) || newData.val().matches(/^([Y][Y])$/)) && newData.isString()"
             },
             "selection": {
-              /*"$index" : {
-                ".validate" : "newData.isNumber()"
-              }*/
             },
             "time": {
               ".validate": "newData.isNumber() && newData.val() == now"

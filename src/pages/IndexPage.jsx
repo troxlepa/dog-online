@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 import { Link as RouterLink, Redirect } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import { animated, useTransition, config } from "react-spring";
+import { makeStyles } from "@mui/styles";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import Intro from "../assets/intro-01.svg";
 import { useTranslation } from 'react-i18next';
 import { isMobile } from "react-device-detect";
@@ -62,12 +61,14 @@ function IndexPage() {
   const classes = useStyles();
   const [redirect, setRedirect] = useState(false);
   const { t } = useTranslation();
-  const transitions = useTransition(!redirect, null, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: config.stiff
-  });
+  // const transitions = useTransition(!redirect, () => ({
+  //   from: { opacity: 0 },
+  //   enter: { opacity: 1 },
+  //   leave: { opacity: 0 },
+  //   config: config.stiff
+  // }));
+  console.log("IndexPage.jsx");
+  console.log("redirect", redirect);
 
   useEffect(() => {
     function handleKeyDown(evt) {
@@ -81,14 +82,12 @@ function IndexPage() {
     };
   }, []);
 
-  return redirect && transitions.length === 1 ? (
+  return redirect ? (
     <Redirect to="/lobby" />
   ) : (
   
-    transitions.map(
-      ({ item, key, props }) => item && (
-        <Container key={key}>
-          <animated.div key={key} style={props}>
+        <Container>
+          <div>
             <div className={classes.svgWrapper}>
               <img alt="" className={classes.introSvg} src={Intro} />
             </div>
@@ -118,12 +117,9 @@ function IndexPage() {
                 </div>
               </Typography>
             </Container>
-          </animated.div>
+          </div>
         </Container>
       )
-    )
-
-  );
 }
 
 export default IndexPage;

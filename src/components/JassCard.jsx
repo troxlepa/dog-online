@@ -2,7 +2,7 @@ import React, { memo } from "react";
 
 import { isMobile } from "react-device-detect";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 
 let styled = {};
@@ -124,7 +124,9 @@ function JassCard(props) {
   if (props.selected) className += " " + classes.selected;
 
   if (props.size === "sm") smallCard += " " + classes.smallCard;
-  const cardSource = require("../assets/cards/"+value+".svg");
+  const cardModules = import.meta.glob('../assets/cards/*.svg', { eager: true, as: 'url' });
+  const cardPath = `../assets/cards/${value}.svg`;
+  const cardSource = cardModules[cardPath];
 
   return (
     <div onClick={click} className={smallCard === "" ? className : undefined}>

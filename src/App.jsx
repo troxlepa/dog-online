@@ -3,7 +3,7 @@ import firebase from "./firebase";
 import "./styles.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import { generateName } from "./util";
 import RoomPage from "./pages/RoomPage";
@@ -18,7 +18,7 @@ import CreditsPage from "./pages/CreditsPage";
 import ContactPage from "./pages/ContactPage";
 
 
-
+console.log("App.jsx");
 
 function App() {
   const [uid, setUid] = useState(null);
@@ -67,7 +67,9 @@ function App() {
       userRef.off("value", update);
     };
   }, [uid]);
-
+  console.log("App.jsx");
+  console.log("user", user);
+  console.log("uid", uid);
   return (
     <>
       <CssBaseline />

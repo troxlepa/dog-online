@@ -3,111 +3,24 @@ import React, {useCallback, useState} from "react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from 'react-i18next';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import DeveloperModeIcon from '@material-ui/icons/DeveloperMode';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
 
 import firebase from "../firebase";
-
-const useStyles = makeStyles({
-  header: {
-    display: "flex",
-    flexFlow: "row wrap",
-    justifyContent: "space-around",
-    justifyItems: "center",
-    alignItems: "center",
-    flex: "0 0 auto",
-    height: "3.5rem",
-  },
-  headerPaper: {
-    display: "flex",
-    flexFlow: "row wrap",
-    justifyContent: "space-around",
-    justifyItems: "center",
-    alignItems: "center",
-    flex: "1 1 auto",
-    height: "3.5rem",
-  },
-  headerPaperMobile: {
-    display: "flex",
-  flexFlow: "row wrap",
-  justifyContent: "space-around",
-  justifyItems: "center",
-  alignItems: "center",
-  flex: "1 1 auto",
-  height: "14rem",
-  transition:"2s linear"
-  },
-  lowHeaderPaperMobile: {
-    display: "flex",
-    flexFlow: "row wrap",
-    justifyContent: "space-around",
-    justifyItems: "center",
-    alignItems: "center",
-    flex: "1 1 auto",
-    height: "3.5rem",
-  },
-  headerDiv: {
-    display: "flex",
-    flexFlow: "row wrap",
-    justifyContent: "space-around",
-    justifyItems: "center",
-    alignItems: "center",
-    flex: "0 0 auto",
-    height: "4rem",
-    padding: 10
-  },
-  headerDivMobile: {
-    display: "flex",
-  flexFlow: "row wrap",
-  justifyContent: "space-around",
-  justifyItems: "center",
-  alignItems: "start",
-  flex: "0 0 auto",
-  height: "15rem",
-  padding: 10
-  },
-  lowHeaderDivMobile: {
-    display: "flex",
-  flexFlow: "row wrap",
-  justifyContent: "space-around",
-  justifyItems: "center",
-  alignItems: "start",
-  flex: "0 0 auto",
-  height: "4rem",
-  padding: 10
-  },
-  controlButtons: {
-    display: "flex",
-    position: "fixed",
-    "& > *": {
-      margin: "3px"
-    }
-  }, 
-  turnBanner: {
-    position: "fixed",
-    zIndex: 2,
-  },
-  turnTypo: {
-    color: "rgba(255,255,255,.9)",
-    textTransform: "uppercase"
-  }
-});
 
 
 function Header({game, orderMyPosition, selected, submitSelection, onSubmit, setSelected, gameId, setActiveCard, activeCard}){
   
   const [confirmThrow,setConfirmThrow] = useState(false);
-  const classes = useStyles();
   const { t } = useTranslation();
   const turn = game.round % 4;
 
@@ -201,11 +114,15 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
 
   if(turn !== orderMyPosition){
     return(
-        <div className={isMobile ? classes.lowHeaderDivMobile : classes.headerDiv}>
-        <Paper className={isMobile ? classes.lowHeaderPaperMobile : classes.headerPaper} style={{backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"}}>
-          <Typography  variant={isMobile ? "body1" : "h6"} component={isMobile ? "h6" : "h6"} className={classes.turnTypo + " loading"}>{game.meta.users[game.order[turn]].name} {t("headerPlaying")}</Typography>
+      <Box sx={{
+        display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-around', alignItems: isMobile ? 'flex-start' : 'center', flex: '0 0 auto', height: isMobile ? '4rem' : '4rem', p: '10px'
+      }}>
+        <Paper sx={{
+          display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-around', alignItems: 'center', flex: '1 1 auto', height: isMobile ? '3.5rem' : '3.5rem'
+        }} style={{backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"}}>
+          <Typography variant={isMobile ? "body1" : "h6"} component={isMobile ? "h6" : "h6"} sx={{ color: 'rgba(255,255,255,.9)', textTransform: 'uppercase' }} className={"loading"}>{game.meta.users[game.order[turn]].name} {t("headerPlaying")}</Typography>
         </Paper>
-      </div>
+      </Box>
     );
   }
 		
@@ -270,10 +187,10 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
           </DialogActions>
         </DialogContent>
       </Dialog>
-      <div className={isMobile ? classes.headerDivMobile : classes.headerDiv}>
-        <Paper className={isMobile ? classes.headerPaperMobile : classes.headerPaper} style={isMobile ? {} : {backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"}}>
-          <Box  p={2} className={isMobile ? "header_mobile" : classes.header}>
-            <div className={isMobile ? "controlButtons_mobile": classes.controlButtons}>
+      <Box sx={{ display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-around', alignItems: isMobile ? 'flex-start' : 'center', flex: '0 0 auto', height: isMobile ? '15rem' : '4rem', p: '10px' }}>
+        <Paper sx={{ display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-around', alignItems: 'center', flex: '1 1 auto', height: isMobile ? '14rem' : '3.5rem', transition: '2s linear' }} style={isMobile ? {} : {backgroundColor:game.meta.users[game.order[turn]].color,transition:"2s"}}>
+          <Box p={2} className={isMobile ? "header_mobile" : undefined} sx={{ display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-around', alignItems: 'center', flex: '0 0 auto', height: '3.5rem' }}>
+            <Box className={isMobile ? "controlButtons_mobile": undefined} sx={{ display: 'flex', position: 'fixed', '& > *': { m: '3px' } }}>
               <Button
                 className={isMobile ? "controlButtonSingle_mobile" : "controlButtonSingle"}
                 variant="contained"
@@ -316,10 +233,10 @@ function Header({game, orderMyPosition, selected, submitSelection, onSubmit, set
               >
                 <Typography>{t('undoButton')}</Typography>
               </Button>
-            </div>
+            </Box>
           </Box>
         </Paper>
-      </div>
+      </Box>
     </React.Fragment>
   );
 }

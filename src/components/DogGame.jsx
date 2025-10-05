@@ -1,26 +1,26 @@
 import React, { useEffect, useState, useCallback} from "react";
 
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import Board from "../assets/board.svg";
 import { SvgLoader, SvgProxy} from 'react-svgmt';
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import Modal from "@material-ui/core/Modal";
-import Dialog from "@material-ui/core/Dialog";
-import Tooltip from '@material-ui/core/Tooltip';
-import Snackbar from "@material-ui/core/Snackbar";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Dialog from "@mui/material/Dialog";
+import Tooltip from '@mui/material/Tooltip';
+import Snackbar from "@mui/material/Snackbar";
 import SnackContent from "./SnackContent";
 
-import Header from "../components/Header";
-import JassCard from "../components/JassCard";
-import HandCards from "../components/HandCards";
-import Balls from "../components/Balls";
+import Header from "./Header";
+import JassCard from "./JassCard";
+import HandCards from "./HandCards";
+import Balls from "./Balls";
 
 import {iHaveFinished} from "../util";
 
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 import { useTranslation } from 'react-i18next';
 
@@ -129,6 +129,7 @@ if(isMobile){
 const useStyles = makeStyles(styled);
 
 function DogGame({ game, spectating, onSubmit, user, doExchange, gameId, helpDisabled}) {
+  const cardModules = import.meta.glob('../assets/cards/*.svg', { eager: true, as: 'url' });
   const classes = useStyles();
   const { t } = useTranslation();
   const [activeCard, setCardState] = useState('');
@@ -156,7 +157,7 @@ function DogGame({ game, spectating, onSubmit, user, doExchange, gameId, helpDis
   }, [activeCard]);
 
   useEffect(() => {
-    if(selected !== []) checkSelection();
+    if(selected != []) checkSelection();
   }, [game]);
 
   const checkSelection = () => {
@@ -627,9 +628,13 @@ function DogGame({ game, spectating, onSubmit, user, doExchange, gameId, helpDis
                 <SvgProxy key={idx} selector={"#lastcard"+Math.floor(val/4)+"x"+(val%4)} xlink_href={""}/>
               ))}
 
-              {game.history ? Object.values(game.history).sort(comparer).slice(Math.max(Object.keys(game.history).length - 4, 0)).map((hist,idx) => (
-                <SvgProxy key={idx} selector={"#lastcard"+(hist.roundPlayed+3)%4+"x"+(3-parseInt(idx))} xlink_href={require("../assets/cards/"+ hist.card.substring(0,2) +".svg")}/>
-              )) : (console.log("no history"))}
+              {game.history ? Object.values(game.history).sort(comparer).slice(Math.max(Object.keys(game.history).length - 4, 0)).map((hist,idx) => {
+                const cardPath = `../assets/cards/${hist.card.substring(0,2)}.svg`;
+                const href = cardModules[cardPath];
+                return (
+                  <SvgProxy key={idx} selector={`#lastcard${(hist.roundPlayed+3)%4}x${3-parseInt(idx)}`} xlink_href={href}/>
+                );
+              }) : (console.log("no history"))}
             </SvgLoader>
             {isMobile ? null : (<div style={{position:'absolute','top':'50%','opacity':(turn !== orderMyPosition || !activeCard || selected.length < 2 || selected.length % 2 !== 0) ? '0' : '1','transition':'.4s linear'}}>
               <div style={{'transform':'translateY(-50%)'}}>

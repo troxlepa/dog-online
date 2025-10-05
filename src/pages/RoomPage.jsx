@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from "react";
 
 import { Link as RouterLink, Redirect } from "react-router-dom";
-import { animated, useTransition } from "react-spring";
+import { animated, useTransition } from "@react-spring/web";
 import { useTranslation } from 'react-i18next';
 import { isMobile } from "react-device-detect";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Chip from "@material-ui/core/Chip";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Dialog from "@material-ui/core/Dialog";
-import Link from "@material-ui/core/Link";
-import Paper from "@material-ui/core/Paper";
-import Tooltip from '@material-ui/core/Tooltip';
-import Icon from '@material-ui/core/Icon';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles } from "@mui/styles";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Chip from "@mui/material/Chip";
+import Checkbox from "@mui/material/Checkbox";
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Dialog from "@mui/material/Dialog";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Tooltip from '@mui/material/Tooltip';
+import Icon from '@mui/material/Icon';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
-import AddIcon from '@material-ui/icons/Add';
-import FaceIcon from "@material-ui/icons/Face";
-import StarsIcon from "@material-ui/icons/Stars";
-import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from '@mui/icons-material/Add';
+import FaceIcon from "@mui/icons-material/Face";
+import StarsIcon from "@mui/icons-material/Stars";
+import EditIcon from "@mui/icons-material/Edit";
 
 
 import firebase from "../firebase";
@@ -105,7 +105,8 @@ function RoomPage({ user, gameId }) {
     });
   }
 
-  const transitions = useTransition(players, player => player[0], {
+  const transitions = useTransition(players, {
+    keys: (player) => player[0],
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -388,18 +389,21 @@ function RoomPage({ user, gameId }) {
           <Paper className={classes.gameArea}>
             <div className={classes.playerList}>
               <img alt="" style={{marginBottom:10}}src={svgTeams}/>
-              {transitions.map(({ item: [id, info], props, key }) => (
-                <animated.div key={key} style={props}>
-                  <Chip
-                    icon={id === game.meta.admin ? <StarsIcon style={{ color:"#333" }}  /> : <FaceIcon style={{ color:"#333" }} />}
-                    label={info.name + (id === user.id ? " ("+t("you")+")" : "")}
-                    className={classes.chip}
-                    onDelete={id === user.id ? () => setChangeName(true) : null}
-                    deleteIcon={<EditIcon style={{ color:"#111" }} />}
-                    style={{backgroundColor: info.color, margin: 3}}
-                  />
-                </animated.div>
-              ))}
+              {transitions((style, item) => {
+                const [id, info] = item;
+                return (
+                  <animated.div style={style}>
+                    <Chip
+                      icon={id === game.meta.admin ? <StarsIcon style={{ color:"#333" }}  /> : <FaceIcon style={{ color:"#333" }} />}
+                      label={info.name + (id === user.id ? " ("+t("you")+")" : "")}
+                      className={classes.chip}
+                      onDelete={id === user.id ? () => setChangeName(true) : null}
+                      deleteIcon={<EditIcon style={{ color:"#111" }} />}
+                      style={{backgroundColor: info.color, margin: 3}}
+                    />
+                  </animated.div>
+                );
+              })}
             </div>
             <div className={classes.center}>
 

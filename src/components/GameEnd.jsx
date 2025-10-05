@@ -1,13 +1,13 @@
 import React from "react";
-import ColorSquare from "../components/ColorSquare";
+import ColorSquare from "./ColorSquare";
 import Trophy from "../assets/trophy.svg";
 import LoserImage from "../assets/loser.svg";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 import WinnerAudio from "../assets/sounds/win.mp3";
 import LoserAudio from "../assets/sounds/losing.mp3";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import { useTranslation } from 'react-i18next';
 
 function GameEnd({spectating,userId,gameOrder,metaUsers,winnerTeam, audioDisabled}){

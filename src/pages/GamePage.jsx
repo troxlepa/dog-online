@@ -3,20 +3,19 @@ import React, { useState, useEffect, useCallback } from "react";
 import { isMobile } from "react-device-detect";
 import { useTranslation } from 'react-i18next';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Modal from "@material-ui/core/Modal";
-import Dialog from "@material-ui/core/Dialog";
-import Container from "@material-ui/core/Container";
-import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import Dialog from "@mui/material/Dialog";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 import { Redirect } from "react-router-dom";
-import Stepper from '@material-ui/core/Stepper';
-import MobileStepper from '@material-ui/core/MobileStepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+import Stepper from '@mui/material/Stepper';
+import MobileStepper from '@mui/material/MobileStepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
 
 import { computeHistory, makeHands } from "../util";
 import firebase from "../firebase";
@@ -40,71 +39,9 @@ import NotFoundPage from "./NotFoundPage";
 import LoadingPage from "./LoadingPage";
 
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    height: "100%"
-  },
-  sidePanel: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    background: theme.palette.background.paper,
-    borderLeft: "1px solid lightgray"
-  },
-  gamePanel: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    maxHeight: "100vh"
-
-  },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  modalBox: {
-    outline: 0,
-    padding: 28,
-    textAlign: "center",
-  },
-  modalBoxMobile: {
-    outline: 0,
-    padding: 5,
-    margin: 5,
-    maxWidth:"95%",
-    textAlign: "center",
-  },
-  modalPadding: {
-    outline: 0,
-    padding: 48,
-    textAlign: "center",
-  },
-  statsModal: {
-    outline: 0,
-    padding: 28,
-    margin: 28,
-    textAlign: "center",
-  },
-  play: {
-    marginTop: 14,
-    marginRight: 4,
-  },
-  buttonSpac: {
-    marginRight: theme.spacing(1),
-  },
-  helpImage: {
-    border: "1px solid #aaa",
-    maxWidth: "100%"
-  },
-  helpText: {
-    marginBottom: theme.spacing(1),
-  }
-
-}));
+const buttonSpac = (theme) => ({ mr: theme.spacing(1) });
 
 function GamePage({ user, gameId }) {
-  const classes = useStyles();
   const [game, setGame] = useState(null);
   const [redirect, setRedirect] = useState(null);
   const { t } = useTranslation();
@@ -135,15 +72,15 @@ function GamePage({ user, gameId }) {
   function getStepContent(stepIndex) {
     switch (stepIndex) {
     case 0:
-      return <React.Fragment><img className={classes.helpImage} alt="" src={Help1} /><Typography component={'span'} className={classes.helpText}>{(t("step0"))}</Typography></React.Fragment>;
+      return <React.Fragment><img style={{ border: '1px solid #aaa', maxWidth: '100%' }} alt="" src={Help1} /><Typography component={'span'} sx={{ mb: 1 }}>{(t("step0"))}</Typography></React.Fragment>;
     case 1:
-      return <React.Fragment><img className={classes.helpImage} alt="" src={Help2} /><Typography component={'span'} className={classes.helpText}>{(t("step1"))}</Typography></React.Fragment>;
+      return <React.Fragment><img style={{ border: '1px solid #aaa', maxWidth: '100%' }} alt="" src={Help2} /><Typography component={'span'} sx={{ mb: 1 }}>{(t("step1"))}</Typography></React.Fragment>;
     case 2:
-      return <React.Fragment><img className={classes.helpImage} alt="" src={Help3} /><Typography component={'span'} className={classes.helpText}>{(t("step2"))}</Typography></React.Fragment>;
+      return <React.Fragment><img style={{ border: '1px solid #aaa', maxWidth: '100%' }} alt="" src={Help3} /><Typography component={'span'} sx={{ mb: 1 }}>{(t("step2"))}</Typography></React.Fragment>;
     case 3:
-      return <React.Fragment><img className={classes.helpImage} alt="" src={Help4} /><Typography component={'span'} className={classes.helpText}>{(t("step3"))}</Typography></React.Fragment>;
+      return <React.Fragment><img style={{ border: '1px solid #aaa', maxWidth: '100%' }} alt="" src={Help4} /><Typography component={'span'} sx={{ mb: 1 }}>{(t("step3"))}</Typography></React.Fragment>;
     case 4:
-      return <React.Fragment><img className={classes.helpImage} alt="" src={Help6} /><Typography component={'span'} className={classes.helpText}>{(t("step5"))}</Typography></React.Fragment>;
+      return <React.Fragment><img style={{ border: '1px solid #aaa', maxWidth: '100%' }} alt="" src={Help6} /><Typography component={'span'} sx={{ mb: 1 }}>{(t("step5"))}</Typography></React.Fragment>;
     default:
       return <React.Fragment>Bug alert: undefined step!</React.Fragment>;
     }
@@ -405,10 +342,10 @@ function GamePage({ user, gameId }) {
   }
 
   return (
-    <Grid container spacing={0} className={classes.container}>        
+    <Grid container spacing={0} sx={{ height: '100%' }}>        
       {isMobile ? (
-        <Modal onBackdropClick={disableHelpHome} className={classes.modal} open={!spectating && helpDisabled.home && game.meta.status === "ingame"}>
-          <Paper className={classes.modalBoxMobile}>
+        <Modal onBackdropClick={disableHelpHome} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} open={!spectating && helpDisabled.home && game.meta.status === "ingame"}>
+          <Paper sx={{ outline: 0, p: 1, m: 1, maxWidth: '95%', textAlign: 'center' }}>
             <Typography variant="h5" style={{padding:"10px"}}>
               {t("howMove")}
             </Typography>
@@ -419,7 +356,7 @@ function GamePage({ user, gameId }) {
               variant="text" 
               activeStep={activeStep} 
               nextButton={
-                <Button variant="contained" color="primary" onClick={handleNext} className={classes.buttonSpac}>
+                <Button variant="contained" color="primary" onClick={handleNext} sx={buttonSpac}>
                   {activeStep === steps.length - 1 ? t("btnFinish") : t("btnNext")}
                 </Button>
               } 
@@ -427,15 +364,15 @@ function GamePage({ user, gameId }) {
                 <Button
                   disabled={activeStep === 0}
                   onClick={handleBack}
-                  className={classes.buttonSpac}
+                  sx={buttonSpac}
                 >Back</Button>}
             >
             </MobileStepper>
           </Paper> 
         </Modal>
       ) : (
-        <Dialog onKeyDown={onKeyDownHandler} onBackdropClick={disableHelpHome} className={classes.modal} open={!spectating && helpDisabled.home && game.meta.status === "ingame"}>
-          <Box className={classes.modalBox}>
+        <Dialog onKeyDown={onKeyDownHandler} onBackdropClick={disableHelpHome} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} open={!spectating && helpDisabled.home && game.meta.status === "ingame"}>
+          <Box sx={{ outline: 0, p: 3.5, textAlign: 'center' }}>
             <Typography variant="h5">
               {t("howMove")}
             </Typography>
@@ -446,16 +383,16 @@ function GamePage({ user, gameId }) {
                 </Step>
               ))}
             </Stepper>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+            <Typography>{getStepContent(activeStep)}</Typography>
             <div>
               <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                className={classes.buttonSpac}
+                sx={buttonSpac}
               >
                 {t("btnBack")}
               </Button>
-              <Button variant="contained" color="primary" onClick={handleNext} className={classes.buttonSpac}>
+              <Button variant="contained" color="primary" onClick={handleNext} sx={buttonSpac}>
                 {activeStep === steps.length - 1 ? t("btnFinish") : t("btnNext")}
               </Button>
               <Button
@@ -470,11 +407,11 @@ function GamePage({ user, gameId }) {
         </Dialog>
       )}
 
-      <Modal className={classes.modal} open={game.meta.status === "done" && statsModalOpen}>
-        <Paper className={classes.statsModal}>
+      <Modal sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} open={game.meta.status === "done" && statsModalOpen}>
+        <Paper sx={{ outline: 0, p: 3.5, m: 3.5, textAlign: 'center' }}>
           <Stats game={game}/>
           <Button
-            className={classes.play}
+            sx={{ mt: 1.75, mr: 0.5 }}
             variant="contained"
             color="primary"
             onClick={toggleStatsModal}
@@ -483,8 +420,8 @@ function GamePage({ user, gameId }) {
           </Button>
         </Paper>
       </Modal>
-      <Modal className={classes.modal} open={game.meta.status === "done" && !statsModalOpen}>
-        <Paper className={classes.modalPadding}>
+      <Modal sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} open={game.meta.status === "done" && !statsModalOpen}>
+        <Paper sx={{ outline: 0, p: 6, textAlign: 'center' }}>
           <GameEnd
             spectating={spectating}
             userId={user.id}
@@ -494,7 +431,7 @@ function GamePage({ user, gameId }) {
             audioDisabled={audioDisabled}
           />
           <Button
-            className={classes.play}
+            sx={{ mt: 1.75, mr: 0.5 }}
             variant="contained"
             color="primary"
             onClick={handlePlayAgain}
@@ -502,7 +439,7 @@ function GamePage({ user, gameId }) {
             {t("btnPlayAgain")}
           </Button>
           <Button
-            className={classes.play}
+            sx={{ mt: 1.75, mr: 0.5 }}
             variant="contained"
             color="primary"
             onClick={toggleStatsModal}
@@ -514,7 +451,7 @@ function GamePage({ user, gameId }) {
 
       {/* Game Area */}
       {isMobile ? (
-        <Grid direction={"column"} container item xs={12} className={classes.gamePanel + " gamePanel"}>
+        <Grid direction={"column"} container item xs={12} className={"gamePanel"} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxHeight: '100vh' }}>
           {/* Header,Board,Hand */}
           <DogGame
             game={game}
@@ -528,7 +465,7 @@ function GamePage({ user, gameId }) {
         </Grid>
       ) : (
         <React.Fragment>
-          <Grid direction={"column"} container item xs={12} sm={8} md={8} lg={9} xl={10} className={classes.gamePanel + " gamePanel"}>
+          <Grid direction={"column"} container item xs={12} sm={8} md={8} lg={9} xl={10} className={"gamePanel"} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxHeight: '100vh' }}>
             {/* Header,Board,Hand */}
             <DogGame
               game={game}
@@ -541,7 +478,7 @@ function GamePage({ user, gameId }) {
               helpDisabled={helpDisabled}
             />
           </Grid>
-          <Grid item xs={false} sm={4} md={4} lg={3} xl={2} className={classes.sidePanel}>
+          <Grid item xs={false} sm={4} md={4} lg={3} xl={2} sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderLeft: '1px solid lightgray' }}>
             {/* Sidebar */}
             <Sidebar 
               game={game}

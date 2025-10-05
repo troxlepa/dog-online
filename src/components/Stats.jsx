@@ -2,13 +2,13 @@ import React from "react";
 
 import { useTranslation } from 'react-i18next';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+import { makeStyles } from '@mui/styles';
+import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid";
+import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 
 import {calcTurnTimes, trim} from "../util";
 

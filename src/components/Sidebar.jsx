@@ -2,24 +2,24 @@ import React, { useEffect, useRef } from "react";
 
 import { useTranslation } from 'react-i18next';
 
-import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import Divider from "@material-ui/core/Divider";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Typography from "@material-ui/core/Typography";
-import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
+import { makeStyles } from "@mui/styles";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
+import IconButton from '@mui/material/IconButton';
+import Icon from '@mui/material/Icon';
 
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import TranslateIcon from '@material-ui/icons/Translate';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-import PanToolIcon from '@material-ui/icons/PanTool';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import TranslateIcon from '@mui/icons-material/Translate';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import PanToolIcon from '@mui/icons-material/PanTool';
 
 import { trim } from "../util.js";
-import autoscroll from "../utils/autoscroll";
+import autoscroll from "../utils/autoscroll.js";
 import CardIcon from "../assets/card_icon.svg";
 import RuleCA from "../assets/rule_icons/rules-02.svg";
 import RuleTV from "../assets/rule_icons/rules-03.svg";
@@ -27,8 +27,8 @@ import RuleTT from "../assets/rule_icons/rules-04.svg";
 import RuleJJ from "../assets/rule_icons/rules-05.svg";
 import RuleLJ from "../assets/rule_icons/rules-06.svg";
 
-import ColorSquare from "./ColorSquare";
-import JassCard from "./JassCard";
+import ColorSquare from "./ColorSquare.jsx";
+import JassCard from "./JassCard.jsx";
 
 const useStyles = makeStyles({
   panel: {
@@ -145,7 +145,7 @@ function Sidebar({ game, gameState, toggleAudio, audioDisabled, toggleHelp, help
     <>
       <Box maxHeight="20%" flexShrink={0} className={classes.panel}>
         {/* Settings */}
-        <List disablePadding dense className={classes.panelList}>
+        <List disablePadding dense className={classes.panelList} ref={logEl}>
           <ListItem>
             <IconButton title="Audio" color="primary" aria-label="volume on off" component="span" onClick={toggleAudio}>
               {audioDisabled ? <VolumeOffIcon color="disabled" /> : <VolumeUpIcon/>}

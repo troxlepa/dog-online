@@ -1,4 +1,4 @@
-/* Avoid adding styles to this file; prefer @material-ui/core/styles instead. */
+/* Avoid adding styles to this file; prefer @mui/material/styles instead. */
 
 #root {
   position: absolute;
@@ -51,7 +51,7 @@ svg{
 .controlButtons_mobile{
     display: inline-block;
     position: fixed;
-  },
+  }
   .controlButtons_mobile  > .MuiButtonBase-root{
     margin: 3px;
     animation: none ! important;

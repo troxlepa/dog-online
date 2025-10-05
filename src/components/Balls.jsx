@@ -1,7 +1,7 @@
 import React from "react";
 
 import { SvgProxy } from 'react-svgmt';
-import { Motion, spring } from "react-motion";
+//import { Motion, spring } from "react-motion";
 import { useCallback, useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 
@@ -573,22 +573,14 @@ function Balls({gameBalls, selected, setSelected, turn, lastFour, orderMyPositio
     <React.Fragment>
       {gameBalls ? (
         gameBalls.map((field, ix) => (
-          animatedBalls.includes(field) ? (          
-            <Motion
-              defaultStyle={{ x: COORDS[prevSel[animatedBalls.indexOf(field)*2]][0], y: COORDS[prevSel[animatedBalls.indexOf(field)*2]][1]}}
-              key={ix}
-              style={{
-                x: spring(COORDS[prevSel[(animatedBalls.indexOf(field)*2)+1]][0], configMotion),
-                y: spring(COORDS[prevSel[(animatedBalls.indexOf(field)*2)+1]][1], configMotion),
-              }}
-            >
-              {value => {
-                const tr = `translate(${value.x},${value.y})`;
-                return <SvgProxy transform={tr} key ={"b"+ix} selector={setBall(ix)} onClick={() => {handleClick(field,true);}} class={"ball "+(selected.includes(field)?"active active"+Math.floor(selected.lastIndexOf(field)/2):"")+" "+setColor(ix)+" "+(currentPlayerBalls.includes(field)?"pulsing":"")} />; //{setColor(ix)}  {setStone(ball)}
-              }}
-            </Motion>
+          animatedBalls.includes(field) ? (
+            (() => {
+              const toIndex = prevSel[(animatedBalls.indexOf(field)*2)+1];
+              const tr = `translate(${COORDS[toIndex][0]},${COORDS[toIndex][1]})`;
+              return <SvgProxy transform={tr} key={"b"+ix} selector={setBall(ix)} onClick={() => {handleClick(field,true);}} class={"ball "+(selected.includes(field)?"active active"+Math.floor(selected.lastIndexOf(field)/2):"")+" "+setColor(ix)+" "+(currentPlayerBalls.includes(field)?"pulsing":"")} />;
+            })()
           ) : (
-            <SvgProxy key={"b"+ix} transform={`translate(${COORDS[field][0]},${COORDS[field][1]})`} selector={setBall(gameBalls.indexOf(field))} onClick={() => {handleClick(field,true);}} class={"ball "+(selected.includes(field)?"active active"+Math.floor(selected.lastIndexOf(field)/2):"")+" "+setColor(ix)+" "+(currentPlayerBalls.includes(field)?"pulsing":"")} /> //{setColor(ix)}  {setStone(ball)}
+            <SvgProxy key={"b"+ix} transform={`translate(${COORDS[field][0]},${COORDS[field][1]})`} selector={setBall(gameBalls.indexOf(field))} onClick={() => {handleClick(field,true);}} class={"ball "+(selected.includes(field)?"active active"+Math.floor(selected.lastIndexOf(field)/2):"")+" "+setColor(ix)+" "+(currentPlayerBalls.includes(field)?"pulsing":"")} />
           )))) : (console.log("no entries"))
       }
       {gameBalls ? allFields.map((field, ix) => (
